@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { projects } from "../data/projects";
+import { portfolios } from "../data/projects";
 import MediaDisplay from "./MediaDisplay";
 
 const PortfolioGrid = ({ onHover, onLeave, selectedCategory = "all" }) => {
-  // Filter projects by selected category
-  const filteredProjects = projects.filter(
+  const allProjects = portfolios.flatMap((portfolio) => portfolio.projects);
+  // Apply category filter
+  const filteredProjects = allProjects.filter(
     (project) =>
-      (project.status !== "offline" && selectedCategory === "all") ||
-      project.projectType === selectedCategory
+      project.status !== "offline" &&
+      (selectedCategory === "all" || project.projectType === selectedCategory)
   );
 
   // Sort by admin-defined order
@@ -22,7 +23,11 @@ const PortfolioGrid = ({ onHover, onLeave, selectedCategory = "all" }) => {
         <Link
           key={project.id}
           to={`/project/${project.id}`}
-          className="magazine-item block relative"
+          className={`magazine-item block relative ${
+            project.media.displaySize === "full"
+              ? "magazine-full"
+              : "magazine-half"
+          }`}
           onMouseEnter={() => onHover(project.title)}
           onMouseLeave={onLeave}
         >

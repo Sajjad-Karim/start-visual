@@ -1,300 +1,1089 @@
-// Collection of nature-related media
-const mediaContent = {
-  images: [
-    "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop",
-  ],
-  videos: [
-    {
-      url: "https://player.vimeo.com/progressive_redirect/playback/735273384/rendition/1080p/file.mp4?loc=external&signature=e0fb71e52c0ebd4eacf9659fee24c25cde12725e2f787d1b543757505ed82991",
-      poster: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e",
-    },
-    {
-      url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4?loc=external&signature=0f394d66c7614dd5fc46325d7c3c6d4f5d8c8d0a6c0d5e97a9296b5a0f42f8f1",
-      poster: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
-    },
-  ],
-};
-
-// Generate a random media item
-const generateMediaItem = (size) => {
-  const isVideo = Math.random() > 0.7;
-
-  if (isVideo) {
-    const randomVideo =
-      mediaContent.videos[
-        Math.floor(Math.random() * mediaContent.videos.length)
-      ];
-    return {
-      type: "video",
-      url: randomVideo.url,
-      posterUrl: randomVideo.poster,
-      width: size.width,
-      height: size.height,
-      alt: "Nature video content",
-      order: Math.floor(Math.random() * 1000),
-    };
-  }
-
-  const randomImage =
-    mediaContent.images[Math.floor(Math.random() * mediaContent.images.length)];
-  return {
-    type: "image",
-    url: `${randomImage}&w=${size.width}&h=${size.height}&fit=crop`,
-    width: size.width,
-    height: size.height,
-    alt: "Nature photography",
-    order: Math.floor(Math.random() * 1000),
-    // displaySize: "half", // or 'full
-  };
-};
-
-// Generate gallery media items
-const generateGallery = () => {
-  return Array.from({ length: 10 }, () => {
-    const isLandscape = Math.random() > 0.7;
-    const size = isLandscape ? projectImageSizes[1] : projectImageSizes[0];
-    return generateMediaItem(size);
-  });
-};
-
-// Generate random credits
-const generateCredits = (count) => {
-  const shuffledRoles = [...roles].sort(() => Math.random() - 0.5);
-  return shuffledRoles.slice(0, count).map((role, index) => ({
-    role,
-    name: `${
-      ["Sarah", "John", "Maria", "Alex", "Emma"][Math.floor(Math.random() * 5)]
-    } ${
-      ["Johnson", "Smith", "Brown", "Davis", "Wilson"][
-        Math.floor(Math.random() * 5)
-      ]
-    }`,
-    order: index,
-  }));
-};
-
-const natureThemes = [
+export const portfolios = [
   {
-    title: "WILD SPIRITS",
+    id: 1,
+    title: "Nature Portfolio",
+    slug: "nature-portfolio",
     description:
-      "Capturing the untamed beauty of African wildlife in their natural habitat.",
-  },
-  {
-    title: "NORTHERN LIGHTS",
-    description:
-      "A mesmerizing display of nature's light show in the Arctic sky.",
-  },
-  {
-    title: "FOREST DEPTHS",
-    description:
-      "Journey through ancient woodlands and their hidden mysteries.",
-  },
-  {
-    title: "MOUNTAIN MAJESTY",
-    description:
-      "Towering peaks pierce the clouds in this dramatic landscape series.",
-  },
-  {
-    title: "DESERT DREAMS",
-    description:
-      "The stark beauty of arid landscapes and their resilient inhabitants.",
-  },
-  {
-    title: "OCEAN WONDERS",
-    description: "Exploring the dynamic relationship between sea and shore.",
+      "A diverse showcase of nature-focused photography and motion visuals.",
+    projects: [
+      {
+        id: 1,
+        title: "NORTHERN LIGHTS",
+        description:
+          "A mesmerizing display of nature's light show in the Arctic sky.",
+        projectType: "motion",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "video",
+          url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4",
+          posterUrl:
+            "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+          width: 570,
+          height: 428,
+          alt: "Nature video content",
+          order: 416,
+          displaySize: "half",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Serengeti",
+        credits: [
+          {
+            role: "Lighting Assistant",
+            name: "Neil Tucker",
+            order: 0,
+          },
+          {
+            role: "Wildlife Expert",
+            name: "Jason Stewart",
+            order: 1,
+          },
+          {
+            role: "Field Guide",
+            name: "Cheryl Brown",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#1A1A1A",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "500",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#FF69B4",
+          },
+        },
+        order: 1,
+      },
+      {
+        id: 2,
+        title: "OCEAN WONDERS",
+        description:
+          "Exploring the dynamic relationship between sea and shore.",
+        projectType: "photo",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "image",
+          url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=570&h=428&fit=crop",
+          width: 570,
+          height: 428,
+          alt: "Nature photography",
+          order: 265,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Arctic Circle",
+        credits: [
+          {
+            role: "Equipment Specialist",
+            name: "Mr. Jacob Randolph",
+            order: 0,
+          },
+          {
+            role: "Photographer",
+            name: "Christina Rogers",
+            order: 1,
+          },
+          {
+            role: "Local Expert",
+            name: "Gina Castillo",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#2C5530",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Helvetica Neue, sans-serif",
+            fontWeight: "400",
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            color: "#9FE2BF",
+          },
+        },
+        order: 2,
+      },
+      {
+        id: 3,
+        title: "MOUNTAIN MAJESTY",
+        description:
+          "Towering peaks pierce the clouds in this dramatic landscape series.",
+        projectType: "photo",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "image",
+          url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=570&h=428&fit=crop",
+          width: 570,
+          height: 428,
+          alt: "Nature photography",
+          order: 775,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Serengeti",
+        credits: [
+          {
+            role: "Photographer",
+            name: "Linda Hanson",
+            order: 0,
+          },
+          {
+            role: "Drone Operator",
+            name: "Elizabeth Wood",
+            order: 1,
+          },
+          {
+            role: "Wildlife Expert",
+            name: "Pamela Rodriguez",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#1A1A1A",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "500",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#FF69B4",
+          },
+        },
+        order: 3,
+      },
+      {
+        id: 4,
+        title: "FOREST DEPTHS",
+        description:
+          "Journey through ancient woodlands and their hidden mysteries.",
+        projectType: "motion",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "video",
+          url: "https://player.vimeo.com/progressive_redirect/playback/735273384/rendition/1080p/file.mp4",
+          posterUrl:
+            "https://images.unsplash.com/photo-1505144808419-1957a94ca61e",
+          width: 570,
+          height: 428,
+          alt: "Nature video content",
+          order: 237,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Serengeti",
+        credits: [
+          {
+            role: "Location Scout",
+            name: "Laura Morales",
+            order: 0,
+          },
+          {
+            role: "Equipment Specialist",
+            name: "Todd Peterson",
+            order: 1,
+          },
+          {
+            role: "Lighting Assistant",
+            name: "Jamie Nguyen",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#2C5530",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Helvetica Neue, sans-serif",
+            fontWeight: "400",
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            color: "#9FE2BF",
+          },
+        },
+        order: 4,
+      },
+      {
+        id: 5,
+        title: "NORTHERN LIGHTS",
+        description:
+          "A mesmerizing display of nature's light show in the Arctic sky.",
+        projectType: "special",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "image",
+          url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=570&h=428&fit=crop",
+          width: 570,
+          height: 428,
+          alt: "Nature photography",
+          order: 264,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Himalayas",
+        credits: [
+          {
+            role: "Local Expert",
+            name: "Rodney Ball",
+            order: 0,
+          },
+          {
+            role: "Photographer",
+            name: "Taylor Mendoza",
+            order: 1,
+          },
+          {
+            role: "Wildlife Expert",
+            name: "Shawn Lopez",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#1A1A1A",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "500",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#FF69B4",
+          },
+        },
+        order: 5,
+      },
+      {
+        id: 6,
+        title: "MOUNTAIN MAJESTY",
+        description:
+          "Towering peaks pierce the clouds in this dramatic landscape series.",
+        projectType: "special",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "image",
+          url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=570&h=428&fit=crop",
+          width: 570,
+          height: 428,
+          alt: "Nature photography",
+          order: 93,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Sahara Desert",
+        credits: [
+          {
+            role: "Lighting Assistant",
+            name: "Peter Henry",
+            order: 0,
+          },
+          {
+            role: "Photographer",
+            name: "Jeremiah King",
+            order: 1,
+          },
+          {
+            role: "Safety Coordinator",
+            name: "Vicki Martin",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#2C5530",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Helvetica Neue, sans-serif",
+            fontWeight: "400",
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            color: "#9FE2BF",
+          },
+        },
+        order: 6,
+      },
+      {
+        id: 7,
+        title: "MOUNTAIN MAJESTY",
+        description:
+          "Towering peaks pierce the clouds in this dramatic landscape series.",
+        projectType: "motion",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "video",
+          url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4",
+          posterUrl:
+            "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+          width: 570,
+          height: 428,
+          alt: "Nature video content",
+          order: 861,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Himalayas",
+        credits: [
+          {
+            role: "Location Scout",
+            name: "Kevin Jones",
+            order: 0,
+          },
+          {
+            role: "Photographer",
+            name: "Margaret Wong",
+            order: 1,
+          },
+          {
+            role: "Conservation Specialist",
+            name: "David Valencia",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#1A1A1A",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "500",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#FF69B4",
+          },
+        },
+        order: 7,
+      },
+      {
+        id: 8,
+        title: "WILD SPIRITS",
+        description:
+          "Capturing the untamed beauty of African wildlife in their natural habitat.",
+        projectType: "photo",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "image",
+          url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=570&h=428&fit=crop",
+          width: 570,
+          height: 428,
+          alt: "Nature photography",
+          order: 934,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Serengeti",
+        credits: [
+          {
+            role: "Wildlife Expert",
+            name: "Cristina Cunningham",
+            order: 0,
+          },
+          {
+            role: "Location Scout",
+            name: "Patricia Bailey",
+            order: 1,
+          },
+          {
+            role: "Equipment Specialist",
+            name: "Kevin Palmer",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#1A1A1A",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "500",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#FF69B4",
+          },
+        },
+        order: 8,
+      },
+      {
+        id: 9,
+        title: "NORTHERN LIGHTS",
+        description:
+          "A mesmerizing display of nature's light show in the Arctic sky.",
+        projectType: "motion",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "video",
+          url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4",
+          posterUrl:
+            "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+          width: 570,
+          height: 428,
+          alt: "Nature video content",
+          order: 197,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Himalayas",
+        credits: [
+          {
+            role: "Conservation Specialist",
+            name: "John Flores",
+            order: 0,
+          },
+          {
+            role: "Drone Operator",
+            name: "Michael Robinson",
+            order: 1,
+          },
+          {
+            role: "Safety Coordinator",
+            name: "Stacy Peterson",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#1A1A1A",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: "500",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#FF69B4",
+          },
+        },
+        order: 9,
+      },
+      {
+        id: 10,
+        title: "MOUNTAIN MAJESTY",
+        description:
+          "Towering peaks pierce the clouds in this dramatic landscape series.",
+        projectType: "photo",
+        status: "online",
+        type: "portrait",
+        media: {
+          type: "image",
+          url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=570&h=428&fit=crop",
+          width: 570,
+          height: 428,
+          alt: "Nature photography",
+          order: 232,
+          displaySize: "full",
+        },
+        gallery: [
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 0,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 1,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 2,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 3,
+            displaySize: "half",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
+            width: 1509,
+            height: 1211,
+            alt: "Nature photography",
+            order: 4,
+            displaySize: "full",
+          },
+          {
+            type: "image",
+            url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=755&h=934&fit=crop",
+            width: 755,
+            height: 934,
+            alt: "Nature photography",
+            order: 5,
+            displaySize: "half",
+          },
+        ],
+        client: "National Geographic",
+        year: 2024,
+        location: "Serengeti",
+        credits: [
+          {
+            role: "Local Expert",
+            name: "Laura Le",
+            order: 0,
+          },
+          {
+            role: "Conservation Specialist",
+            name: "Claudia Robertson",
+            order: 1,
+          },
+          {
+            role: "Location Scout",
+            name: "Monica Barnes",
+            order: 2,
+          },
+        ],
+        style: {
+          backgroundColor: "#2C5530",
+          textColor: "#FFFFFF",
+          creditStyles: {
+            fontSize: "0.875rem",
+            fontFamily: "Helvetica Neue, sans-serif",
+            fontWeight: "400",
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            color: "#9FE2BF",
+          },
+        },
+        order: 10,
+      },
+    ],
   },
 ];
-
-const gridImageSizes = [
-  { width: 570, height: 428 },
-  { width: 570, height: 696 },
-  { width: 570, height: 321 },
-  { width: 570, height: 570 },
-];
-
-const projectImageSizes = [
-  { width: 755, height: 934 },
-  { width: 1509, height: 1211 },
-];
-
-const roles = [
-  "Photographer",
-  "Wildlife Expert",
-  "Location Scout",
-  "Conservation Specialist",
-  "Drone Operator",
-  "Field Guide",
-  "Equipment Specialist",
-  "Lighting Assistant",
-  "Safety Coordinator",
-  "Local Expert",
-];
-
-const styleSchemes = [
-  {
-    backgroundColor: "#2C5530",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.875rem",
-      fontFamily: "Helvetica Neue, sans-serif",
-      fontWeight: "400",
-      letterSpacing: "0.05em",
-      textTransform: "uppercase",
-      color: "#9FE2BF",
-    },
-  },
-  {
-    backgroundColor: "#2B4B5C",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.75rem",
-      fontFamily: "Futura, sans-serif",
-      fontWeight: "500",
-      letterSpacing: "0.1em",
-      textTransform: "uppercase",
-      color: "#87CEEB",
-    },
-  },
-  {
-    backgroundColor: "#8B4513",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.875rem",
-      fontFamily: "Georgia, serif",
-      fontWeight: "400",
-      letterSpacing: "0.025em",
-      textTransform: "none",
-      color: "#FFA07A",
-    },
-  },
-  {
-    backgroundColor: "#4A5568",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.75rem",
-      fontFamily: "Avenir, sans-serif",
-      fontWeight: "500",
-      letterSpacing: "0.15em",
-      textTransform: "uppercase",
-      color: "#87CEEB",
-    },
-  },
-  {
-    backgroundColor: "#1A1A1A",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.875rem",
-      fontFamily: "Montserrat, sans-serif",
-      fontWeight: "500",
-      letterSpacing: "0.1em",
-      textTransform: "uppercase",
-      color: "#FF69B4",
-    },
-  },
-  {
-    backgroundColor: "#4B0082",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.75rem",
-      fontFamily: "Roboto, sans-serif",
-      fontWeight: "400",
-      letterSpacing: "0.08em",
-      textTransform: "uppercase",
-      color: "#98FB98",
-    },
-  },
-  {
-    backgroundColor: "#2D3436",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.875rem",
-      fontFamily: "Inter, sans-serif",
-      fontWeight: "500",
-      letterSpacing: "0.12em",
-      textTransform: "uppercase",
-      color: "#E84393",
-    },
-  },
-  {
-    backgroundColor: "#006D77",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.75rem",
-      fontFamily: "DM Sans, sans-serif",
-      fontWeight: "400",
-      letterSpacing: "0.1em",
-      textTransform: "uppercase",
-      color: "#FFD93D",
-    },
-  },
-  {
-    backgroundColor: "#540B0E",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.875rem",
-      fontFamily: "Playfair Display, serif",
-      fontWeight: "500",
-      letterSpacing: "0.08em",
-      textTransform: "none",
-      color: "#E2C044",
-    },
-  },
-  {
-    backgroundColor: "#2F3E46",
-    textColor: "#FFFFFF",
-    creditStyles: {
-      fontSize: "0.75rem",
-      fontFamily: "Poppins, sans-serif",
-      fontWeight: "400",
-      letterSpacing: "0.15em",
-      textTransform: "uppercase",
-      color: "#CAD2C5",
-    },
-  },
-];
-
-export const projects = Array.from({ length: 30 }, (_, i) => {
-  const randomSize =
-    gridImageSizes[Math.floor(Math.random() * gridImageSizes.length)];
-  const theme = natureThemes[Math.floor(Math.random() * natureThemes.length)];
-  const style = styleSchemes[Math.floor(Math.random() * styleSchemes.length)];
-  const mediaItem = generateMediaItem(randomSize);
-
-  let projectType;
-  if (mediaItem.type === "video") {
-    projectType = "motion";
-  } else {
-    projectType = Math.random() > 0.7 ? "special" : "photo";
-  }
-
-  return {
-    id: i + 1,
-    title: theme.title,
-    type: "portrait",
-    projectType,
-    media: mediaItem,
-    description: theme.description,
-    client: "National Geographic",
-    year: 2024,
-    location: [
-      "Serengeti",
-      "Arctic Circle",
-      "Amazon Rainforest",
-      "Himalayas",
-      "Sahara Desert",
-    ][Math.floor(Math.random() * 5)],
-    credits: generateCredits(Math.floor(Math.random() * 8) + 3),
-    gallery: generateGallery(),
-    style: style,
-    order: i,
-  };
-});

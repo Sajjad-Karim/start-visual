@@ -1,0 +1,78 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Image,
+  FolderOpen,
+  Info,
+  Mail,
+  LogOut,
+} from "lucide-react";
+import avatar from "../../assets/admin.png";
+
+const AdminSidebar = () => {
+  const navLinkClass = ({ isActive }) =>
+    `flex items-center gap-3 px-4 py-2 rounded-md transition-all duration-200 text-sm font-medium ${
+      isActive
+        ? "bg-zinc-900 text-white shadow"
+        : "text-zinc-600 hover:bg-zinc-100 hover:text-black"
+    }`;
+
+  const links = [
+    { to: "/admin", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
+    { to: "/admin/hero-media", label: "Hero Media", icon: <Image size={18} /> },
+    {
+      to: "/admin/projects",
+      label: "Projects",
+      icon: <FolderOpen size={18} />,
+    },
+    { to: "/admin/about", label: "About", icon: <Info size={18} /> },
+    { to: "/admin/contact", label: "Contact", icon: <Mail size={18} /> },
+  ];
+
+  return (
+    <aside className="w-64 h-screen bg-white flex flex-col border-r border-zinc-200">
+      {/* Header */}
+      <div className="p-6 border-b border-zinc-100">
+        <h2 className="text-xl font-bold text-zinc-900 tracking-tight">
+          Start Visual
+        </h2>
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+        {links.map(({ to, label, icon }) => (
+          <NavLink key={to} to={to} className={navLinkClass} end>
+            {icon}
+            <span>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* Footer */}
+      <div className="p-4 border-t border-zinc-100">
+        <div className="flex items-center gap-3">
+          <img
+            src={avatar}
+            alt="Admin"
+            className="w-10 h-10 rounded-full object-cover ring-1 ring-zinc-300"
+          />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-zinc-900 leading-none">
+              Admin Name
+            </p>
+            <button
+              onClick={() => console.log("Logout")}
+              className="flex items-center gap-1 text-xs text-zinc-500 hover:text-red-500 transition mt-1"
+            >
+              <LogOut size={14} />
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+};
+
+export default AdminSidebar;

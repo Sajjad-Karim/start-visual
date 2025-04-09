@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -34,8 +35,10 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  /* margin-bottom: 1rem; */
 }
 
+/* Tile overlays */
 .magazine-overlay {
   position: absolute;
   inset: 0;
@@ -53,6 +56,21 @@
   opacity: 1;
 }
 
+/* 🧱 Masonry Tile Size Variants */
+.magazine-half img,
+.magazine-half video {
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+}
+
+.magazine-full img,
+.magazine-full video {
+  height: auto;
+  max-height: 720px;
+  object-fit: cover;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .magazine-grid {
@@ -63,6 +81,13 @@
 @media (max-width: 640px) {
   .magazine-grid {
     column-count: 1;
+  }
+
+  .magazine-full img,
+  .magazine-full video,
+  .magazine-half img,
+  .magazine-half video {
+    max-height: 100%;
   }
 }
 

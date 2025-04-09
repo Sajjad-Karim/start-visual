@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { heroContent } from "../data/hero";
 import MediaDisplay from "./MediaDisplay";
 
 const VideoHeader = () => {
-  const [selectedMedia, setSelectedMedia] = useState(heroContent[0]);
+  const [selectedMedia, setSelectedMedia] = useState(null);
 
   useEffect(() => {
-    // Select a random media item on mount
-    const randomIndex = Math.floor(Math.random() * heroContent.length);
-    setSelectedMedia(heroContent[randomIndex]);
+    const heroItems = heroContent.filter((item) => item.hero);
+    const randomIndex = Math.floor(Math.random() * heroItems.length);
+    setSelectedMedia(heroItems[randomIndex]);
   }, []);
+
+  if (!selectedMedia) {
+    return (
+      <div className="h-full w-full bg-zinc-900 flex items-center justify-center">
+        <div className="loading-spinner" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-full w-full">
@@ -21,6 +29,7 @@ const VideoHeader = () => {
         }}
         priority={true}
       />
+      {/* Overlay (like Rosco dark gradient) */}
       <div className="absolute inset-0 bg-black/50" />
     </div>
   );

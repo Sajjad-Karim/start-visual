@@ -5,12 +5,19 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { projects } from "./data/projects";
+import { portfolios } from "./data/projects";
 import NavigationMenu from "./components/NavigationMenu";
 import ScrollToTop from "./components/ScrollToTop";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ColorProvider } from "./contexts/ColorContext";
+import Dashboard from "./pages/admin/Dashboard";
+import HeroMedia from "./pages/admin/HeroMedia";
+import ProjectsList from "./pages/admin/ProjectsList";
+import EditProject from "./pages/admin/EditProject";
+import AboutEditor from "./pages/admin/AboutEditor";
+import ContactEditor from "./pages/admin/ContactEditor";
+import AdminLayout from "./components/admin/AdminLayout";
 
 // Lazy load pages
 const Home = React.lazy(() => import("./pages/Home"));
@@ -22,11 +29,12 @@ const About = React.lazy(() => import("./pages/About"));
 function StarButton({ color = "white", onMenuToggle }) {
   const [isHovering, setIsHovering] = useState(false);
   const [rotation, setRotation] = useState(0);
-
+  const { pathname } = useLocation();
   const handleClick = () => {
     setRotation((prev) => prev + 90);
     onMenuToggle();
   };
+  const isAdminRoute = pathname.startsWith("/admin");
 
   const generateStarPoints = () => {
     const outer = 40,
@@ -43,46 +51,48 @@ function StarButton({ color = "white", onMenuToggle }) {
   };
 
   return (
-    <button
-      onClick={handleClick}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      className="w-12 md:w-16 h-12 md:h-16 hover:scale-110 transition-all duration-300 ease-in-out relative"
-      aria-label="Toggle menu"
-    >
-      <svg
-        viewBox="0 0 100 100"
-        className="w-full h-full transition-all duration-500"
-        style={{
-          transform: `rotate(${rotation + (isHovering ? 45 : 0)}deg)`,
-          transition: "transform 0.5s ease-in-out",
-        }}
+    !isAdminRoute && (
+      <button
+        onClick={handleClick}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        className="w-12 md:w-16 h-12 md:h-16 hover:scale-110 transition-all duration-300 ease-in-out relative"
+        aria-label="Toggle menu"
       >
-        <polygon
-          points={generateStarPoints()}
-          fill={color}
-          stroke={color}
-          strokeWidth="1"
-          strokeLinejoin="round"
-        />
-        <text
-          x="50"
-          y="54"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fill={color === "white" ? "#000" : "#fff"}
+        <svg
+          viewBox="0 0 100 100"
+          className="w-full h-full transition-all duration-500"
           style={{
-            fontSize: "16px",
-            fontFamily: "Didot, serif",
-            fontWeight: "bold",
-            letterSpacing: "1px",
+            transform: `rotate(${rotation + (isHovering ? 45 : 0)}deg)`,
+            transition: "transform 0.5s ease-in-out",
           }}
-          transform={`rotate(${-rotation - (isHovering ? 45 : 0)}, 50, 50)`}
         >
-          SV
-        </text>
-      </svg>
-    </button>
+          <polygon
+            points={generateStarPoints()}
+            fill={color}
+            stroke={color}
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+          <text
+            x="50"
+            y="54"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill={color === "white" ? "#000" : "#fff"}
+            style={{
+              fontSize: "16px",
+              fontFamily: "Didot, serif",
+              fontWeight: "bold",
+              letterSpacing: "1px",
+            }}
+            transform={`rotate(${-rotation - (isHovering ? 45 : 0)}, 50, 50)`}
+          >
+            SV
+          </text>
+        </svg>
+      </button>
+    )
   );
 }
 
@@ -94,7 +104,8 @@ function AppContent() {
   let starColor = "white";
   if (pathname.startsWith("/project/")) {
     const id = pathname.split("/")[2];
-    const project = projects.find((p) => p.id === Number(id));
+    const allProjects = portfolios.flatMap((portfolio) => portfolio.projects);
+    const project = allProjects.find((p) => p.id === Number(id));
     if (project?.style?.creditStyles?.color) {
       starColor = project.style.creditStyles.color;
     }
@@ -129,6 +140,14 @@ function AppContent() {
             <Route path="/project/:id" element={<ProjectView />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/admin/*" element={<AdminLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="hero-media" element={<HeroMedia />} />
+              <Route path="projects" element={<ProjectsList />} />
+              <Route path="projects/:id" element={<EditProject />} />
+              <Route path="about" element={<AboutEditor />} />
+              <Route path="contact" element={<ContactEditor />} />
+            </Route>
           </Routes>
         </Suspense>
       </ErrorBoundary>

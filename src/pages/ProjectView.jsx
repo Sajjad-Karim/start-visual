@@ -1,12 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { projects } from "../data/projects";
+import { portfolios } from "../data/projects";
 import MediaDisplay from "../components/MediaDisplay";
 import Footer from "../components/Footer";
 
 const ProjectView = () => {
   const { id } = useParams();
-  const project = projects.find((p) => p.id === Number(id));
+  const allProjects = portfolios.flatMap((p) => p.projects);
+  const project = allProjects.find((p) => p.id === Number(id));
 
   if (!project) {
     return <div>Project not found</div>;
@@ -117,44 +118,61 @@ const ProjectView = () => {
 
       {/* Gallery Grid */}
       <div className="flex flex-wrap">
-        {sortedGallery.map((item, index) => {
-          const size = item.displaySize || "full";
+        {(() => {
+          const elements = [];
 
-          if (size === "full") {
-            return (
-              <div key={index} className="w-full">
-                <MediaDisplay
-                  item={item}
-                  className="w-full h-[50vh] md:h-[1211px] object-cover"
-                />
-              </div>
-            );
-          }
+          for (let i = 0; i < sortedGallery.length; i++) {
+            const item = sortedGallery[i];
 
-          if (size === "half") {
-            const next = sortedGallery[index + 2];
-            return (
-              <div key={index} className="flex flex-col md:flex-row w-full">
-                <div className="w-full md:w-1/2 h-[50vh] md:h-[934px]">
+            if (item.displaySize === "full") {
+              elements.push(
+                <div key={i} className="w-full">
                   <MediaDisplay
                     item={item}
-                    className="w-full h-full object-cover"
+                    className="w-full h-[50vh] md:h-[1211px] object-cover"
                   />
                 </div>
-                {next && next.displaySize === "half" && (
-                  <div className="w-full md:w-1/2 h-[50vh] md:h-[934px]">
-                    <MediaDisplay
-                      item={next}
-                      className="w-full h-full object-cover"
-                    />
+              );
+            } else if (item.displaySize === "half") {
+              const next = sortedGallery[i + 1];
+
+              // If next exists and is also half, render both
+              if (next && next.displaySize === "half") {
+                elements.push(
+                  <div key={i} className="flex w-full">
+                    <div className="w-1/2 h-[50vh] md:h-[934px]">
+                      <MediaDisplay
+                        item={item}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-1/2 h-[50vh] md:h-[934px]">
+                      <MediaDisplay
+                        item={next}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
-                )}
-              </div>
-            );
+                );
+                i++; // skip next since it's already rendered
+              } else {
+                // If there's no next half, center it
+                elements.push(
+                  <div key={i} className="flex w-full justify-center">
+                    <div className="w-full md:w-1/2 h-[50vh] md:h-[934px]">
+                      <MediaDisplay
+                        item={item}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                );
+              }
+            }
           }
 
-          return null;
-        })}
+          return elements;
+        })()}
       </div>
 
       <Footer backgroundColor={backgroundColor} textColor={creditStyle.color} />
