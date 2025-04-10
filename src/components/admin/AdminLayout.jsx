@@ -9,7 +9,7 @@ const AdminLayout = () => {
 
       <div className="flex-1 flex flex-col">
         {/* Top Header */}
-        <header className="h-16 px-6 flex items-center justify-between bg-white border-b border-zinc-200">
+        <header className="py-2 px-6 flex items-center justify-between bg-white border-b border-zinc-200">
           <h1 className="text-lg font-semibold tracking-tight text-zinc-900">
             Admin Dashboard
           </h1>

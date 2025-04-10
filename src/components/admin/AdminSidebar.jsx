@@ -7,6 +7,7 @@ import {
   Info,
   Mail,
   LogOut,
+  ListOrdered,
 } from "lucide-react";
 import avatar from "../../assets/admin.png";
 
@@ -22,10 +23,16 @@ const AdminSidebar = () => {
     { to: "/admin", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
     { to: "/admin/hero-media", label: "Hero Media", icon: <Image size={18} /> },
     {
-      to: "/admin/projects",
-      label: "Projects",
+      to: "/admin/add-project",
+      label: "Add Projects",
       icon: <FolderOpen size={18} />,
     },
+    {
+      to: "/admin/projects",
+      label: "Projects List",
+      icon: <ListOrdered size={18} />,
+    },
+
     { to: "/admin/about", label: "About", icon: <Info size={18} /> },
     { to: "/admin/contact", label: "Contact", icon: <Mail size={18} /> },
   ];
@@ -33,8 +40,8 @@ const AdminSidebar = () => {
   return (
     <aside className="w-64 h-screen bg-white flex flex-col border-r border-zinc-200">
       {/* Header */}
-      <div className="p-6 border-b border-zinc-100">
-        <h2 className="text-xl font-bold text-zinc-900 tracking-tight">
+      <div className="px-6 pt-6">
+        <h2 className="text-2xl font-bold text-zinc-900 tracking-wider">
           Start Visual
         </h2>
       </div>

@@ -14,10 +14,11 @@ import { ColorProvider } from "./contexts/ColorContext";
 import Dashboard from "./pages/admin/Dashboard";
 import HeroMedia from "./pages/admin/HeroMedia";
 import ProjectsList from "./pages/admin/ProjectsList";
-import EditProject from "./pages/admin/EditProject";
+
 import AboutEditor from "./pages/admin/AboutEditor";
 import ContactEditor from "./pages/admin/ContactEditor";
 import AdminLayout from "./components/admin/AdminLayout";
+import AddProjects from "./pages/admin/AddProjects";
 
 // Lazy load pages
 const Home = React.lazy(() => import("./pages/Home"));
@@ -144,7 +145,7 @@ function AppContent() {
               <Route index element={<Dashboard />} />
               <Route path="hero-media" element={<HeroMedia />} />
               <Route path="projects" element={<ProjectsList />} />
-              <Route path="projects/:id" element={<EditProject />} />
+              <Route path="add-project" element={<AddProjects />} />
               <Route path="about" element={<AboutEditor />} />
               <Route path="contact" element={<ContactEditor />} />
             </Route>
