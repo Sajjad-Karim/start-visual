@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import VideoHeader from "../components/VideoHeader";
 import PortfolioGrid from "../components/PortfolioGrid";
 import Footer from "../components/Footer";

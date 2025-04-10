@@ -14,7 +14,7 @@ const NavigationMenu = ({
 
   const handleCategoryClick = (category) => {
     onCategorySelect(category);
-    navigate("/", { replace: true });
+    navigate("/portfolio", { replace: true });
     window.scrollTo(0, 0);
     onClose();
   };
