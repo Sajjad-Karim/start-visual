@@ -4,7 +4,7 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminLayout = () => {
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-800 overflow-hidden">
+    <div className="flex  bg-gray-50 text-gray-800 overflow-hidden">
       <AdminSidebar />
 
       <div className="flex-1 flex flex-col">
