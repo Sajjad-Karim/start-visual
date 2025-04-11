@@ -1,7 +1,7 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
 
-const GalleryUploadForm = ({ values, setFieldValue }) => {
+const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
   const handleDrop = (acceptedFiles) => {
     const newItems = acceptedFiles.map((file, i) => {
       const url = URL.createObjectURL(file);
@@ -42,7 +42,8 @@ const GalleryUploadForm = ({ values, setFieldValue }) => {
 
   return (
     <div className="bg-white border rounded-xl p-6 space-y-6">
-      <h2 className="text-xl font-semibold">Upload Gallery</h2>
+      <h2 className="text-xl font-semibold text-zinc-900">Gallery Upload</h2>
+
       <div
         {...getRootProps()}
         className="border-dashed border-2 rounded-lg p-6 text-center bg-zinc-50 cursor-pointer"
@@ -53,30 +54,45 @@ const GalleryUploadForm = ({ values, setFieldValue }) => {
         </p>
       </div>
 
+      {typeof errors.gallery === "string" && touched.gallery && (
+        <div className="text-sm text-red-500">{errors.gallery}</div>
+      )}
+
       {values.gallery.length > 0 && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {values.gallery.map((item, index) => (
             <div key={index} className="space-y-2 border p-3 rounded">
-              {item.type === "video" ? (
-                <video
-                  src={item.url}
-                  controls
-                  className="w-full h-40 object-cover"
+              <div className="h-40 overflow-hidden rounded">
+                {item.type === "video" ? (
+                  <video
+                    src={item.url}
+                    controls
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={item.url}
+                    className="w-full h-full object-cover"
+                    alt="preview"
+                  />
+                )}
+              </div>
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Alt text"
+                  value={item.alt}
+                  onChange={(e) => updateField(index, "alt", e.target.value)}
+                  className="w-full border rounded px-2 py-1"
                 />
-              ) : (
-                <img
-                  src={item.url}
-                  className="w-full h-40 object-cover"
-                  alt="preview"
-                />
-              )}
-              <input
-                type="text"
-                placeholder="Alt text"
-                value={item.alt}
-                onChange={(e) => updateField(index, "alt", e.target.value)}
-                className="w-full border rounded px-2 py-1"
-              />
+                {errors.gallery?.[index]?.alt && (
+                  <div className="text-xs text-red-500">
+                    {errors.gallery[index].alt}
+                  </div>
+                )}
+              </div>
+
               <div className="flex gap-2">
                 <input
                   placeholder="Width"
@@ -91,6 +107,7 @@ const GalleryUploadForm = ({ values, setFieldValue }) => {
                   className="w-full border rounded px-2 py-1"
                 />
               </div>
+
               <div className="flex gap-2">
                 <input
                   type="number"
@@ -112,14 +129,17 @@ const GalleryUploadForm = ({ values, setFieldValue }) => {
                   <option value="half">Half</option>
                 </select>
               </div>
+
               <button
                 type="button"
                 onClick={() => setMain(index)}
-                className={`w-full py-1 rounded text-sm ${
-                  item.isMain ? "bg-black text-white" : "bg-zinc-200"
+                className={`w-full py-1 rounded text-sm font-medium ${
+                  item.isMain
+                    ? "bg-black text-white"
+                    : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
                 }`}
               >
-                {item.isMain ? "Main Media" : "Set as Main"}
+                {item.isMain ? "Main Media (Selected)" : "Set as Main Media"}
               </button>
             </div>
           ))}

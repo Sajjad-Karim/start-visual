@@ -38,7 +38,7 @@ const AdminSidebar = () => {
   ];
 
   return (
-    <aside className="w-64 h-screen bg-white flex flex-col border-r border-zinc-200">
+    <aside className="fixed top-0 left-0 w-64 h-screen bg-white flex flex-col border-r border-zinc-200">
       {/* Header */}
       <div className="px-6 pt-6">
         <h2 className="text-2xl font-bold text-zinc-900 tracking-wider">

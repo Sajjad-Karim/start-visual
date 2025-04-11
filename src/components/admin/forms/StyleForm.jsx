@@ -6,24 +6,24 @@ const StyleForm = ({ values, handleChange }) => {
       <h2 className="text-xl font-semibold">Style Settings</h2>
 
       <div className="flex gap-6">
-        <div>
-          <label className="text-sm font-medium">Background Color</label>
+        <div className="flex items-center gap-3">
+          <label className="text-sm font-medium">Background Color : </label>
           <input
             type="color"
             name="style.backgroundColor"
             value={values.style.backgroundColor}
             onChange={handleChange}
-            className="w-12 h-10 border rounded"
+            className="w-12 h-10 border rounded-md cursor-pointer"
           />
         </div>
-        <div>
-          <label className="text-sm font-medium">Text Color</label>
+        <div className="flex items-center gap-3">
+          <label className="text-sm font-medium ">Text Color : </label>
           <input
             type="color"
             name="style.textColor"
             value={values.style.textColor}
             onChange={handleChange}
-            className="w-12 h-10 border rounded"
+            className="w-12 h-10 border rounded-md cursor-pointer"
           />
         </div>
       </div>

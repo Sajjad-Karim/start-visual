@@ -4,10 +4,10 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminLayout = () => {
   return (
-    <div className="flex  bg-gray-50 text-gray-800 overflow-hidden">
+    <div className="bg-gray-50 text-gray-800">
       <AdminSidebar />
 
-      <div className="flex-1 flex flex-col">
+      <div className="ml-64">
         {/* Top Header */}
         <header className="py-2 px-6 flex items-center justify-between bg-white border-b border-zinc-200">
           <h1 className="text-lg font-semibold tracking-tight text-zinc-900">
@@ -17,7 +17,7 @@ const AdminLayout = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto px-6 py-8">
+        <main className="overflow-y-auto px-6 py-8 min-h-screen">
           <Outlet />
         </main>
       </div>

@@ -4,6 +4,7 @@ import ProjectMetadataForm from "../../components/admin/forms/ProjectMetadataFor
 import GalleryUploadForm from "../../components/admin/forms/GalleryUploadForm";
 import CreditsForm from "../../components/admin/forms/CreditsForm";
 import StyleForm from "../../components/admin/forms/StyleForm";
+import { projectValidationSchema } from "../../components/admin/forms/ValidationSchema";
 
 const initialValues = {
   title: "",
@@ -37,16 +38,42 @@ const AddProjects = () => {
       media: values.gallery.find((item) => item.isMain) || values.gallery[0],
       gallery: values.gallery.map(({ file, ...rest }) => rest),
     };
-    console.log(project);
+    console.log("🚀 Final Project:", project);
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ values, setFieldValue, handleChange, handleSubmit }) => (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={projectValidationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({
+        values,
+        setFieldValue,
+        handleChange,
+        handleSubmit,
+        errors,
+        touched,
+      }) => (
         <form onSubmit={handleSubmit} className="space-y-6">
-          <ProjectMetadataForm values={values} handleChange={handleChange} />
-          <GalleryUploadForm values={values} setFieldValue={setFieldValue} />
-          <CreditsForm values={values} setFieldValue={setFieldValue} />
+          <ProjectMetadataForm
+            values={values}
+            handleChange={handleChange}
+            errors={errors}
+            touched={touched}
+          />
+          <GalleryUploadForm
+            values={values}
+            setFieldValue={setFieldValue}
+            errors={errors}
+            touched={touched}
+          />
+          <CreditsForm
+            values={values}
+            setFieldValue={setFieldValue}
+            errors={errors}
+            touched={touched}
+          />
           <StyleForm values={values} handleChange={handleChange} />
           <div className="text-end pt-4">
             <button
