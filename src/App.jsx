@@ -19,6 +19,8 @@ import AboutEditor from "./pages/admin/AboutEditor";
 import ContactEditor from "./pages/admin/ContactEditor";
 import AdminLayout from "./components/admin/AdminLayout";
 import AddProjects from "./pages/admin/AddProjects";
+import EditProject from "./pages/admin/EditProject";
+import { aboutContent } from "./data/about";
 
 // Lazy load pages
 const Home = React.lazy(() => import("./pages/Home"));
@@ -110,6 +112,8 @@ function AppContent() {
     if (project?.style?.creditStyles?.color) {
       starColor = project.style.creditStyles.color;
     }
+  } else if (pathname === "/about") {
+    starColor = aboutContent.hero.style.textColor || "white";
   }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -146,6 +150,7 @@ function AppContent() {
               <Route path="hero-media" element={<HeroMedia />} />
               <Route path="projects" element={<ProjectsList />} />
               <Route path="add-project" element={<AddProjects />} />
+              <Route path="edit-project/:id" element={<EditProject />} />
               <Route path="about" element={<AboutEditor />} />
               <Route path="contact" element={<ContactEditor />} />
             </Route>

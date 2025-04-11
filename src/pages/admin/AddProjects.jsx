@@ -42,50 +42,61 @@ const AddProjects = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={projectValidationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({
-        values,
-        setFieldValue,
-        handleChange,
-        handleSubmit,
-        errors,
-        touched,
-      }) => (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <ProjectMetadataForm
-            values={values}
-            handleChange={handleChange}
-            errors={errors}
-            touched={touched}
-          />
-          <GalleryUploadForm
-            values={values}
-            setFieldValue={setFieldValue}
-            errors={errors}
-            touched={touched}
-          />
-          <CreditsForm
-            values={values}
-            setFieldValue={setFieldValue}
-            errors={errors}
-            touched={touched}
-          />
-          <StyleForm values={values} handleChange={handleChange} />
-          <div className="text-end pt-4">
-            <button
-              type="submit"
-              className="bg-black text-white px-6 py-2 rounded"
-            >
-              Submit Project
-            </button>
-          </div>
-        </form>
-      )}
-    </Formik>
+    <div className="space-y-6">
+      <div className="mb-6 space-y-1">
+        <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
+          Add New Project
+        </h1>
+        <p className="text-sm text-zinc-600">
+          Enter metadata, upload gallery items, assign credits, and customize
+          styles for this project.
+        </p>
+      </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={projectValidationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({
+          values,
+          setFieldValue,
+          handleChange,
+          handleSubmit,
+          errors,
+          touched,
+        }) => (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <ProjectMetadataForm
+              values={values}
+              handleChange={handleChange}
+              errors={errors}
+              touched={touched}
+            />
+            <GalleryUploadForm
+              values={values}
+              setFieldValue={setFieldValue}
+              errors={errors}
+              touched={touched}
+            />
+            <CreditsForm
+              values={values}
+              setFieldValue={setFieldValue}
+              errors={errors}
+              touched={touched}
+            />
+            <StyleForm values={values} handleChange={handleChange} />
+            <div className="text-end pt-4">
+              <button
+                type="submit"
+                className="bg-black text-white px-6 py-2 rounded"
+              >
+                Submit Project
+              </button>
+            </div>
+          </form>
+        )}
+      </Formik>
+    </div>
   );
 };
 

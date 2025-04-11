@@ -4,7 +4,7 @@ import React from "react";
 
 const ProjectMetadataForm = ({ values, handleChange, errors, touched }) => {
   return (
-    <div className="bg-white border rounded-xl p-6 space-y-6">
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm  p-6 space-y-6">
       <h2 className="text-xl font-semibold text-zinc-900">Project Metadata</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {[

@@ -1,25 +1,13 @@
 export const contactConfig = {
   style: {
-    backgroundColor: "#1A1A1A",
-    textColor: "#FFFFFF",
+    backgroundColor: "#1A1A1A", // still dynamic
+    textColor: "#FFFFFF", // still dynamic
     titleFont: {
       family: "Syncopate, sans-serif",
-      size: "1.5rem",
-      weight: "700",
-      letterSpacing: "0.2em",
-      lineHeight: "1.2",
-      textTransform: "uppercase",
-      textDecoration: "none",
       fontStyle: "normal",
     },
     textFont: {
       family: "Inter, sans-serif",
-      size: "1rem",
-      weight: "400",
-      letterSpacing: "0.05em",
-      lineHeight: "1.6",
-      textTransform: "none",
-      textDecoration: "none",
       fontStyle: "normal",
     },
   },
@@ -35,20 +23,7 @@ export const contactConfig = {
       gradient: "linear-gradient(to bottom, #1A1A1A, transparent, #1A1A1A)",
     },
   },
-  contentBox: {
-    width: "1581px",
-    height: "529px",
-    padding: {
-      top: "64px",
-      bottom: "64px",
-      horizontal: "96px",
-    },
-    grid: {
-      columns: 4,
-      rows: 1,
-      gap: "48px",
-    },
-  },
+
   locations: [
     {
       city: "NEW YORK",

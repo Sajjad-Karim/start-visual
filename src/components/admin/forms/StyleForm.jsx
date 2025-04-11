@@ -2,7 +2,7 @@ import React from "react";
 
 const StyleForm = ({ values, handleChange }) => {
   return (
-    <div className="bg-white border rounded-xl p-6 space-y-6">
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
       <h2 className="text-xl font-semibold">Style Settings</h2>
 
       <div className="flex gap-6">
@@ -48,7 +48,7 @@ const StyleForm = ({ values, handleChange }) => {
                   name={`style.creditStyles.${key}`}
                   value={values.style.creditStyles[key]}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
+                  className="w-full px-3 py-2 border border-zinc-300"
                 >
                   <option value="none">None</option>
                   <option value="uppercase">Uppercase</option>
@@ -61,7 +61,11 @@ const StyleForm = ({ values, handleChange }) => {
                   name={`style.creditStyles.${key}`}
                   value={values.style.creditStyles[key]}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded"
+                  className={`${
+                    key === "color"
+                      ? "w-12 h-10  border border-zinc-300 rounded cursor-pointer"
+                      : "w-full px-3 py-2 cursor-pointer   border border-zinc-300 rounded"
+                  }`}
                 />
               )}
             </div>

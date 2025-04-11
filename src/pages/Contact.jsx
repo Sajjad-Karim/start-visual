@@ -59,13 +59,14 @@ const Contact = () => {
       {/* START VISUAL text */}
       <div className="fixed top-4 md:top-8 left-4 md:left-8 z-10">
         <h1
+          className="text-lg md:text-xl lg:text-3xl"
           style={{
             fontFamily: style.titleFont.family,
-            fontWeight: style.titleFont.weight,
-            letterSpacing: style.titleFont.letterSpacing,
+            fontWeight: 700,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
             color: style.textColor,
           }}
-          className="text-lg md:text-xl lg:text-3xl"
         >
           START VISUAL
         </h1>
@@ -82,17 +83,21 @@ const Contact = () => {
       {/* Contact Info Box */}
       <div className="flex justify-center px-4 md:px-8 lg:px-12">
         <div
+          className="w-full"
           style={{
-            width: contentBox.width,
-            minHeight: contentBox.height,
+            width: "1581px",
+            minHeight: "529px",
             backgroundColor: style.backgroundColor,
           }}
-          className="w-full"
         >
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
             style={{
-              padding: `${contentBox.padding.top} ${contentBox.padding.horizontal} ${contentBox.padding.bottom}`,
+              gap: "48px",
+              paddingTop: "64px",
+              paddingBottom: "64px",
+              paddingLeft: "96px",
+              paddingRight: "96px",
             }}
           >
             {sortedLocations.map((location, index) => (
@@ -101,9 +106,11 @@ const Contact = () => {
                   className="mb-6"
                   style={{
                     fontFamily: style.titleFont.family,
-                    fontSize: style.titleFont.size,
-                    fontWeight: style.titleFont.weight,
-                    letterSpacing: style.titleFont.letterSpacing,
+                    fontWeight: 700,
+                    fontSize: "1.5rem",
+                    letterSpacing: "0.2em",
+                    lineHeight: "1.2",
+                    textTransform: "uppercase",
                     color: style.textColor,
                   }}
                 >
@@ -112,9 +119,10 @@ const Contact = () => {
                 <div
                   style={{
                     fontFamily: style.textFont.family,
-                    fontSize: style.textFont.size,
-                    fontWeight: style.textFont.weight,
-                    letterSpacing: style.textFont.letterSpacing,
+                    fontSize: "1rem",
+                    fontWeight: 400,
+                    letterSpacing: "0.05em",
+                    lineHeight: "1.6",
                     color: style.textColor,
                     opacity: 0.8,
                   }}

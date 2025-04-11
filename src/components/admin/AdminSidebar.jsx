@@ -33,8 +33,8 @@ const AdminSidebar = () => {
       icon: <ListOrdered size={18} />,
     },
 
-    { to: "/admin/about", label: "About", icon: <Info size={18} /> },
-    { to: "/admin/contact", label: "Contact", icon: <Mail size={18} /> },
+    { to: "/admin/about", label: "About Editor", icon: <Info size={18} /> },
+    { to: "/admin/contact", label: "Contact Editor", icon: <Mail size={18} /> },
   ];
 
   return (

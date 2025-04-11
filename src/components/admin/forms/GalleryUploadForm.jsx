@@ -41,15 +41,15 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
   };
 
   return (
-    <div className="bg-white border rounded-xl p-6 space-y-6">
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm  p-6 space-y-6">
       <h2 className="text-xl font-semibold text-zinc-900">Gallery Upload</h2>
 
       <div
         {...getRootProps()}
-        className="border-dashed border-2 rounded-lg p-6 text-center bg-zinc-50 cursor-pointer"
+        className="  p-6 text-center bg-zinc-50 border-2 border-dashed border-zinc-300 rounded-lg cursor-pointer"
       >
         <input {...getInputProps()} />
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm   text-zinc-500">
           Drag and drop or click to upload media
         </p>
       </div>
@@ -133,7 +133,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
               <button
                 type="button"
                 onClick={() => setMain(index)}
-                className={`w-full py-1 rounded text-sm font-medium ${
+                className={`w-full cursor-pointer py-1 rounded text-sm font-medium ${
                   item.isMain
                     ? "bg-black text-white"
                     : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"

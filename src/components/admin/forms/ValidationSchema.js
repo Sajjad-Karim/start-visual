@@ -26,17 +26,6 @@ export const projectValidationSchema = Yup.object({
     .of(
       Yup.object().shape({
         type: Yup.string().required(),
-        // url: Yup.string().required("Media URL is required"),
-        // alt: Yup.string().required("Alt text is required"),
-        // width: Yup.string().required("Width is required"),
-        // height: Yup.string().required("Height is required"),
-        // order: Yup.number()
-        //   .typeError("Order must be a number")
-        //   .required("Order is required"),
-        // displaySize: Yup.string()
-        //   .oneOf(["full", "half"])
-        //   .required("Display size is required"),
-        // isMain: Yup.boolean(),
       })
     ),
 

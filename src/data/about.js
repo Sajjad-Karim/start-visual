@@ -4,7 +4,7 @@ export const aboutContent = {
     text: "Start Visual Is a Full Service Art, Film & Media Production Agency with offices in New York and Los Angeles. We have more than a 14 years of experience collaborating with industry professionals who are at the highest echelons of the Art, Fashion, and Media Industry. At the same time we look to collaborate with up and coming talent that are reshaping the creative landscape and bringing a new perspective to the world.",
     style: {
       backgroundColor: "#1A1A1A",
-      textColor: "#FFFFFF",
+      textColor: "#F9d",
       showTitle: false,
       titleFont: {
         family: "Syncopate, sans-serif",

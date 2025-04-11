@@ -20,7 +20,7 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
   };
 
   return (
-    <div className="bg-white border rounded-xl p-6 space-y-6">
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm  rounded-xl p-6 space-y-6">
       <h2 className="text-xl font-semibold text-zinc-900">Project Credits</h2>
 
       {values.credits.map((credit, index) => (
@@ -32,7 +32,7 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
               placeholder="e.g. Photographer"
               value={credit.role}
               onChange={(e) => updateField(index, "role", e.target.value)}
-              className="w-full border rounded px-3 py-2 text-sm"
+              className="w-full border border-zinc-300 rounded px-3 py-2 text-sm"
             />
             {errors?.credits?.[index]?.role &&
               touched?.credits?.[index]?.role && (
@@ -49,7 +49,7 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
               placeholder="e.g. John Doe"
               value={credit.name}
               onChange={(e) => updateField(index, "name", e.target.value)}
-              className="w-full border rounded px-3 py-2 text-sm"
+              className="w-full border border-zinc-300 rounded px-3 py-2 text-sm"
             />
             {errors?.credits?.[index]?.name &&
               touched?.credits?.[index]?.name && (
@@ -70,7 +70,7 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
                 onChange={(e) =>
                   updateField(index, "order", parseInt(e.target.value))
                 }
-                className="w-full border rounded px-3 py-2 text-sm"
+                className="w-full border border-zinc-300 rounded px-3 py-2 text-sm"
               />
               {values.credits.length > 1 && (
                 <button
@@ -97,7 +97,7 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
         <button
           onClick={addCredit}
           type="button"
-          className="bg-zinc-200 hover:bg-zinc-300 px-4 py-1 rounded text-sm text-zinc-800"
+          className="bg-zinc-200 cursor-pointer hover:bg-zinc-300 px-4 py-1 rounded text-sm text-zinc-800"
         >
           Add Credit
         </button>
