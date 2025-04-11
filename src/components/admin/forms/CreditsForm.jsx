@@ -1,115 +1,72 @@
-// CreditsForm.jsx
+import React from "react";
 
-import React, { useState } from "react";
-import { FieldArray, Formik } from "formik";
+const CreditsForm = ({ values, setFieldValue }) => {
+  const updateField = (i, key, val) => {
+    const updated = [...values.credits];
+    updated[i][key] = val;
+    setFieldValue("credits", updated);
+  };
 
-const CreditsForm = () => {
-  const [showFields, setShowFields] = useState(true);
+  const addCredit = () => {
+    setFieldValue("credits", [
+      ...values.credits,
+      { role: "", name: "", order: 0 },
+    ]);
+  };
+
+  const removeCredit = (index) => {
+    const updated = values.credits.filter((_, i) => i !== index);
+    setFieldValue("credits", updated);
+  };
 
   return (
-    <Formik
-      initialValues={{ credits: [{ role: "", name: "", order: 0 }] }}
-      onSubmit={(values) => {
-        console.log("credits:", values.credits);
-      }}
-    >
-      {({ values, handleChange, handleSubmit }) => (
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white border border-zinc-200 rounded-xl shadow-sm p-4 space-y-6"
-        >
-          <h2 className="text-lg font-semibold text-zinc-900">
-            Project Credits
-          </h2>
-
-          <FieldArray name="credits">
-            {({ push, remove }) => (
-              <div className="space-y-4">
-                {showFields &&
-                  values.credits.map((credit, index) => (
-                    <div
-                      key={index}
-                      className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center"
-                    >
-                      <div>
-                        <label className="block text-sm font-medium mb-1">
-                          Role
-                        </label>
-                        <input
-                          type="text"
-                          name={`credits[${index}].role`}
-                          placeholder="e.g. Photographer"
-                          value={credit.role}
-                          onChange={handleChange}
-                          className="border px-3 py-1 rounded w-full"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-1">
-                          Name
-                        </label>
-                        <input
-                          type="text"
-                          name={`credits[${index}].name`}
-                          placeholder="Name"
-                          value={credit.name}
-                          onChange={handleChange}
-                          className="border px-3 py-1 rounded w-full"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-1">
-                          Order
-                        </label>
-                        <div className="flex space-x-2">
-                          <input
-                            type="number"
-                            name={`credits[${index}].order`}
-                            placeholder="Order"
-                            value={credit.order}
-                            onChange={handleChange}
-                            className="border px-3 py-1 rounded w-full"
-                          />
-                          {values.credits.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => remove(index)}
-                              className="bg-red-100 text-red-700 text-xs px-2 rounded"
-                            >
-                              Remove
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                <div className="text-end">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowFields(true);
-                      push({ role: "", name: "", order: 0 });
-                    }}
-                    className="mt-2 cursor-pointer bg-zinc-100 text-black hover:bg-zinc-300 px-4 py-1 text-sm rounded"
-                  >
-                    Add More
-                  </button>
-                </div>
-              </div>
+    <div className="bg-white border rounded-xl p-6 space-y-6">
+      <h2 className="text-xl font-semibold">Credits</h2>
+      {values.credits.map((credit, index) => (
+        <div key={index} className="grid md:grid-cols-3 gap-4">
+          <input
+            placeholder="Role"
+            value={credit.role}
+            onChange={(e) => updateField(index, "role", e.target.value)}
+            className="w-full border rounded px-3 py-2"
+          />
+          <input
+            placeholder="Name"
+            value={credit.name}
+            onChange={(e) => updateField(index, "name", e.target.value)}
+            className="w-full border rounded px-3 py-2"
+          />
+          <div className="flex gap-2">
+            <input
+              type="number"
+              placeholder="Order"
+              value={credit.order}
+              onChange={(e) =>
+                updateField(index, "order", parseInt(e.target.value))
+              }
+              className="w-full border rounded px-3 py-2"
+            />
+            {values.credits.length > 1 && (
+              <button
+                onClick={() => removeCredit(index)}
+                className="text-red-500 text-xs"
+              >
+                Remove
+              </button>
             )}
-          </FieldArray>
-
-          <div className="">
-            <button
-              type="submit"
-              className="bg-zinc-900 cursor-pointer text-white px-5 py-2 rounded hover:bg-zinc-800 text-sm"
-            >
-              Save Credits
-            </button>
           </div>
-        </form>
-      )}
-    </Formik>
+        </div>
+      ))}
+      <div className="text-end">
+        <button
+          onClick={addCredit}
+          type="button"
+          className="bg-zinc-200 px-4 py-1 rounded text-sm"
+        >
+          Add Credit
+        </button>
+      </div>
+    </div>
   );
 };
 

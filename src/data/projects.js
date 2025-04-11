@@ -1,3 +1,4 @@
+import ProVideo from "../assets/project.mp4";
 export const portfolios = [
   {
     id: 1,
@@ -16,7 +17,7 @@ export const portfolios = [
         type: "portrait",
         media: {
           type: "video",
-          url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4",
+          url: ProVideo,
           posterUrl:
             "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
           width: 570,
