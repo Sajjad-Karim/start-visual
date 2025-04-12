@@ -63,7 +63,7 @@ export const InputField = ({ name, label, placeholder, ...props }) => (
           <input
             {...field}
             placeholder={placeholder}
-            className={`w-full px-3 py-2 border rounded-md focus:ring-2 ${
+            className={`w-full   border border-zinc-300 rounded px-4 py-2 text-sm focus:ring-2 ${
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500"
                 : "focus:ring-blue-500"
@@ -89,7 +89,7 @@ export const TextAreaField = ({ name, label, placeholder }) => (
           <textarea
             {...field}
             placeholder={placeholder}
-            className={`w-full px-3 py-2 border rounded-md focus:ring-2 h-32 ${
+            className={`w-full  border border-zinc-300 rounded px-4 py-2 text-sm focus:ring-2 h-32 ${
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500"
                 : "focus:ring-blue-500"
@@ -113,16 +113,16 @@ export const ColorInput = ({ name, label }) => (
     <Field name={name}>
       {({ field, meta }) => (
         <>
-          <div className="flex items-center">
+          <div className="flex gap-2 items-center">
             <input
               type="color"
               {...field}
-              className="h-10 w-16 cursor-pointer"
+              className="h-10  border border-zinc-300 rounded  text-sm w-16 cursor-pointer"
             />
             <input
               type="text"
               {...field}
-              className={`ml-2 px-3 py-2 border rounded-md flex-1 ${
+              className={` border  md:w-full w-16 border-zinc-300 rounded px-4 py-2 text-sm ${
                 meta.touched && meta.error
                   ? "border-red-500 focus:ring-red-500"
                   : "focus:ring-blue-500"
@@ -140,9 +140,9 @@ export const ColorInput = ({ name, label }) => (
 
 // ✅ Font Input Group Component
 export const FontInputs = ({ prefix, label }) => (
-  <div className="space-y-2 border p-4 rounded-md">
+  <div className="space-y-2 border-2 border-zinc-200 p-4 rounded-md">
     <h3 className="font-medium">{label}</h3>
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <InputField
         name={`${prefix}.family`}
         label="Font Family"

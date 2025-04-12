@@ -57,46 +57,56 @@ const AboutForm = () => (
         <Form>
           <HeroSection />
 
-          <FieldArray name="sections">
-            {({ push, remove }) => (
-              <>
-                {values.sections.map((_, index) => (
-                  <SectionComponent key={index} index={index} remove={remove} />
-                ))}
+          <div className="flex gap-6 my-6">
+            <FieldArray name="sections">
+              {({ push, remove }) => (
+                <>
+                  {values.sections.map((_, index) => (
+                    <SectionComponent
+                      key={index}
+                      index={index}
+                      remove={remove}
+                    />
+                  ))}
 
-                <button
-                  type="button"
-                  onClick={() =>
-                    push({
-                      title: "",
-                      text: "",
-                      image: null,
-                      style: {
-                        backgroundColor: "#FFFFFF",
-                        textColor: "#000000",
-                        titleFont: {
-                          family: "",
-                          weight: "",
-                          letterSpacing: "",
+                  <button
+                    type="button"
+                    onClick={() =>
+                      push({
+                        title: "",
+                        text: "",
+                        image: null,
+                        style: {
+                          backgroundColor: "#FFFFFF",
+                          textColor: "#000000",
+                          titleFont: {
+                            family: "",
+                            weight: "",
+                            letterSpacing: "",
+                          },
+                          textFont: {
+                            family: "",
+                            weight: "",
+                            letterSpacing: "",
+                          },
                         },
-                        textFont: { family: "", weight: "", letterSpacing: "" },
-                      },
-                    })
-                  }
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                  Add Section
-                </button>
-              </>
-            )}
-          </FieldArray>
+                      })
+                    }
+                    className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded hover:bg-blue-600"
+                  >
+                    Add Section
+                  </button>
+                </>
+              )}
+            </FieldArray>
 
-          <button
-            type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-          >
-            Save Content
-          </button>
+            <button
+              type="submit"
+              className="bg-green-500 cursor-pointer text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              Save Content
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
@@ -121,7 +131,7 @@ const HeroSection = () => (
         placeholder="e.g. Welcome to our creative studio..."
       />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-col-1 md:grid-cols-2 gap-4">
         <ColorInput
           name="hero.style.backgroundColor"
           label="Background Color"
