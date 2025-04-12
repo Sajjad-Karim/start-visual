@@ -11,39 +11,13 @@ export const aboutContent = {
         size: "3.5rem",
         weight: "700",
         letterSpacing: "0.2em",
-        lineHeight: "1.2",
-        textTransform: "uppercase",
-        textDecoration: "none",
-        fontStyle: "normal",
       },
       textFont: {
         family: "Inter, sans-serif",
         size: "1.25rem",
         weight: "400",
         letterSpacing: "0.05em",
-        lineHeight: "1.6",
-        textTransform: "none",
-        textDecoration: "none",
-        fontStyle: "normal",
       },
-      padding: {
-        desktop: "8rem",
-        mobile: "4rem",
-      },
-      maxWidth: "64rem",
-      animation: {
-        type: "fade",
-        duration: "1s",
-        delay: "0s",
-      },
-      layout: {
-        type: "contained",
-        alignment: "center",
-        verticalAlignment: "center",
-      },
-      borderRadius: "0px",
-      boxShadow: "none",
-      backgroundOverlay: "none",
     },
   },
   sections: [
@@ -54,16 +28,6 @@ export const aboutContent = {
       image: {
         url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=800&h=600",
         alt: "Majestic lion portrait representing integrity",
-        animation: {
-          type: "zoom",
-          duration: "1.5s",
-          delay: "0.2s",
-        },
-        hoverEffect: {
-          scale: 1.05,
-          filter: "brightness(1.1)",
-          transition: "all 0.5s ease",
-        },
       },
       style: {
         backgroundColor: "#4F46E5",
@@ -71,46 +35,14 @@ export const aboutContent = {
         showTitle: true,
         titleFont: {
           family: "Syncopate, sans-serif",
-          size: "2.25rem",
           weight: "700",
           letterSpacing: "0.2em",
-          lineHeight: "1.2",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
         textFont: {
           family: "Inter, sans-serif",
-          size: "1.125rem",
           weight: "400",
           letterSpacing: "0.05em",
-          lineHeight: "1.6",
-          textTransform: "none",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
-        padding: {
-          desktop: "6rem",
-          mobile: "4rem",
-        },
-        maxWidth: "32rem",
-        animation: {
-          type: "slide",
-          duration: "1s",
-          delay: "0.3s",
-          direction: "left",
-        },
-        layout: {
-          type: "standard",
-          aspectRatio: "4/3",
-          gap: "2rem",
-          alignment: "left",
-          verticalAlignment: "center",
-        },
-        borderRadius: "0px",
-        boxShadow: "none",
-        backgroundOverlay:
-          "linear-gradient(45deg, rgba(79, 70, 229, 0.1), transparent)",
       },
     },
     {
@@ -120,17 +52,6 @@ export const aboutContent = {
       image: {
         url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=800&h=600",
         alt: "Wolf representing innovation and adaptability",
-        animation: {
-          type: "slide",
-          duration: "1.5s",
-          delay: "0.3s",
-          direction: "right",
-        },
-        hoverEffect: {
-          scale: 1.05,
-          filter: "contrast(1.1)",
-          transition: "all 0.5s ease",
-        },
       },
       style: {
         backgroundColor: "#2D3748",
@@ -138,45 +59,15 @@ export const aboutContent = {
         showTitle: true,
         titleFont: {
           family: "Syncopate, sans-serif",
-          size: "2.25rem",
           weight: "700",
           letterSpacing: "0.2em",
-          lineHeight: "1.2",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
         textFont: {
           family: "Inter, sans-serif",
-          size: "1.125rem",
+
           weight: "400",
           letterSpacing: "0.05em",
-          lineHeight: "1.6",
-          textTransform: "none",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
-        padding: {
-          desktop: "6rem",
-          mobile: "4rem",
-        },
-        maxWidth: "32rem",
-        animation: {
-          type: "fade",
-          duration: "1s",
-          delay: "0.2s",
-        },
-        layout: {
-          type: "standard",
-          aspectRatio: "4/3",
-          gap: "2rem",
-          alignment: "right",
-          verticalAlignment: "center",
-        },
-        borderRadius: "0px",
-        boxShadow: "none",
-        backgroundOverlay:
-          "linear-gradient(-45deg, rgba(45, 55, 72, 0.1), transparent)",
       },
     },
     {
@@ -186,16 +77,6 @@ export const aboutContent = {
       image: {
         url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=800&h=600",
         alt: "Elephant representing strength and excellence",
-        animation: {
-          type: "zoom",
-          duration: "1.5s",
-          delay: "0.4s",
-        },
-        hoverEffect: {
-          scale: 1.05,
-          filter: "saturate(1.2)",
-          transition: "all 0.5s ease",
-        },
       },
       style: {
         backgroundColor: "#553C9A",
@@ -203,46 +84,16 @@ export const aboutContent = {
         showTitle: true,
         titleFont: {
           family: "Syncopate, sans-serif",
-          size: "2.25rem",
+
           weight: "700",
           letterSpacing: "0.2em",
-          lineHeight: "1.2",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
         textFont: {
           family: "Inter, sans-serif",
-          size: "1.125rem",
+
           weight: "400",
           letterSpacing: "0.05em",
-          lineHeight: "1.6",
-          textTransform: "none",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
-        padding: {
-          desktop: "6rem",
-          mobile: "4rem",
-        },
-        maxWidth: "32rem",
-        animation: {
-          type: "slide",
-          duration: "1s",
-          delay: "0.3s",
-          direction: "left",
-        },
-        layout: {
-          type: "standard",
-          aspectRatio: "4/3",
-          gap: "2rem",
-          alignment: "left",
-          verticalAlignment: "center",
-        },
-        borderRadius: "0px",
-        boxShadow: "none",
-        backgroundOverlay:
-          "linear-gradient(45deg, rgba(85, 60, 154, 0.1), transparent)",
       },
     },
     {
@@ -252,17 +103,6 @@ export const aboutContent = {
       image: {
         url: "https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?auto=format&fit=crop&w=800&h=600",
         alt: "Abstract art representing creativity and imagination",
-        animation: {
-          type: "slide",
-          duration: "1.5s",
-          delay: "0.4s",
-          direction: "right",
-        },
-        hoverEffect: {
-          scale: 1.05,
-          filter: "brightness(1.2)",
-          transition: "all 0.5s ease",
-        },
       },
       style: {
         backgroundColor: "#2A4365",
@@ -270,45 +110,15 @@ export const aboutContent = {
         showTitle: true,
         titleFont: {
           family: "Syncopate, sans-serif",
-          size: "2.25rem",
+
           weight: "700",
           letterSpacing: "0.2em",
-          lineHeight: "1.2",
-          textTransform: "uppercase",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
         textFont: {
           family: "Inter, sans-serif",
-          size: "1.125rem",
           weight: "400",
           letterSpacing: "0.05em",
-          lineHeight: "1.6",
-          textTransform: "none",
-          textDecoration: "none",
-          fontStyle: "normal",
         },
-        padding: {
-          desktop: "6rem",
-          mobile: "4rem",
-        },
-        maxWidth: "32rem",
-        animation: {
-          type: "fade",
-          duration: "1s",
-          delay: "0.4s",
-        },
-        layout: {
-          type: "standard",
-          aspectRatio: "4/3",
-          gap: "2rem",
-          alignment: "right",
-          verticalAlignment: "center",
-        },
-        borderRadius: "0px",
-        boxShadow: "none",
-        backgroundOverlay:
-          "linear-gradient(-45deg, rgba(42, 67, 101, 0.1), transparent)",
       },
     },
   ],

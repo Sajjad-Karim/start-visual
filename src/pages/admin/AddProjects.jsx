@@ -42,7 +42,7 @@ const AddProjects = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-6">
       <div className="mb-6 space-y-1">
         <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
           Add New Project

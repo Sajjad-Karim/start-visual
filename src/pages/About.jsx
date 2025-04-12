@@ -36,8 +36,8 @@ const About = () => {
         <div
           className="w-full text-center py-16 md:py-0"
           style={{
-            maxWidth: aboutContent.hero.style.maxWidth,
-            padding: `0 ${aboutContent.hero.style.padding.mobile}`,
+            maxWidth: "64rem",
+            padding: `0 4rem`,
           }}
         >
           {aboutContent.hero.style.showTitle !== false &&
@@ -88,8 +88,8 @@ const About = () => {
             <div
               className="w-full"
               style={{
-                maxWidth: section.style.maxWidth,
-                padding: `2rem ${section.style.padding.mobile}`,
+                maxWidth: "32rem",
+                padding: `2rem "4rem"`,
               }}
             >
               {section.style.showTitle !== false && (

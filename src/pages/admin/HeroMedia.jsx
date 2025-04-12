@@ -18,7 +18,7 @@ const HeroMedia = () => {
   };
 
   return (
-    <div className="space-y-2 ">
+    <div className="space-y-2 px-6">
       {/* Page Heading */}
       <div className="">
         <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 tracking-tight">
