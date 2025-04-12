@@ -88,7 +88,7 @@ const AddProjects = () => {
             <div className="text-end pt-4">
               <button
                 type="submit"
-                className="bg-black text-white px-6 py-2 rounded"
+                className="bg-black cursor-pointer text-white px-6 py-2 rounded"
               >
                 Submit Project
               </button>

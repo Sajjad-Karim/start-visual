@@ -17,13 +17,36 @@ const PageStyleSection = () => (
         <label className="block text-sm font-medium text-zinc-700 mb-1">
           Background Color
         </label>
-        <Field
-          name="style.backgroundColor"
-          type="color"
-          className="w-full h-10 border cursor-pointer border-zinc-300 rounded"
-        />
+        <div className="flex items-center gap-2">
+          <Field
+            name="style.backgroundColor"
+            type="color"
+            className="h-10 w-12 border border-zinc-300 rounded cursor-pointer"
+          />
+          <span className="text-sm text-zinc-600">
+            <Field name="style.backgroundColor">
+              {({ field }) => field.value}
+            </Field>
+          </span>
+        </div>
       </div>
       <div>
+        <label className="block text-sm font-medium text-zinc-700 mb-1">
+          Background Color
+        </label>
+        <div className="flex items-center gap-2">
+          <Field
+            name="style.textColor"
+            type="color"
+            className="h-10 w-12 border border-zinc-300 rounded cursor-pointer"
+          />
+          <span className="text-sm text-zinc-600">
+            <Field name="style.textColor">{({ field }) => field.value}</Field>
+          </span>
+        </div>
+      </div>
+
+      {/* <div>
         <label className="block text-sm font-medium text-zinc-700 mb-1">
           Text Color
         </label>
@@ -32,7 +55,7 @@ const PageStyleSection = () => (
           type="color"
           className="w-full h-10 border cursor-pointer border-zinc-300 rounded"
         />
-      </div>
+      </div> */}
       <div>
         <label className="block text-sm font-medium text-zinc-700 mb-1">
           Title Font
