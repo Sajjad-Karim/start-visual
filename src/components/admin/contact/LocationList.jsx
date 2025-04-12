@@ -26,7 +26,7 @@ const LocationList = ({ values }) => (
                   order: values.locations.length + 1,
                 })
               }
-              className="text-green-700 hover:underline font-medium text-sm"
+              className="text-green-700 cursor-pointer hover:underline font-medium text-sm"
             >
               + Add New Location
             </button>

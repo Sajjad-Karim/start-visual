@@ -92,7 +92,7 @@ const AboutForm = () => (
                         },
                       })
                     }
-                    className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded hover:bg-blue-600"
+                    className="bg-[#363434] hover:bg-[#000] cursor-pointer text-white px-6 py-2  rounded "
                   >
                     Add Section
                   </button>
@@ -102,7 +102,7 @@ const AboutForm = () => (
 
             <button
               type="submit"
-              className="bg-green-500 cursor-pointer text-white px-4 py-2 rounded hover:bg-green-600"
+              className="bg-[black] hover:bg-[#303030] cursor-pointer text-white px-6 py-2  rounded "
             >
               Save Content
             </button>

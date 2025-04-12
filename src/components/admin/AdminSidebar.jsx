@@ -40,10 +40,11 @@ const AdminSidebar = () => {
   return (
     <aside className="fixed top-0 left-0 w-64 h-screen bg-white flex flex-col border-r border-zinc-200">
       {/* Header */}
-      <div className="px-6 pt-6">
-        <h2 className="text-2xl font-bold text-zinc-900 tracking-wider">
+      <div className="px-6 py-2 bg-zinc-50 border-b border-zinc-200 shadow">
+        <h2 className="text-2xl font-bold text-zinc-800 tracking-wide ">
           Start Visual
         </h2>
+        <p className="text-xs text-zinc-500 mt-1">Admin Panel</p>
       </div>
 
       {/* Navigation */}
@@ -70,7 +71,7 @@ const AdminSidebar = () => {
             </p>
             <button
               onClick={() => console.log("Logout")}
-              className="flex items-center gap-1 text-xs text-zinc-500 hover:text-red-500 transition mt-1"
+              className="flex items-center cursor-pointer gap-1 text-xs text-zinc-500 hover:text-red-500 transition mt-1"
             >
               <LogOut size={14} />
               Logout
