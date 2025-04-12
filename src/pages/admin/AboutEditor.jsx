@@ -54,10 +54,10 @@ const AboutForm = () => (
       }}
     >
       {({ values }) => (
-        <Form>
+        <Form className="space-y-3">
           <HeroSection />
 
-          <div className="flex gap-6 my-6">
+          <div className=" space-x-3 space-y-3">
             <FieldArray name="sections">
               {({ push, remove }) => (
                 <>
