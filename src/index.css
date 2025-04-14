@@ -70,7 +70,14 @@
   max-height: 720px;
   object-fit: cover;
 }
-
+.magazine-half img,
+.magazine-half video {
+  max-height: 480px;
+}
+.magazine-full img,
+.magazine-full video {
+  max-height: 420px;
+}
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .magazine-grid {
