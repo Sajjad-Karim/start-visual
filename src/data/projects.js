@@ -52,7 +52,7 @@ export const portfolios = [
             height: 934,
             alt: "Nature photography",
             order: 2,
-            displaySize: "full",
+            displaySize: "half",
           },
           {
             type: "image",

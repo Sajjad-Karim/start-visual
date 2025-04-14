@@ -150,7 +150,7 @@ const ProjectView = () => {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="w-1/2 h-[50vh] md:h-[934px]">
+                    <div className="w-1/2 aspect-[755/934]">
                       <MediaDisplay
                         item={next}
                         className="w-full h-full object-cover"
@@ -163,7 +163,7 @@ const ProjectView = () => {
                 // If there's no next half, center it
                 elements.push(
                   <div key={i} className="flex w-full justify-center">
-                    <div className="w-full md:w-1/2 h-[50vh] md:h-[934px]">
+                    <div className="w-full md:w-1/2 aspect-[755/934]">
                       <MediaDisplay
                         item={item}
                         className="w-full h-full object-cover"
