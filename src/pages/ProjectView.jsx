@@ -126,10 +126,14 @@ const ProjectView = () => {
 
             if (item.displaySize === "full") {
               elements.push(
-                <div key={i} className="w-full">
+                // For full images (previously h-[50vh] md:h-[1211px])
+                <div
+                  key={i}
+                  className="w-full aspect-[1509/1211] md:aspect-[1509/1211]"
+                >
                   <MediaDisplay
                     item={item}
-                    className="w-full h-[50vh] md:h-[1211px] object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               );
@@ -140,7 +144,7 @@ const ProjectView = () => {
               if (next && next.displaySize === "half") {
                 elements.push(
                   <div key={i} className="flex w-full">
-                    <div className="w-1/2 h-[50vh] md:h-[934px]">
+                    <div className="w-1/2 aspect-[755/934]">
                       <MediaDisplay
                         item={item}
                         className="w-full h-full object-cover"
