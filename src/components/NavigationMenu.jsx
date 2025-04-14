@@ -30,7 +30,7 @@ const NavigationMenu = ({
 
       <button
         onClick={onClose}
-        className="absolute top-4 md:top-8 right-4 md:right-8 text-white hover:text-gray-300 transition-colors"
+        className="absolute top-4 md:top-8 right-4 cursor-pointer md:right-8 text-white hover:text-gray-300 transition-colors"
         aria-label="Close menu"
       >
         <X size={24} className="md:w-8 md:h-8" />
@@ -42,7 +42,7 @@ const NavigationMenu = ({
             <div className="space-y-4">
               <button
                 onClick={() => handleCategoryClick("all")}
-                className={`text-xl md:text-2xl font-syncopate text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
+                className={`text-xl md:text-2xl font-syncopate cursor-pointer text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
                   selectedCategory === "all" ? "opacity-100" : "opacity-70"
                 }`}
               >

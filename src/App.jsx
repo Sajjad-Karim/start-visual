@@ -59,7 +59,7 @@ function StarButton({ color = "white", onMenuToggle }) {
         onClick={handleClick}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        className="w-12 md:w-16 h-12 md:h-16 hover:scale-110 transition-all duration-300 ease-in-out relative"
+        className="w-12 md:w-16 h-12 md:h-16 cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out relative"
         aria-label="Toggle menu"
       >
         <svg
