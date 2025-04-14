@@ -33,7 +33,7 @@ const ProjectView = () => {
       {/* Top Section */}
       <div className="flex flex-col md:flex-row">
         {/* Left Image */}
-        <div className="w-full md:w-1/2 h-[50vh] md:h-[934px]">
+        <div className="w-full md:w-1/2 h-[50vh] md:h-[100vh]">
           <MediaDisplay
             item={project.media}
             priority={true}
@@ -43,7 +43,7 @@ const ProjectView = () => {
 
         {/* Right Info Column */}
         <div
-          className="w-full md:w-1/2 min-h-[50vh] md:h-[934px] relative p-8 md:p-16"
+          className="w-full md:w-1/2 min-h-[50vh] md:h-[100vh] relative p-8 md:p-16"
           style={{ backgroundColor }}
         >
           <div className="md:absolute md:inset-16 flex flex-col justify-between">
