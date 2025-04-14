@@ -39,6 +39,46 @@ const NavigationMenu = ({
       <nav className="absolute bottom-16 md:bottom-32 right-4 md:right-8 text-right">
         <ul className="space-y-6 md:space-y-8">
           <li>
+            <div className="space-y-4">
+              <button
+                onClick={() => handleCategoryClick("all")}
+                className={`text-xl md:text-2xl font-syncopate text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
+                  selectedCategory === "all" ? "opacity-100" : "opacity-70"
+                }`}
+              >
+                ALL WORK
+              </button>
+              <div className="space-y-2 pl-4">
+                <button
+                  onClick={() => handleCategoryClick("motion")}
+                  className={`text-lg md:text-xl font-syncopate cursor-pointer text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
+                    selectedCategory === "motion" ? "opacity-100" : "opacity-70"
+                  }`}
+                >
+                  MOTION
+                </button>
+                <button
+                  onClick={() => handleCategoryClick("photo")}
+                  className={`text-lg md:text-xl font-syncopate cursor-pointer text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
+                    selectedCategory === "photo" ? "opacity-100" : "opacity-70"
+                  }`}
+                >
+                  PHOTO
+                </button>
+                <button
+                  onClick={() => handleCategoryClick("special")}
+                  className={`text-lg md:text-xl font-syncopate cursor-pointer text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
+                    selectedCategory === "special"
+                      ? "opacity-100"
+                      : "opacity-70"
+                  }`}
+                >
+                  SPECIAL PROJECTS
+                </button>
+              </div>
+            </div>
+          </li>
+          <li>
             <Link
               to="/about"
               onClick={onClose}
@@ -55,46 +95,6 @@ const NavigationMenu = ({
             >
               CONTACT
             </Link>
-          </li>
-          <li>
-            <div className="space-y-4">
-              <button
-                onClick={() => handleCategoryClick("all")}
-                className={`text-xl md:text-2xl font-syncopate text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
-                  selectedCategory === "all" ? "opacity-100" : "opacity-70"
-                }`}
-              >
-                ALL WORK
-              </button>
-              <div className="space-y-2 pl-4">
-                <button
-                  onClick={() => handleCategoryClick("motion")}
-                  className={`text-lg md:text-xl font-syncopate text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
-                    selectedCategory === "motion" ? "opacity-100" : "opacity-70"
-                  }`}
-                >
-                  MOTION
-                </button>
-                <button
-                  onClick={() => handleCategoryClick("photo")}
-                  className={`text-lg md:text-xl font-syncopate text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
-                    selectedCategory === "photo" ? "opacity-100" : "opacity-70"
-                  }`}
-                >
-                  PHOTO
-                </button>
-                <button
-                  onClick={() => handleCategoryClick("special")}
-                  className={`text-lg md:text-xl font-syncopate text-white hover:text-gray-300 transition-colors tracking-widest block w-full text-right ${
-                    selectedCategory === "special"
-                      ? "opacity-100"
-                      : "opacity-70"
-                  }`}
-                >
-                  SPECIAL PROJECTS
-                </button>
-              </div>
-            </div>
           </li>
         </ul>
       </nav>
