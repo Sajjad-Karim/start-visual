@@ -653,6 +653,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",

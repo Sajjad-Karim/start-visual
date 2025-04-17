@@ -8,9 +8,10 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
   };
 
   const addCredit = () => {
+    const nextOrder = values.credits.length;
     setFieldValue("credits", [
       ...values.credits,
-      { role: "", name: "", order: 0 },
+      { role: "", name: "", order: nextOrder },
     ]);
   };
 
@@ -23,7 +24,7 @@ const CreditsForm = ({ values, setFieldValue, errors, touched }) => {
     <div className="bg-white border border-zinc-200 rounded-xl shadow-sm   p-6 space-y-6">
       <h2 className="text-xl font-semibold text-zinc-900">Project Credits</h2>
 
-      {values.credits.map((credit, index) => (
+      {values?.credits?.map((credit, index) => (
         <div key={index} className="grid md:grid-cols-3 gap-4">
           {/* Role */}
           <div>
