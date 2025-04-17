@@ -170,30 +170,74 @@ export const FontInputs = ({ prefix, label }) => (
 // ✅ Image Upload Field Component
 export const ImageUploadField = ({ name, label }) => (
   <Field name={name}>
-    {({ form, field, meta }) => (
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {label}
-        </label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(event) => {
-            const file = event.currentTarget.files[0];
-            form.setFieldValue(name, file);
-          }}
-        />
-        {meta.touched && meta.error && (
-          <div className="text-red-500 text-sm mt-1">{meta.error}</div>
-        )}
-        {field.value && typeof field.value === "object" && (
-          <img
-            src={URL.createObjectURL(field.value)}
-            alt="Preview"
-            className="mt-2 h-32 object-contain rounded-md"
-          />
-        )}
-      </div>
-    )}
+    {({ form, field, meta }) => {
+      const file = field.value;
+      const previewUrl =
+        file && typeof file === "object" ? URL.createObjectURL(file) : null;
+
+      return (
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            {label}
+          </label>
+
+          {!previewUrl ? (
+            <div className="relative border-2 border-dashed border-zinc-300 bg-zinc-50 rounded-lg p-6 text-center hover:border-zinc-400 transition">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(event) => {
+                  const file = event.currentTarget.files[0];
+                  if (file) form.setFieldValue(name, file);
+                }}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+              <p className="text-sm text-zinc-500">
+                Click or drag an image to upload
+              </p>
+            </div>
+          ) : (
+            <div className="relative rounded-md overflow-hidden border border-zinc-300">
+              <img
+                src={previewUrl}
+                alt="Preview"
+                className="w-full h-48 object-contain bg-zinc-100"
+              />
+
+              <div className="flex justify-between items-center p-2 bg-zinc-50 border-t border-zinc-200">
+                <span className="text-sm text-zinc-600 truncate">
+                  {file.name}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => form.setFieldValue(name, null)}
+                    className="text-red-500 text-xs hover:underline"
+                  >
+                    Remove
+                  </button>
+                  <label className="text-blue-600 text-xs cursor-pointer hover:underline">
+                    Replace
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        const file = event.currentTarget.files[0];
+                        if (file) form.setFieldValue(name, file);
+                      }}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {meta.touched && meta.error && (
+            <div className="text-red-500 text-sm mt-1">{meta.error}</div>
+          )}
+        </div>
+      );
+    }}
   </Field>
 );

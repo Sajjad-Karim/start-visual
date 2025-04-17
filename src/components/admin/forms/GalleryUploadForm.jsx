@@ -9,7 +9,6 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
         file,
         url,
         type: file.type.startsWith("video") ? "video" : "image",
-
         alt: "",
         order: values.gallery.length + i,
         displaySize: "full",
@@ -60,71 +59,95 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
       {values.gallery.length > 0 && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {values.gallery.map((item, index) => (
-            <div key={index} className="space-y-2 border p-3 rounded">
-              <div className="h-40 overflow-hidden rounded">
+            <div
+              key={index}
+              className="flex flex-col border-1 border-[#cecdcd] rounded-xl overflow-hidden  bg-white"
+            >
+              {/* Media preview */}
+              <div className="relative aspect-video bg-zinc-100">
                 {item.type === "video" ? (
                   <video
                     src={item.url}
                     controls
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 ) : (
                   <img
                     src={item.url}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     alt="preview"
                   />
                 )}
               </div>
 
-              <div>
-                <input
-                  type="text"
-                  placeholder="Alt text"
-                  value={item.alt}
-                  onChange={(e) => updateField(index, "alt", e.target.value)}
-                  className="w-full border rounded px-2 py-1"
-                />
-                {errors.gallery?.[index]?.alt && (
-                  <div className="text-xs text-red-500">
-                    {errors.gallery[index].alt}
+              {/* Form Fields */}
+              <div className="p-4 space-y-3">
+                {/* Alt Text */}
+                <div>
+                  <label className="text-sm font-medium text-zinc-700 mb-1 block">
+                    Alt Text
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Describe the image or video"
+                    value={item.alt}
+                    onChange={(e) => updateField(index, "alt", e.target.value)}
+                    className="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400"
+                  />
+                  {errors.gallery?.[index]?.alt && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {errors.gallery[index].alt}
+                    </p>
+                  )}
+                </div>
+
+                {/* Order and Display Size */}
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <label className="text-sm font-medium text-zinc-700 mb-1 block">
+                      Order
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 1"
+                      value={item.order}
+                      onChange={(e) =>
+                        updateField(index, "order", parseInt(e.target.value))
+                      }
+                      className="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400"
+                    />
                   </div>
-                )}
-              </div>
 
-              <div className="flex gap-2">
-                <input
-                  type="number"
-                  placeholder="Order"
-                  value={item.order}
-                  onChange={(e) =>
-                    updateField(index, "order", parseInt(e.target.value))
-                  }
-                  className="w-full border rounded px-2 py-1"
-                />
-                <select
-                  value={item.displaySize}
-                  onChange={(e) =>
-                    updateField(index, "displaySize", e.target.value)
-                  }
-                  className="w-full border rounded px-2 py-1"
+                  <div className="flex-1">
+                    <label className="text-sm font-medium text-zinc-700 mb-1 block">
+                      Display Size
+                    </label>
+                    <select
+                      value={item.displaySize}
+                      onChange={(e) =>
+                        updateField(index, "displaySize", e.target.value)
+                      }
+                      className="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400"
+                    >
+                      <option value="full">Full</option>
+                      <option value="half">Half</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Set as Main Button */}
+                <button
+                  type="button"
+                  onClick={() => setMain(index)}
+                  className={`w-full mt-2 py-2 rounded-lg text-sm font-medium transition ${
+                    item.isMain
+                      ? "bg-black text-white"
+                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
+                  }`}
                 >
-                  <option value="full">Full</option>
-                  <option value="half">Half</option>
-                </select>
+                  {item.isMain ? "Main Media (Selected)" : "Set as Main Media"}
+                </button>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setMain(index)}
-                className={`w-full cursor-pointer py-1 rounded text-sm font-medium ${
-                  item.isMain
-                    ? "bg-black text-white"
-                    : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
-                }`}
-              >
-                {item.isMain ? "Main Media (Selected)" : "Set as Main Media"}
-              </button>
             </div>
           ))}
         </div>
