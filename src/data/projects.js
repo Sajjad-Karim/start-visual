@@ -20,8 +20,7 @@ export const portfolios = [
           url: ProVideo,
           posterUrl:
             "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
-          width: 570,
-          height: 428,
+
           alt: "Nature video content",
           order: 416,
           displaySize: "half",
@@ -30,8 +29,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -39,8 +37,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -48,8 +45,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "half",
@@ -57,8 +53,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -66,8 +61,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -75,8 +69,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -127,8 +120,7 @@ export const portfolios = [
         media: {
           type: "image",
           url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=570&h=428&fit=crop",
-          width: 570,
-          height: 428,
+
           alt: "Nature photography",
           order: 265,
           displaySize: "full",
@@ -137,8 +129,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -146,8 +137,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -155,8 +145,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -164,8 +153,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -173,8 +161,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -182,8 +169,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -234,8 +220,6 @@ export const portfolios = [
         media: {
           type: "image",
           url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=570&h=428&fit=crop",
-          width: 570,
-          height: 428,
           alt: "Nature photography",
           order: 775,
           displaySize: "full",
@@ -244,8 +228,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -253,8 +236,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -262,8 +244,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -271,8 +252,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -280,8 +260,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -289,8 +268,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -343,8 +321,7 @@ export const portfolios = [
           url: "https://player.vimeo.com/progressive_redirect/playback/735273384/rendition/1080p/file.mp4",
           posterUrl:
             "https://images.unsplash.com/photo-1505144808419-1957a94ca61e",
-          width: 570,
-          height: 428,
+
           alt: "Nature video content",
           order: 237,
           displaySize: "full",
@@ -353,8 +330,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -362,8 +338,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -371,8 +346,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -380,8 +354,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -389,8 +362,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -398,8 +370,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -450,8 +421,7 @@ export const portfolios = [
         media: {
           type: "image",
           url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=570&h=428&fit=crop",
-          width: 570,
-          height: 428,
+
           alt: "Nature photography",
           order: 264,
           displaySize: "full",
@@ -460,8 +430,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -469,8 +438,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -478,8 +446,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -487,8 +454,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1623476408624-721c9185d569?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -496,8 +462,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -505,8 +470,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -557,8 +521,7 @@ export const portfolios = [
         media: {
           type: "image",
           url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=570&h=428&fit=crop",
-          width: 570,
-          height: 428,
+
           alt: "Nature photography",
           order: 93,
           displaySize: "full",
@@ -567,8 +530,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -576,8 +538,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -585,8 +546,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -594,8 +554,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -603,8 +562,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -612,8 +570,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -666,8 +623,7 @@ export const portfolios = [
           url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4",
           posterUrl:
             "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
-          width: 570,
-          height: 428,
+
           alt: "Nature video content",
           order: 861,
           displaySize: "full",
@@ -676,8 +632,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -685,8 +639,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -694,8 +646,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -703,8 +653,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -712,8 +660,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -721,8 +667,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -773,8 +717,6 @@ export const portfolios = [
         media: {
           type: "image",
           url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=570&h=428&fit=crop",
-          width: 570,
-          height: 428,
           alt: "Nature photography",
           order: 934,
           displaySize: "full",
@@ -783,8 +725,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -792,8 +732,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -801,8 +739,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -810,8 +746,6 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -819,8 +753,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -828,8 +761,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -882,8 +814,7 @@ export const portfolios = [
           url: "https://player.vimeo.com/progressive_redirect/playback/742274899/rendition/1080p/file.mp4",
           posterUrl:
             "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
-          width: 570,
-          height: 428,
+
           alt: "Nature video content",
           order: 197,
           displaySize: "full",
@@ -892,8 +823,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -901,8 +831,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -910,8 +839,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -919,8 +847,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -928,8 +855,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1535941339077-2dd1c7963098?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -937,8 +863,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",
@@ -989,8 +914,7 @@ export const portfolios = [
         media: {
           type: "image",
           url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=570&h=428&fit=crop",
-          width: 570,
-          height: 428,
+
           alt: "Nature photography",
           order: 232,
           displaySize: "full",
@@ -999,8 +923,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 0,
             displaySize: "full",
@@ -1008,8 +931,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 1,
             displaySize: "half",
@@ -1017,8 +939,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 2,
             displaySize: "full",
@@ -1026,8 +947,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1527161153332-99adcc6f2966?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 3,
             displaySize: "half",
@@ -1035,8 +955,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1509&h=1211&fit=crop",
-            width: 1509,
-            height: 1211,
+
             alt: "Nature photography",
             order: 4,
             displaySize: "full",
@@ -1044,8 +963,7 @@ export const portfolios = [
           {
             type: "image",
             url: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=755&h=934&fit=crop",
-            width: 755,
-            height: 934,
+
             alt: "Nature photography",
             order: 5,
             displaySize: "half",

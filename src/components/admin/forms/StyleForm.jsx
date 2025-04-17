@@ -48,7 +48,7 @@ const StyleForm = ({ values, handleChange }) => {
                   name={`style.creditStyles.${key}`}
                   value={values.style.creditStyles[key]}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-zinc-300"
+                  className="w-full px-3 py-2 border cursor-pointer border-zinc-300"
                 >
                   <option value="none">None</option>
                   <option value="uppercase">Uppercase</option>
@@ -63,8 +63,8 @@ const StyleForm = ({ values, handleChange }) => {
                   onChange={handleChange}
                   className={`${
                     key === "color"
-                      ? "w-12 h-10  border border-zinc-300 rounded cursor-pointer"
-                      : "w-full px-3 py-2 cursor-pointer   border border-zinc-300 rounded"
+                      ? "w-12 h-10  border border-zinc-300 rounded "
+                      : "w-full px-3 py-2   border border-zinc-300 rounded"
                   }`}
                 />
               )}

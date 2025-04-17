@@ -9,8 +9,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
         file,
         url,
         type: file.type.startsWith("video") ? "video" : "image",
-        width: "",
-        height: "",
+
         alt: "",
         order: values.gallery.length + i,
         displaySize: "full",
@@ -91,21 +90,6 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
                     {errors.gallery[index].alt}
                   </div>
                 )}
-              </div>
-
-              <div className="flex gap-2">
-                <input
-                  placeholder="Width"
-                  value={item.width}
-                  onChange={(e) => updateField(index, "width", e.target.value)}
-                  className="w-full border rounded px-2 py-1"
-                />
-                <input
-                  placeholder="Height"
-                  value={item.height}
-                  onChange={(e) => updateField(index, "height", e.target.value)}
-                  className="w-full border rounded px-2 py-1"
-                />
               </div>
 
               <div className="flex gap-2">
