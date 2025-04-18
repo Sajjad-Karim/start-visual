@@ -95,6 +95,7 @@ const heroMediaSlicer = createSlice({
         state.isDeleteHeroLoading = false;
         state.isDeleteHeroFailed = true;
         state.error = action.payload?.error || "Delete failed";
+        state.message = action.payload?.message;
       });
   },
 });

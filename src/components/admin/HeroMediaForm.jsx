@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import MediaUploadBox from "./MediaUploadBox";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadHero } from "../../features/hero/hero.actions";
+import { getHero, uploadHero } from "../../features/hero/hero.actions";
 import { toast } from "react-hot-toast";
 import { resetUploadHeroState } from "../../features/hero/hero.slicer";
 
-const HeroMediaForm = ({ onAddMedia }) => {
+const HeroMediaForm = () => {
   const [type, setType] = useState("image");
   const [imagePreview, setImagePreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
@@ -54,15 +54,15 @@ const HeroMediaForm = ({ onAddMedia }) => {
 
     dispatch(uploadHero(formData));
 
-    const media = {
-      type,
-      file:
-        type === "image"
-          ? URL.createObjectURL(values.image)
-          : URL.createObjectURL(values.video),
-      hero: values.hero,
-    };
-    onAddMedia(media);
+    // const media = {
+    //   type,
+    //   file:
+    //     type === "image"
+    //       ? URL.createObjectURL(values.image)
+    //       : URL.createObjectURL(values.video),
+    //   hero: values.hero,
+    // };
+    // onAddMedia(media);
     resetForm();
     setImagePreview(null);
     setVideoPreview(null);
@@ -72,6 +72,8 @@ const HeroMediaForm = ({ onAddMedia }) => {
     if (isUploadHeroSuccess) {
       toast.success(message);
       dispatch(resetUploadHeroState());
+
+      dispatch(getHero());
     }
     if (isUploadHeroFailed) {
       toast.error(error?.message || String(error) || "Upload failed");

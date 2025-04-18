@@ -7,4 +7,4 @@ export const uploadHeroApi = (payload) =>
 
 export const getHeroApi = () => STAR_VISUAL_API.get("hero/content");
 export const deleteHeroApi = (payload) =>
-  STAR_VISUAL_API.post(`hero/remove/${payload}`);
+  STAR_VISUAL_API.delete(`hero/remove/${payload}`);
