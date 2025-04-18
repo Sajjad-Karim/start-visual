@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroMediaForm from "../../components/admin/HeroMediaForm";
 import MediaGrid from "../../components/admin/MediaGrid";
+import { useDispatch, useSelector } from "react-redux";
+import { getHero } from "../../features/hero/hero.actions";
 
 const HeroMedia = () => {
   const [mediaList, setMediaList] = useState([]);
-
-  const handleAddMedia = (newMedia) => {
-    if (mediaList.length >= 4) {
-      alert("You can add a maximum of 4 media items.");
-      return;
-    }
-    setMediaList([...mediaList, newMedia]);
+  const dispatch = useDispatch();
+  const { heroMedia, isGetHeroLoading } = useSelector((state) => state.hero);
+  const [localMedia, setLocalMedia] = useState([]);
+  const handleAddMedia = (media) => {
+    setLocalMedia((prev) => [...prev, media]);
   };
 
   const handleDelete = (index) => {
     setMediaList(mediaList.filter((_, i) => i !== index));
   };
+  useEffect(() => {
+    dispatch(getHero());
+  }, [dispatch]);
 
   return (
     <div className="space-y-2 px-6">

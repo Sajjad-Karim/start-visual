@@ -8,9 +8,7 @@ export const uploadHero = createAsyncThunk(
       const res = await uploadHeroApi(payload);
       return res.data;
     } catch (err) {
-      return rejectWithValue({
-        error: err.response ? err.response.data : err.message,
-      });
+      return rejectWithValue(err.response ? err.response.data : err.message);
     }
   }
 );
@@ -22,9 +20,7 @@ export const getHero = createAsyncThunk(
       const res = await getHeroApi();
       return res.data;
     } catch (err) {
-      return rejectWithValue({
-        error: err.response ? err.response.data : err.message,
-      });
+      return rejectWithValue(err.response ? err.response.data : err.message);
     }
   }
 );
@@ -35,9 +31,7 @@ export const deleteHero = createAsyncThunk(
       const res = await deleteHeroApi(payload);
       return res.data;
     } catch (err) {
-      return rejectWithValue({
-        error: err.response ? err.response.data : err.message,
-      });
+      return rejectWithValue(err.response ? err.response.data : err.message);
     }
   }
 );

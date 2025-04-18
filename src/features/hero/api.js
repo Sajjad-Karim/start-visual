@@ -1,7 +1,7 @@
 import { STAR_VISUAL_API } from "../../http/config";
 
 export const uploadHeroApi = (payload) =>
-  STAR_VISUAL_API.post("hero/upload", formData, {
+  STAR_VISUAL_API.post("hero/upload", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 

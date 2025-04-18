@@ -13,13 +13,14 @@ const MediaGrid = ({ mediaList, onDelete }) => {
           <div className="w-full h-48 bg-zinc-100">
             {media.type === "image" ? (
               <img
-                src={media.url}
+                src={media.file}
                 alt={media.alt || "Uploaded Image"}
                 className="w-full h-full object-cover"
               />
             ) : (
               <video
-                src={media.url}
+                src={media.file}
+                poster={media.posterUrl}
                 controls
                 className="w-full h-full object-cover"
               />
@@ -42,6 +43,15 @@ const MediaGrid = ({ mediaList, onDelete }) => {
                 {media.hero ? "Hero" : "Not Hero"}
               </span>
             </div>
+
+            {media.posterUrl && media.type === "video" && (
+              <div className="text-[11px] text-zinc-500 break-all">
+                <strong className="text-zinc-600">Poster:</strong>{" "}
+                <span className="text-blue-600 underline">
+                  {media.posterUrl}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Delete Button */}
