@@ -6,12 +6,10 @@ const HeroMediaForm = ({ onAddMedia }) => {
   const [type, setType] = useState("image");
   const [imagePreview, setImagePreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
-  const [posterPreview, setPosterPreview] = useState(null);
 
   const initialValues = {
     image: null,
     video: null,
-    poster: null,
     hero: true,
   };
 
@@ -31,26 +29,22 @@ const HeroMediaForm = ({ onAddMedia }) => {
         type === "image"
           ? URL.createObjectURL(values.image)
           : URL.createObjectURL(values.video),
-      posterUrl:
-        type === "video" && values.poster
-          ? URL.createObjectURL(values.poster)
-          : undefined,
       hero: values.hero,
     };
-    console.log(media);
+
+    console.log("Submitted Media Object:", media); // ✅ Console log added back
 
     onAddMedia(media);
     resetForm();
     setImagePreview(null);
     setVideoPreview(null);
-    setPosterPreview(null);
   };
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ setFieldValue, values }) => (
+      {({ setFieldValue }) => (
         <Form className="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-8">
-          {/* Toggle */}
+          {/* Type Toggle */}
           <div className="flex space-x-4">
             {["image", "video"].map((t) => (
               <button
@@ -82,26 +76,15 @@ const HeroMediaForm = ({ onAddMedia }) => {
           )}
 
           {type === "video" && (
-            <div className="space-y-6 md:flex md:gap-7 ">
-              <MediaUploadBox
-                label="Upload Video"
-                accept="video/*"
-                iconType="video"
-                previewUrl={videoPreview}
-                onChange={(e) =>
-                  handleFileChange(e, setFieldValue, "video", setVideoPreview)
-                }
-              />
-              <MediaUploadBox
-                label="Upload Poster (optional)"
-                accept="image/*"
-                iconType="image"
-                previewUrl={posterPreview}
-                onChange={(e) =>
-                  handleFileChange(e, setFieldValue, "poster", setPosterPreview)
-                }
-              />
-            </div>
+            <MediaUploadBox
+              label="Upload Video"
+              accept="video/*"
+              iconType="video"
+              previewUrl={videoPreview}
+              onChange={(e) =>
+                handleFileChange(e, setFieldValue, "video", setVideoPreview)
+              }
+            />
           )}
 
           {/* Checkbox */}

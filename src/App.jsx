@@ -21,6 +21,7 @@ import AdminLayout from "./components/admin/AdminLayout";
 import AddProjects from "./pages/admin/AddProjects";
 import EditProject from "./pages/admin/EditProject";
 import { aboutContent } from "./data/about";
+import ReduxProvider from "./store/Provider";
 
 // Lazy load pages
 const Home = React.lazy(() => import("./pages/Home"));
@@ -163,12 +164,14 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <ColorProvider>
-        <ScrollToTop />
-        <AppContent />
-      </ColorProvider>
-    </Router>
+    <ReduxProvider>
+      <Router>
+        <ColorProvider>
+          <ScrollToTop />
+          <AppContent />
+        </ColorProvider>
+      </Router>
+    </ReduxProvider>
   );
 }
 
