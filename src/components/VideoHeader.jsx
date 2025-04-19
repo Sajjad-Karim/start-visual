@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { heroContent } from "../data/hero";
 import MediaDisplay from "./MediaDisplay";
+import { useDispatch, useSelector } from "react-redux";
+import { getHero } from "../features/hero/hero.actions";
+import Spinner from "./Spinner";
 
 const VideoHeader = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
+  const dispatch = useDispatch();
+  const { heroMedia, isGetHeroLoading } = useSelector((state) => state.hero);
 
   useEffect(() => {
-    const heroItems = heroContent.filter((item) => item.hero);
-    const randomIndex = Math.floor(Math.random() * heroItems.length);
-    setSelectedMedia(heroItems[randomIndex]);
-  }, []);
+    dispatch(getHero());
+  }, [dispatch]);
 
-  if (!selectedMedia) {
+  useEffect(() => {
+    if (heroMedia?.length > 0) {
+      const heroItems = heroMedia.filter((item) => item.hero === true);
+      if (heroItems.length > 0) {
+        const randomIndex = Math.floor(Math.random() * heroItems.length);
+        setSelectedMedia(heroItems[randomIndex]);
+      }
+    }
+  }, [heroMedia]);
+
+  if (isGetHeroLoading || !selectedMedia) {
     return (
       <div className="h-full w-full bg-zinc-900 flex items-center justify-center">
-        <div className="loading-spinner" />
+        <Spinner size="md" center />
       </div>
     );
   }
