@@ -1,25 +1,38 @@
 import React, { useEffect } from "react";
 import Footer from "../components/Footer";
-import { aboutContent } from "../data/about";
 import { useColors } from "../contexts/ColorContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getAbout } from "../features/about/about.action";
 
 const About = () => {
   const { updateColors } = useColors();
+  const dispatch = useDispatch();
+
+  const { aboutData } = useSelector((state) => state.about);
+  const content = aboutData?.[0]; // Get the first (and only) entry
 
   useEffect(() => {
-    updateColors(
-      aboutContent.hero.style.backgroundColor,
-      aboutContent.hero.style.textColor
-    );
+    dispatch(getAbout());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (content) {
+      updateColors(
+        content.hero.style.backgroundColor,
+        content.hero.style.textColor
+      );
+    }
 
     return () => {
       updateColors("#1A1A1A", "#FFFFFF");
     };
-  }, [updateColors]);
+  }, [content, updateColors]);
+
+  if (!content) return null; // Or show a loader
 
   return (
     <div className="min-h-screen bg-zinc-900 text-white">
-      {/* START VISUAL text */}
+      {/* START VISUAL Header */}
       <div className="fixed top-4 md:top-8 left-4 md:left-8 z-10">
         <h1 className="text-lg md:text-xl lg:text-3xl font-syncopate tracking-[0.2em]">
           START VISUAL
@@ -30,50 +43,42 @@ const About = () => {
       <div
         className="w-full min-h-[400px] md:h-[605px] flex items-center justify-center px-4 md:px-0 pt-24 md:pt-0 pb-16 md:pb-0"
         style={{
-          backgroundColor: aboutContent.hero.style.backgroundColor,
+          backgroundColor: content.hero.style.backgroundColor,
         }}
       >
-        <div
-          className="w-full text-center py-16 md:py-0"
-          style={{
-            maxWidth: "64rem",
-            padding: `0 4rem`,
-          }}
-        >
-          {aboutContent.hero.style.showTitle !== false &&
-            aboutContent.hero.title && (
-              <h2
-                style={{
-                  fontFamily: aboutContent.hero.style.titleFont.family,
-                  fontSize: aboutContent.hero.style.titleFont.size,
-                  fontWeight: aboutContent.hero.style.titleFont.weight,
-                  letterSpacing:
-                    aboutContent.hero.style.titleFont.letterSpacing,
-                  color: aboutContent.hero.style.textColor,
-                }}
-                className="mb-8 text-2xl md:text-4xl"
-              >
-                {aboutContent.hero.title}
-              </h2>
-            )}
+        <div className="w-full text-center py-16 md:py-0 max-w-4xl px-6">
+          {content.hero.style.showTitle !== false && content.hero.title && (
+            <h2
+              style={{
+                fontFamily: content.hero.style.titleFont.family,
+                fontSize: content.hero.style.titleFont.size,
+                fontWeight: content.hero.style.titleFont.weight,
+                letterSpacing: content.hero.style.titleFont.letterSpacing,
+                color: content.hero.style.textColor,
+              }}
+              className="mb-8 text-2xl md:text-4xl"
+            >
+              {content.hero.title}
+            </h2>
+          )}
           <p
             style={{
-              fontFamily: aboutContent.hero.style.textFont.family,
-              fontWeight: aboutContent.hero.style.textFont.weight,
-              letterSpacing: aboutContent.hero.style.textFont.letterSpacing,
-              color: aboutContent.hero.style.textColor,
+              fontFamily: content.hero.style.textFont.family,
+              fontWeight: content.hero.style.textFont.weight,
+              letterSpacing: content.hero.style.textFont.letterSpacing,
+              color: content.hero.style.textColor,
               textAlign: "justify",
               hyphens: "auto",
             }}
-            className="text-sm md:text-base lg:text-lg px-4 md:px-0"
+            className="text-sm md:text-base lg:text-lg"
           >
-            {aboutContent.hero.text}
+            {content.hero.text}
           </p>
         </div>
       </div>
 
       {/* Checkered Sections */}
-      {aboutContent.sections.map((section, index) => (
+      {content.sections.map((section, index) => (
         <div key={section.id} className="grid grid-cols-1 md:grid-cols-2">
           {/* Text Section */}
           <div
@@ -85,13 +90,7 @@ const About = () => {
               color: section.style.textColor,
             }}
           >
-            <div
-              className="w-full"
-              style={{
-                maxWidth: "32rem",
-                padding: `2rem "4rem"`,
-              }}
-            >
+            <div className="w-full max-w-2xl px-6">
               {section.style.showTitle !== false && (
                 <h2
                   style={{
@@ -126,8 +125,8 @@ const About = () => {
             }`}
           >
             <img
-              src={section.image.url}
-              alt={section.image.alt}
+              src={section.image?.url}
+              alt={section.image?.alt || section.title}
               className="w-full h-full object-cover"
             />
           </div>
@@ -135,8 +134,8 @@ const About = () => {
       ))}
 
       <Footer
-        backgroundColor={aboutContent.hero.style.backgroundColor}
-        textColor={aboutContent.hero.style.textColor}
+        backgroundColor={content.hero.style.backgroundColor}
+        textColor={content.hero.style.textColor}
       />
     </div>
   );

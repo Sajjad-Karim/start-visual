@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,6 +23,8 @@ import EditProject from "./pages/admin/EditProject";
 import { aboutContent } from "./data/about";
 import ReduxProvider from "./store/Provider";
 import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { getAbout } from "./features/about/about.action";
 // Lazy load pages
 const Home = React.lazy(() => import("./pages/Home"));
 const Portfolio = React.lazy(() => import("./pages/Portfolio"));
@@ -34,10 +36,25 @@ function StarButton({ color = "white", onMenuToggle }) {
   const [isHovering, setIsHovering] = useState(false);
   const [rotation, setRotation] = useState(0);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const {
+    aboutData,
+    isSaveAboutLoading,
+    isSaveAboutSuccess,
+    isSaveAboutFailed,
+    error,
+    message,
+  } = useSelector((state) => state.about);
   const handleClick = () => {
     setRotation((prev) => prev + 90);
     onMenuToggle();
   };
+  useEffect(() => {
+    dispatch(getAbout());
+  }, [dispatch]);
+
+  console.log(aboutData);
+
   const isAdminRoute = pathname.startsWith("/admin");
 
   const generateStarPoints = () => {
@@ -105,7 +122,10 @@ function AppContent() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { pathname } = useLocation();
 
+  const { aboutData } = useSelector((state) => state.about);
+
   let starColor = "white";
+
   if (pathname.startsWith("/project/")) {
     const id = pathname.split("/")[2];
     const allProjects = portfolios.flatMap((portfolio) => portfolio.projects);
@@ -113,8 +133,8 @@ function AppContent() {
     if (project?.style?.creditStyles?.color) {
       starColor = project.style.creditStyles.color;
     }
-  } else if (pathname === "/about") {
-    starColor = aboutContent.hero.style.textColor || "white";
+  } else if (pathname === "/about" && aboutData?.[0]) {
+    starColor = aboutData[0]?.hero?.style?.textColor || "white";
   }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
