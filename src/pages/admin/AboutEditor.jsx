@@ -1,33 +1,35 @@
-import React from "react";
-import { Formik, FieldArray, Form } from "formik";
+import React from 'react';
+import { Formik, FieldArray, Form } from 'formik';
 import {
   ColorInput,
   FontInputs,
   InputField,
   SectionComponent,
   TextAreaField,
-} from "../../components/admin/about/AboutForms";
-import { validationSchema } from "../../components/admin/about/ValidationSchema";
+} from '../../components/admin/about/AboutForms';
+import { validationSchema } from '../../components/admin/about/ValidationSchema';
+import { useDispatch } from 'react-redux';
+import { saveAbout } from '../../features/about/about.action';
 
 const initialValues = {
   hero: {
-    title: "START VISUAL",
-    text: "",
+    title: 'START VISUAL',
+    text: '',
     style: {
-      backgroundColor: "#1A1A1A",
-      textColor: "#ffffff",
+      backgroundColor: '#1A1A1A',
+      textColor: '#ffffff',
       showTitle: false,
       titleFont: {
-        family: "Syncopate, sans-serif",
-        size: "3.5rem",
-        weight: "700",
-        letterSpacing: "0.2em",
+        family: 'Syncopate, sans-serif',
+        size: '3.5rem',
+        weight: '700',
+        letterSpacing: '0.2em',
       },
       textFont: {
-        family: "Inter, sans-serif",
-        size: "1.25rem",
-        weight: "400",
-        letterSpacing: "0.05em",
+        family: 'Inter, sans-serif',
+        size: '1.25rem',
+        weight: '400',
+        letterSpacing: '0.05em',
       },
     },
   },
@@ -35,7 +37,37 @@ const initialValues = {
 };
 
 const AboutForm = () => {
+  const dispatch = useDispatch();
   const handleSubmit = async (values) => {
+    const imageMap = {};
+    const formData = new FormData();
+
+    const sections = await Promise.all(
+      values.sections.map(async (section, index) => {
+        // Generate sectionId from title (or fallback)
+        const sectionId = section.title
+          ? section.title.toLowerCase().replace(/\s+/g, '-')
+          : `section-${index}`;
+
+        // If there's a file attached, register in imageMap and append file
+        if (section.image instanceof File) {
+          imageMap[sectionId] = section.image.name;
+          formData.append('files', section.image, section.image.name);
+        }
+
+        return {
+          id: sectionId,
+          title: section.title,
+          text: section.text,
+          style: {
+            ...section.style,
+            showTitle: true,
+          },
+        };
+      })
+    );
+
+    // Final payload to backend
     const payload = {
       hero: {
         ...values.hero,
@@ -43,51 +75,13 @@ const AboutForm = () => {
           ...values.hero.style,
         },
       },
-      sections: await Promise.all(
-        values.sections.map(async (section, index) => {
-          const sectionId = section.title.toLowerCase().replace(/\s+/g, "-");
-
-          let imageUrl = "";
-          let imageAlt = "";
-
-          if (section.image && typeof section.image === "object") {
-            imageUrl = URL.createObjectURL(section.image);
-            imageAlt = section.title || "Uploaded Image";
-          } else if (typeof section.image === "string") {
-            imageUrl = section.image;
-            imageAlt = section.title || "Image";
-          }
-
-          return {
-            id: sectionId,
-            title: section.title,
-            text: section.text,
-            image: {
-              url: imageUrl,
-              alt: imageAlt,
-            },
-            style: {
-              ...section.style,
-              showTitle: true,
-            },
-          };
-        })
-      ),
+      sections,
     };
 
-    // Create FormData if you plan to upload to server
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(payload));
+    formData.append('content', JSON.stringify(payload));
+    formData.append('imageMap', JSON.stringify(imageMap));
 
-    // Append images if needed
-    values.sections.forEach((section, idx) => {
-      if (section.image instanceof File) {
-        formData.append(`images[${idx}]`, section.image);
-      }
-    });
-
-    console.log("Final Payload for API:", payload);
-    console.log("FormData (to send via API):", formData);
+    dispatch(saveAbout(formData));
   };
 
   return (
@@ -125,22 +119,24 @@ const AboutForm = () => {
                     type="button"
                     onClick={() =>
                       push({
-                        title: "",
-                        text: "",
+                        title: '',
+                        text: '',
                         image: null,
                         style: {
-                          backgroundColor: "#FFFFFF",
-                          textColor: "#000000",
+                          backgroundColor: '#FFFFFF',
+                          textColor: '#000000',
                           showTitle: true,
                           titleFont: {
-                            family: "",
-                            weight: "",
-                            letterSpacing: "",
+                            family: '',
+                            weight: '',
+                            letterSpacing: '',
+                            size: '',
                           },
                           textFont: {
-                            family: "",
-                            weight: "",
-                            letterSpacing: "",
+                            family: '',
+                            weight: '',
+                            letterSpacing: '',
+                            size: '',
                           },
                         },
                       })
