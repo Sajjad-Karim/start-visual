@@ -1,35 +1,35 @@
-import React from 'react';
-import { Formik, FieldArray, Form } from 'formik';
+import React, { useEffect } from "react";
+import { Formik, FieldArray, Form } from "formik";
 import {
   ColorInput,
   FontInputs,
   InputField,
   SectionComponent,
   TextAreaField,
-} from '../../components/admin/about/AboutForms';
-import { validationSchema } from '../../components/admin/about/ValidationSchema';
-import { useDispatch } from 'react-redux';
-import { saveAbout } from '../../features/about/about.action';
-
+} from "../../components/admin/about/AboutForms";
+import { validationSchema } from "../../components/admin/about/ValidationSchema";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAbout } from "../../features/about/about.action";
+import { toast } from "react-hot-toast";
 const initialValues = {
   hero: {
-    title: 'START VISUAL',
-    text: '',
+    title: "START VISUAL",
+    text: "",
     style: {
-      backgroundColor: '#1A1A1A',
-      textColor: '#ffffff',
+      backgroundColor: "#1A1A1A",
+      textColor: "#ffffff",
       showTitle: false,
       titleFont: {
-        family: 'Syncopate, sans-serif',
-        size: '3.5rem',
-        weight: '700',
-        letterSpacing: '0.2em',
+        family: "Syncopate, sans-serif",
+        size: "3.5rem",
+        weight: "700",
+        letterSpacing: "0.2em",
       },
       textFont: {
-        family: 'Inter, sans-serif',
-        size: '1.25rem',
-        weight: '400',
-        letterSpacing: '0.05em',
+        family: "Inter, sans-serif",
+        size: "1.25rem",
+        weight: "400",
+        letterSpacing: "0.05em",
       },
     },
   },
@@ -38,6 +38,13 @@ const initialValues = {
 
 const AboutForm = () => {
   const dispatch = useDispatch();
+  const {
+    isSaveAboutLoading,
+    isSaveAboutSuccess,
+    isSaveAboutFailed,
+    error,
+    message,
+  } = useSelector((state) => state.about);
   const handleSubmit = async (values) => {
     const imageMap = {};
     const formData = new FormData();
@@ -46,13 +53,13 @@ const AboutForm = () => {
       values.sections.map(async (section, index) => {
         // Generate sectionId from title (or fallback)
         const sectionId = section.title
-          ? section.title.toLowerCase().replace(/\s+/g, '-')
+          ? section.title.toLowerCase().replace(/\s+/g, "-")
           : `section-${index}`;
 
         // If there's a file attached, register in imageMap and append file
         if (section.image instanceof File) {
           imageMap[sectionId] = section.image.name;
-          formData.append('files', section.image, section.image.name);
+          formData.append("files", section.image, section.image.name);
         }
 
         return {
@@ -78,12 +85,25 @@ const AboutForm = () => {
       sections,
     };
 
-    formData.append('content', JSON.stringify(payload));
-    formData.append('imageMap', JSON.stringify(imageMap));
+    formData.append("content", JSON.stringify(payload));
+    formData.append("imageMap", JSON.stringify(imageMap));
 
     dispatch(saveAbout(formData));
   };
-
+  useEffect(() => {
+    if (isSaveAboutSuccess) {
+      toast.success(message || "Content saved successfully!");
+    }
+    if (isSaveAboutFailed) {
+      toast.error(error || "Failed to save content.");
+    }
+  }, [
+    isSaveAboutLoading,
+    isSaveAboutSuccess,
+    isSaveAboutFailed,
+    error,
+    message,
+  ]);
   return (
     <div className="space-y-6 px-6">
       <div>
@@ -119,24 +139,24 @@ const AboutForm = () => {
                     type="button"
                     onClick={() =>
                       push({
-                        title: '',
-                        text: '',
+                        title: "",
+                        text: "",
                         image: null,
                         style: {
-                          backgroundColor: '#FFFFFF',
-                          textColor: '#000000',
+                          backgroundColor: "#FFFFFF",
+                          textColor: "#000000",
                           showTitle: true,
                           titleFont: {
-                            family: '',
-                            weight: '',
-                            letterSpacing: '',
-                            size: '',
+                            family: "",
+                            weight: "",
+                            letterSpacing: "",
+                            size: "",
                           },
                           textFont: {
-                            family: '',
-                            weight: '',
-                            letterSpacing: '',
-                            size: '',
+                            family: "",
+                            weight: "",
+                            letterSpacing: "",
+                            size: "",
                           },
                         },
                       })
