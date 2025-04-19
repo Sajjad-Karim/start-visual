@@ -21,7 +21,8 @@ import AdminLayout from "./components/admin/AdminLayout";
 import AddProjects from "./pages/admin/AddProjects";
 import EditProject from "./pages/admin/EditProject";
 import { aboutContent } from "./data/about";
-
+import ReduxProvider from "./store/Provider";
+import { Toaster } from "react-hot-toast";
 // Lazy load pages
 const Home = React.lazy(() => import("./pages/Home"));
 const Portfolio = React.lazy(() => import("./pages/Portfolio"));
@@ -163,12 +164,15 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <ColorProvider>
-        <ScrollToTop />
-        <AppContent />
-      </ColorProvider>
-    </Router>
+    <ReduxProvider>
+      <Toaster position="bottom-right" reverseOrder={false} />
+      <Router>
+        <ColorProvider>
+          <ScrollToTop />
+          <AppContent />
+        </ColorProvider>
+      </Router>
+    </ReduxProvider>
   );
 }
 

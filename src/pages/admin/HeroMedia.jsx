@@ -1,21 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroMediaForm from "../../components/admin/HeroMediaForm";
 import MediaGrid from "../../components/admin/MediaGrid";
-
+import { useDispatch, useSelector } from "react-redux";
+import { deleteHero, getHero } from "../../features/hero/hero.actions";
+import Spinner from "../../components/Spinner";
+import { toast } from "react-hot-toast";
+import { resetDeleteHeroState } from "../../features/hero/hero.slicer";
 const HeroMedia = () => {
-  const [mediaList, setMediaList] = useState([]);
+  // const [mediaList, setMediaList] = useState([]);
+  const dispatch = useDispatch();
+  const {
+    heroMedia,
+    isGetHeroLoading,
+    isDeleteHeroLoading,
+    isDeleteHeroSuccess,
+    isDeleteHeroFailed,
+    error,
+    message,
+  } = useSelector((state) => state.hero);
+  const [localMedia, setLocalMedia] = useState([]);
+  const handleAddMedia = (media) => {
+    setLocalMedia((prev) => [...prev, media]);
+  };
 
-  const handleAddMedia = (newMedia) => {
-    if (mediaList.length >= 4) {
-      alert("You can add a maximum of 4 media items.");
-      return;
+  const handleDelete = (id) => {
+    dispatch(deleteHero(id));
+  };
+  useEffect(() => {
+    dispatch(getHero());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isDeleteHeroSuccess) {
+      toast.success(message || "Media deleted successfully");
+      dispatch(getHero());
+      dispatch(resetDeleteHeroState());
     }
-    setMediaList([...mediaList, newMedia]);
-  };
-
-  const handleDelete = (index) => {
-    setMediaList(mediaList.filter((_, i) => i !== index));
-  };
+    if (isDeleteHeroFailed) {
+      toast.error(error || "Failed to delete media");
+      dispatch(resetDeleteHeroState());
+    }
+  }, [
+    isDeleteHeroLoading,
+    isDeleteHeroSuccess,
+    isDeleteHeroFailed,
+    error,
+    message,
+  ]);
 
   return (
     <div className="space-y-2 px-6">
@@ -42,13 +73,16 @@ const HeroMedia = () => {
       <section>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-zinc-800">
-            Current Media ({mediaList.length}/4)
+            Current Media ({heroMedia?.length}/4)
           </h2>
-          {mediaList.length === 0 && (
+          {heroMedia?.length === 0 && (
             <p className="text-sm text-zinc-500">No media added yet.</p>
           )}
         </div>
-        <MediaGrid mediaList={mediaList} onDelete={handleDelete} />
+        {isGetHeroLoading && (
+          <Spinner size="md" message="Loading media..." center />
+        )}
+        <MediaGrid mediaList={heroMedia} onDelete={handleDelete} />
       </section>
     </div>
   );

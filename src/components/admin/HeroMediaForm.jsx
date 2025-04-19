@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import MediaUploadBox from "./MediaUploadBox";
+import { useDispatch, useSelector } from "react-redux";
+import { getHero, uploadHero } from "../../features/hero/hero.actions";
+import { toast } from "react-hot-toast";
+import { resetUploadHeroState } from "../../features/hero/hero.slicer";
 
-const HeroMediaForm = ({ onAddMedia }) => {
+const HeroMediaForm = () => {
   const [type, setType] = useState("image");
   const [imagePreview, setImagePreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [posterPreview, setPosterPreview] = useState(null);
-
+  const dispatch = useDispatch();
+  const {
+    isUploadHeroLoading,
+    isUploadHeroSuccess,
+    isUploadHeroFailed,
+    message,
+    error,
+  } = useSelector((state) => state.hero);
   const initialValues = {
     image: null,
     video: null,
@@ -25,27 +36,50 @@ const HeroMediaForm = ({ onAddMedia }) => {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    const media = {
-      type,
-      url:
-        type === "image"
-          ? URL.createObjectURL(values.image)
-          : URL.createObjectURL(values.video),
-      posterUrl:
-        type === "video" && values.poster
-          ? URL.createObjectURL(values.poster)
-          : undefined,
-      hero: values.hero,
-    };
-    console.log(media);
+    const selectedFile = type === "image" ? values.image : values.video;
 
-    onAddMedia(media);
+    if (!selectedFile) {
+      toast.error(`Please upload a ${type} before submitting.`);
+      return;
+    }
+    const formData = new FormData();
+    formData.append("type", type);
+    formData.append("hero", JSON.stringify(values.hero));
+
+    if (type === "image" && values.image) {
+      formData.append("file", values.image);
+    } else if (type === "video" && values.video) {
+      formData.append("file", values.video);
+    }
+
+    dispatch(uploadHero(formData));
+
+    // const media = {
+    //   type,
+    //   file:
+    //     type === "image"
+    //       ? URL.createObjectURL(values.image)
+    //       : URL.createObjectURL(values.video),
+    //   hero: values.hero,
+    // };
+    // onAddMedia(media);
     resetForm();
     setImagePreview(null);
     setVideoPreview(null);
-    setPosterPreview(null);
   };
 
+  useEffect(() => {
+    if (isUploadHeroSuccess) {
+      toast.success(message);
+      dispatch(resetUploadHeroState());
+
+      dispatch(getHero());
+    }
+    if (isUploadHeroFailed) {
+      toast.error(error?.message || String(error) || "Upload failed");
+      dispatch(resetUploadHeroState());
+    }
+  }, [dispatch, isUploadHeroSuccess, isUploadHeroFailed, message, error]);
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ setFieldValue, values }) => (
@@ -113,9 +147,14 @@ const HeroMediaForm = ({ onAddMedia }) => {
           {/* Submit */}
           <button
             type="submit"
-            className="bg-zinc-900 text-white px-6 py-2 rounded-lg hover:bg-zinc-800 transition text-sm font-medium cursor-pointer"
+            disabled={isUploadHeroLoading}
+            className={`bg-zinc-900 text-white px-6 py-2 rounded-lg text-sm font-medium transition ${
+              isUploadHeroLoading
+                ? "opacity-60 cursor-not-allowed"
+                : "hover:bg-zinc-800 cursor-pointer"
+            }`}
           >
-            Add Media
+            {isUploadHeroLoading ? "Uploading..." : "Add Media"}
           </button>
         </Form>
       )}
