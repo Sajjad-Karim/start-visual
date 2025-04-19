@@ -1,35 +1,37 @@
-import React from 'react';
-import { Formik, FieldArray, Form } from 'formik';
+import React, { useEffect, useMemo } from "react";
+import { Formik, FieldArray, Form } from "formik";
 import {
   ColorInput,
   FontInputs,
   InputField,
   SectionComponent,
   TextAreaField,
-} from '../../components/admin/about/AboutForms';
-import { validationSchema } from '../../components/admin/about/ValidationSchema';
-import { useDispatch } from 'react-redux';
-import { saveAbout } from '../../features/about/about.action';
+} from "../../components/admin/about/AboutForms";
+import { validationSchema } from "../../components/admin/about/ValidationSchema";
+import { useDispatch, useSelector } from "react-redux";
+import { getAbout, saveAbout } from "../../features/about/about.action";
+import { toast } from "react-hot-toast";
+import { resetSaveAboutState } from "../../features/about/about.slicer";
 
-const initialValues = {
+const fallbackInitialValues = {
   hero: {
-    title: 'START VISUAL',
-    text: '',
+    title: "START VISUAL",
+    text: "Start Visual Is a Full Service Art, Film & Media Production Agency with offices in New York and Los Angeles. We have more than a 14 years of experience collaborating with industry professionals who are at the highest echelons of the Art, Fashion, and Media Industry. At the same time we look to collaborate with up and coming talent that are reshaping the creative landscape and bringing a new perspective to the world.",
     style: {
-      backgroundColor: '#1A1A1A',
-      textColor: '#ffffff',
+      backgroundColor: "#1A1A1A",
+      textColor: "#ffffff",
       showTitle: false,
       titleFont: {
-        family: 'Syncopate, sans-serif',
-        size: '3.5rem',
-        weight: '700',
-        letterSpacing: '0.2em',
+        family: "Syncopate, sans-serif",
+        size: "3.5rem",
+        weight: "700",
+        letterSpacing: "0.2em",
       },
       textFont: {
-        family: 'Inter, sans-serif',
-        size: '1.25rem',
-        weight: '400',
-        letterSpacing: '0.05em',
+        family: "Inter, sans-serif",
+        size: "1.25rem",
+        weight: "400",
+        letterSpacing: "0.05em",
       },
     },
   },
@@ -38,21 +40,63 @@ const initialValues = {
 
 const AboutForm = () => {
   const dispatch = useDispatch();
+  const {
+    aboutData,
+    isSaveAboutLoading,
+    isSaveAboutSuccess,
+    isSaveAboutFailed,
+    error,
+    message,
+  } = useSelector((state) => state.about);
+
+  // Load data
+  useEffect(() => {
+    dispatch(getAbout());
+  }, [dispatch]);
+
+  // Notify save result
+  useEffect(() => {
+    if (isSaveAboutSuccess) {
+      toast.success(message || "Content saved successfully!");
+      dispatch(resetSaveAboutState());
+      dispatch(getAbout());
+    }
+    if (isSaveAboutFailed) {
+      toast.error(error || "Failed to save content.");
+      dispatch(resetSaveAboutState());
+    }
+  }, [isSaveAboutSuccess, isSaveAboutFailed, error, message, dispatch]);
+
+  // ✨ Compute dynamic initialValues from API
+  const initialValues = useMemo(() => {
+    const data = aboutData?.[0];
+    if (!data) return fallbackInitialValues;
+
+    const sections = data.sections?.map((section) => ({
+      ...section,
+      image: section.image?.url || null,
+    }));
+
+    return {
+      hero: data.hero,
+      sections: sections || [],
+    };
+  }, [aboutData]);
+
+  // ✅ Handle Submit
   const handleSubmit = async (values) => {
     const imageMap = {};
     const formData = new FormData();
 
     const sections = await Promise.all(
       values.sections.map(async (section, index) => {
-        // Generate sectionId from title (or fallback)
         const sectionId = section.title
-          ? section.title.toLowerCase().replace(/\s+/g, '-')
+          ? section.title.toLowerCase().replace(/\s+/g, "-")
           : `section-${index}`;
 
-        // If there's a file attached, register in imageMap and append file
         if (section.image instanceof File) {
           imageMap[sectionId] = section.image.name;
-          formData.append('files', section.image, section.image.name);
+          formData.append("files", section.image, section.image.name);
         }
 
         return {
@@ -67,19 +111,13 @@ const AboutForm = () => {
       })
     );
 
-    // Final payload to backend
     const payload = {
-      hero: {
-        ...values.hero,
-        style: {
-          ...values.hero.style,
-        },
-      },
+      hero: { ...values.hero },
       sections,
     };
 
-    formData.append('content', JSON.stringify(payload));
-    formData.append('imageMap', JSON.stringify(imageMap));
+    formData.append("content", JSON.stringify(payload));
+    formData.append("imageMap", JSON.stringify(imageMap));
 
     dispatch(saveAbout(formData));
   };
@@ -96,6 +134,7 @@ const AboutForm = () => {
       </div>
 
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -114,29 +153,28 @@ const AboutForm = () => {
                       remove={remove}
                     />
                   ))}
-
                   <button
                     type="button"
                     onClick={() =>
                       push({
-                        title: '',
-                        text: '',
+                        title: "",
+                        text: "",
                         image: null,
                         style: {
-                          backgroundColor: '#FFFFFF',
-                          textColor: '#000000',
+                          backgroundColor: "#FFFFFF",
+                          textColor: "#000000",
                           showTitle: true,
                           titleFont: {
-                            family: '',
-                            weight: '',
-                            letterSpacing: '',
-                            size: '',
+                            family: "",
+                            weight: "",
+                            letterSpacing: "",
+                            size: "",
                           },
                           textFont: {
-                            family: '',
-                            weight: '',
-                            letterSpacing: '',
-                            size: '',
+                            family: "",
+                            weight: "",
+                            letterSpacing: "",
+                            size: "",
                           },
                         },
                       })
@@ -151,9 +189,14 @@ const AboutForm = () => {
 
             <button
               type="submit"
-              className="bg-black hover:bg-[#303030] cursor-pointer text-white px-6 py-2 rounded"
+              disabled={isSaveAboutLoading}
+              className={`px-6 py-2 rounded text-white text-sm font-medium transition ${
+                isSaveAboutLoading
+                  ? "bg-gray-500 cursor-not-allowed opacity-60"
+                  : "bg-black hover:bg-[#303030] cursor-pointer"
+              }`}
             >
-              Save Content
+              {isSaveAboutLoading ? "Updating Content..." : "Save Content"}
             </button>
           </Form>
         )}
@@ -164,7 +207,7 @@ const AboutForm = () => {
 
 export default AboutForm;
 
-// 🔽 Optional: Move this to its own file if needed
+// 🧩 Hero Section
 const HeroSection = () => (
   <div className="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
     <h2 className="text-2xl font-bold mb-4">Hero Section</h2>
@@ -177,9 +220,8 @@ const HeroSection = () => (
       <TextAreaField
         name="hero.text"
         label="Text"
-        placeholder="e.g. Welcome..."
+        placeholder="e.g. Welcome to our creative studio..."
       />
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ColorInput
           name="hero.style.backgroundColor"
@@ -187,7 +229,6 @@ const HeroSection = () => (
         />
         <ColorInput name="hero.style.textColor" label="Text Color" />
       </div>
-
       <FontInputs prefix="hero.style.titleFont" label="Title Font" />
       <FontInputs prefix="hero.style.textFont" label="Text Font" />
     </div>
