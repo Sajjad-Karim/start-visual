@@ -1,13 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { portfolios as staticPortfolios } from "../../data/projects";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjects } from '../../features/project/project.actions';
+import Spinner from '../../components/Spinner';
 
 const ProjectList = () => {
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const { projectMedia, isGetProjectLoading } = useSelector(
+    (state) => state.project
+  );
+
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
+
   // Clone static data into local state for interactivity
+
   const [projects, setProjects] = useState(() => {
-    return staticPortfolios.flatMap((portfolio) => portfolio.projects || []);
+    return projectMedia?.flatMap((portfolio) => portfolio || []);
   });
 
   // Sort projects by order
@@ -18,14 +30,14 @@ const ProjectList = () => {
     setProjects((prev) =>
       prev.map((proj) =>
         proj.id === id
-          ? { ...proj, status: proj.status === "online" ? "offline" : "online" }
+          ? { ...proj, status: proj.status === 'online' ? 'offline' : 'online' }
           : proj
       )
     );
   };
 
   const handleDelete = (project) => {
-    console.log("Delete:", project.id);
+    console.log('Delete:', project.id);
   };
 
   // const handlePreview = (project) => {
@@ -43,15 +55,17 @@ const ProjectList = () => {
           online status.
         </p>
       </div>
-
+      {isGetProjectLoading && (
+        <Spinner size="md" message="Loading media..." center />
+      )}
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedProjects.map((project) => {
           const thumbnail =
-            project.media?.posterUrl || project.media?.url || "";
+            project.media?.posterUrl || project.media?.url || '';
 
           return (
             <li
-              key={project.id}
+              key={project._id}
               className="bg-white rounded-xl shadow overflow-hidden flex flex-col"
             >
               {thumbnail && (
@@ -65,14 +79,14 @@ const ProjectList = () => {
               <div className="p-4 flex flex-col flex-grow">
                 <h3 className="text-lg font-semibold mb-1">{project.title}</h3>
                 <p className="text-sm text-gray-600 mb-2">
-                  {project.projectType} &bull; {project.year} &bull;{" "}
+                  {project.projectType} &bull; {project.year} &bull;{' '}
                   {project.client}
                 </p>
                 <p
                   className={`text-sm font-medium mb-3 ${
-                    project.status === "online"
-                      ? "text-green-600"
-                      : "text-red-600"
+                    project.status === 'online'
+                      ? 'text-green-600'
+                      : 'text-red-600'
                   }`}
                 >
                   Status: {project.status}
@@ -93,12 +107,12 @@ const ProjectList = () => {
                     type="button"
                     onClick={() => handleToggleStatus(project.id)}
                     className={`cursor-pointer ${
-                      project.status === "online"
-                        ? "bg-yellow-600 hover:bg-yellow-700"
-                        : "bg-green-600 hover:bg-green-700"
+                      project.status === 'online'
+                        ? 'bg-yellow-600 hover:bg-yellow-700'
+                        : 'bg-green-600 hover:bg-green-700'
                     } text-white px-4 py-2 rounded text-sm`}
                   >
-                    {project.status === "online" ? "Set Offline" : "Set Online"}
+                    {project.status === 'online' ? 'Set Offline' : 'Set Online'}
                   </button>
 
                   <button
