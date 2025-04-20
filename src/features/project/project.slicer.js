@@ -67,16 +67,16 @@ const projectSlicer = createSlice({
 
       // Get cases
       .addCase(getProjects.pending, (state) => {
-        state.isGetHeroLoading = true;
+        state.isGetProjectLoading = true;
       })
       .addCase(getProjects.fulfilled, (state, action) => {
-        state.isGetHeroLoading = false;
-        state.isGetHeroSuccess = true;
+        state.isGetProjectLoading = false;
+        state.isGetProjectSuccess = true;
         state.projectMedia = action.payload;
       })
       .addCase(getProjects.rejected, (state, action) => {
-        state.isGetHeroLoading = false;
-        state.isGetHeroFailed = true;
+        state.isGetProjectLoading = false;
+        state.isGetProjectFailed = true;
         state.error = action.payload?.error || 'Failed to load projects';
       });
 
