@@ -1,17 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getProjectsApi } from './api';
+import { getProjectsApi, uploadProjectApi } from './api';
 
-// export const uploadHero = createAsyncThunk(
-//   "hero/upload",
-//   async (payload, { rejectWithValue }) => {
-//     try {
-//       const res = await uploadHeroApi(payload);
-//       return res.data;
-//     } catch (err) {
-//       return rejectWithValue(err.response ? err.response.data : err.message);
-//     }
-//   }
-// );
+export const uploadProject = createAsyncThunk(
+  'projects/add',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await uploadProjectApi(payload);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response ? err.response.data : err.message);
+    }
+  }
+);
 
 export const getProjects = createAsyncThunk(
   'projects/get',

@@ -16,8 +16,6 @@ const ProjectList = () => {
     dispatch(getProjects());
   }, [dispatch]);
 
-  // Clone static data into local state for interactivity
-
   const [projects, setProjects] = useState(() => {
     return projectMedia?.flatMap((portfolio) => portfolio || []);
   });

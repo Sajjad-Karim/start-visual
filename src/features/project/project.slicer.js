@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProjects } from './project.actions';
+import { getProjects, uploadProject } from './project.actions';
 
 const initialState = {
   // upload media states
@@ -50,20 +50,19 @@ const projectSlicer = createSlice({
   extraReducers: (builder) => {
     builder
       // Upload cases
-      //   .addCase(uploadHero.pending, (state) => {
-      //     state.isUploadHeroLoading = true;
-      //   })
-      //   .addCase(uploadHero.fulfilled, (state, action) => {
-      //     state.isUploadHeroLoading = false;
-      //     state.isUploadHeroSuccess = true;
-      //     state.message = action.payload.message;
-      //     // state.heroMedia = [...state.heroMedia, action.payload.data];
-      //   })
-      //   .addCase(uploadHero.rejected, (state, action) => {
-      //     state.isUploadHeroLoading = false;
-      //     state.isUploadHeroFailed = true;
-      //     state.error = action.payload?.error || "Upload failed";
-      //   })
+      .addCase(uploadProject.pending, (state) => {
+        state.isUploadProjectLoading = true;
+      })
+      .addCase(uploadProject.fulfilled, (state, action) => {
+        state.isUploadProjectLoading = false;
+        state.isUploadProjectSuccess = true;
+        state.message = action.payload.message;
+      })
+      .addCase(uploadProject.rejected, (state, action) => {
+        state.isUploadProjectLoading = false;
+        state.isUploadProjectFailed = true;
+        state.error = action.payload?.error || 'Upload failed';
+      })
 
       // Get cases
       .addCase(getProjects.pending, (state) => {
