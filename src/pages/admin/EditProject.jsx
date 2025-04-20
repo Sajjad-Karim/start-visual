@@ -8,17 +8,29 @@ import CreditsForm from '../../components/admin/forms/CreditsForm';
 import StyleForm from '../../components/admin/forms/StyleForm';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProjects } from '../../features/project/project.actions';
+import {
+  getProjects,
+  updateProject,
+} from '../../features/project/project.actions';
+import toast from 'react-hot-toast';
+import { resetUpdateState } from '../../features/project/project.slicer';
 
 const EditProject = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { projectMedia } = useSelector((state) => state?.project);
+  const { projectMedia, isUpdateProjectSuccess, message } = useSelector(
+    (state) => state?.project
+  );
 
   useEffect(() => {
     dispatch(getProjects());
-  }, [dispatch]);
+    if (isUpdateProjectSuccess) {
+      toast.success(message);
+      dispatch(resetUpdateState());
+      navigate('/admin/projects');
+    }
+  }, [dispatch, navigate, isUpdateProjectSuccess, message]);
 
   // Flatten all projects and find the one with matching id
   const allProjects = projectMedia.flatMap((p) => p || []);
@@ -28,16 +40,41 @@ const EditProject = () => {
     return <div className="p-6 text-red-500">Project not found</div>;
   }
 
-  const handleSubmit = (values) => {
-    const updated = {
-      ...values,
-      media: values.gallery.find((item) => item.isMain) || values.gallery[0],
-      gallery: values.gallery.map(({ file, ...rest }) => rest),
-    };
+  const handleSubmit = async (values) => {
+    const formData = new FormData();
 
-    console.log('📝 Updated Project Data', updated);
-    // Later: call API to update
-    navigate('/admin/projects');
+    formData.append('title', values.title);
+    formData.append('description', values.description);
+    formData.append('projectType', values.projectType);
+    formData.append('status', values.status);
+    formData.append('order', values.order);
+    formData.append('client', values.client);
+    formData.append('year', values.year);
+    formData.append('location', values.location);
+    formData.append('style', JSON.stringify(values.style));
+    formData.append('credits', JSON.stringify(values.credits));
+
+    // 🖼️ Process gallery
+    const galleryJSON = values.gallery.map((item) => ({
+      fileName: item.file
+        ? item.file.name
+        : item.fileName || 'existing_' + item.order,
+      type: item.type,
+      alt: item.alt,
+      order: item.order,
+      displaySize: item.displaySize,
+      isMain: item.isMain,
+      url: item.file ? undefined : item.url, // preserve existing image
+    }));
+    formData.append('gallery', JSON.stringify(galleryJSON));
+
+    values.gallery.forEach((item) => {
+      if (item.file) {
+        formData.append('files', item.file, item.file.name);
+      }
+    });
+
+    dispatch(updateProject({ id, formData }));
   };
 
   return (
