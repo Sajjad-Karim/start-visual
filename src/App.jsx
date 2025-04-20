@@ -1,50 +1,44 @@
-import React, { useState, Suspense, useEffect } from "react";
+import React, { useState, Suspense, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
-} from "react-router-dom";
-import { portfolios } from "./data/projects";
-import NavigationMenu from "./components/NavigationMenu";
-import ScrollToTop from "./components/ScrollToTop";
-import ErrorBoundary from "./components/ErrorBoundary";
-import LoadingSpinner from "./components/LoadingSpinner";
-import { ColorProvider } from "./contexts/ColorContext";
-import Dashboard from "./pages/admin/Dashboard";
-import HeroMedia from "./pages/admin/HeroMedia";
-import ProjectsList from "./pages/admin/ProjectsList";
+} from 'react-router-dom';
 
-import AboutEditor from "./pages/admin/AboutEditor";
-import ContactEditor from "./pages/admin/ContactEditor";
-import AdminLayout from "./components/admin/AdminLayout";
-import AddProjects from "./pages/admin/AddProjects";
-import EditProject from "./pages/admin/EditProject";
-import { aboutContent } from "./data/about";
-import ReduxProvider from "./store/Provider";
-import { Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { getAbout } from "./features/about/about.action";
+import NavigationMenu from './components/NavigationMenu';
+import ScrollToTop from './components/ScrollToTop';
+import ErrorBoundary from './components/ErrorBoundary';
+import LoadingSpinner from './components/LoadingSpinner';
+import { ColorProvider } from './contexts/ColorContext';
+import Dashboard from './pages/admin/Dashboard';
+import HeroMedia from './pages/admin/HeroMedia';
+import ProjectsList from './pages/admin/ProjectsList';
+
+import AboutEditor from './pages/admin/AboutEditor';
+import ContactEditor from './pages/admin/ContactEditor';
+import AdminLayout from './components/admin/AdminLayout';
+import AddProjects from './pages/admin/AddProjects';
+import EditProject from './pages/admin/EditProject';
+
+import ReduxProvider from './store/Provider';
+import { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAbout } from './features/about/about.action';
+import { getProjects } from './features/project/project.actions';
 // Lazy load pages
-const Home = React.lazy(() => import("./pages/Home"));
-const Portfolio = React.lazy(() => import("./pages/Portfolio"));
-const ProjectView = React.lazy(() => import("./pages/ProjectView"));
-const Contact = React.lazy(() => import("./pages/Contact"));
-const About = React.lazy(() => import("./pages/About"));
+const Home = React.lazy(() => import('./pages/Home'));
+const Portfolio = React.lazy(() => import('./pages/Portfolio'));
+const ProjectView = React.lazy(() => import('./pages/ProjectView'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const About = React.lazy(() => import('./pages/About'));
 
-function StarButton({ color = "white", onMenuToggle }) {
+function StarButton({ color = 'white', onMenuToggle }) {
   const [isHovering, setIsHovering] = useState(false);
   const [rotation, setRotation] = useState(0);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const {
-    aboutData,
-    isSaveAboutLoading,
-    isSaveAboutSuccess,
-    isSaveAboutFailed,
-    error,
-    message,
-  } = useSelector((state) => state.about);
+
   const handleClick = () => {
     setRotation((prev) => prev + 90);
     onMenuToggle();
@@ -53,9 +47,7 @@ function StarButton({ color = "white", onMenuToggle }) {
     dispatch(getAbout());
   }, [dispatch]);
 
-  console.log(aboutData);
-
-  const isAdminRoute = pathname.startsWith("/admin");
+  const isAdminRoute = pathname.startsWith('/admin');
 
   const generateStarPoints = () => {
     const outer = 40,
@@ -68,7 +60,7 @@ function StarButton({ color = "white", onMenuToggle }) {
       points.push(center + outer * Math.cos(a), center + outer * Math.sin(a));
       points.push(center + inner * Math.cos(b), center + inner * Math.sin(b));
     }
-    return points.join(" ");
+    return points.join(' ');
   };
 
   return (
@@ -85,7 +77,7 @@ function StarButton({ color = "white", onMenuToggle }) {
           className="w-full h-full transition-all duration-500"
           style={{
             transform: `rotate(${rotation + (isHovering ? 45 : 0)}deg)`,
-            transition: "transform 0.5s ease-in-out",
+            transition: 'transform 0.5s ease-in-out',
           }}
         >
           <polygon
@@ -100,12 +92,12 @@ function StarButton({ color = "white", onMenuToggle }) {
             y="54"
             textAnchor="middle"
             dominantBaseline="middle"
-            fill={color === "white" ? "#000" : "#fff"}
+            fill={color === 'white' ? '#000' : '#fff'}
             style={{
-              fontSize: "16px",
-              fontFamily: "Didot, serif",
-              fontWeight: "bold",
-              letterSpacing: "1px",
+              fontSize: '16px',
+              fontFamily: 'Didot, serif',
+              fontWeight: 'bold',
+              letterSpacing: '1px',
             }}
             transform={`rotate(${-rotation - (isHovering ? 45 : 0)}, 50, 50)`}
           >
@@ -119,22 +111,28 @@ function StarButton({ color = "white", onMenuToggle }) {
 
 function AppContent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const { aboutData } = useSelector((state) => state.about);
+  const { projectMedia } = useSelector((state) => state.project);
 
-  let starColor = "white";
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
 
-  if (pathname.startsWith("/project/")) {
-    const id = pathname.split("/")[2];
-    const allProjects = portfolios.flatMap((portfolio) => portfolio.projects);
-    const project = allProjects.find((p) => p.id === Number(id));
+  let starColor = 'white';
+
+  if (pathname.startsWith('/project/')) {
+    const id = pathname.split('/')[2];
+    const allProjects = projectMedia.flatMap((portfolio) => portfolio);
+    const project = allProjects.find((p) => p._id === id);
     if (project?.style?.creditStyles?.color) {
       starColor = project.style.creditStyles.color;
     }
-  } else if (pathname === "/about" && aboutData?.[0]) {
-    starColor = aboutData[0]?.hero?.style?.textColor || "white";
+  } else if (pathname === '/about' && aboutData?.[0]) {
+    starColor = aboutData[0]?.hero?.style?.textColor || 'white';
   }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);

@@ -1,13 +1,17 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { portfolios } from "../data/projects";
-import MediaDisplay from "../components/MediaDisplay";
-import Footer from "../components/Footer";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+import MediaDisplay from '../components/MediaDisplay';
+import Footer from '../components/Footer';
+import { useSelector } from 'react-redux';
 
 const ProjectView = () => {
   const { id } = useParams();
-  const allProjects = portfolios.flatMap((p) => p.projects);
-  const project = allProjects.find((p) => p.id === Number(id));
+
+  const { projectMedia } = useSelector((state) => state.project);
+
+  const allProjects = projectMedia?.flatMap((p) => p);
+  const project = allProjects.find((p) => p._id === id);
 
   if (!project) {
     return <div>Project not found</div>;
@@ -17,12 +21,12 @@ const ProjectView = () => {
   const sortedCredits = [...project.credits].sort((a, b) => a.order - b.order);
 
   const creditStyle = project.style.creditStyles || {
-    fontSize: "0.875rem",
-    fontFamily: "sans-serif",
-    fontWeight: "400",
-    letterSpacing: "0.05em",
-    textTransform: "uppercase",
-    color: "#87CEEB",
+    fontSize: '0.875rem',
+    fontFamily: 'sans-serif',
+    fontWeight: '400',
+    letterSpacing: '0.05em',
+    textTransform: 'uppercase',
+    color: '#87CEEB',
   };
 
   const backgroundColor = project.style.backgroundColor;
@@ -124,7 +128,7 @@ const ProjectView = () => {
           for (let i = 0; i < sortedGallery.length; i++) {
             const item = sortedGallery[i];
 
-            if (item.displaySize === "full") {
+            if (item.displaySize === 'full') {
               elements.push(
                 // For full images (previously h-[50vh] md:h-[1211px])
                 <div
@@ -137,11 +141,11 @@ const ProjectView = () => {
                   />
                 </div>
               );
-            } else if (item.displaySize === "half") {
+            } else if (item.displaySize === 'half') {
               const next = sortedGallery[i + 1];
 
               // If next exists and is also half, render both
-              if (next && next.displaySize === "half") {
+              if (next && next.displaySize === 'half') {
                 elements.push(
                   <div key={i} className="flex w-full">
                     <div className="w-1/2 aspect-[755/934]">
