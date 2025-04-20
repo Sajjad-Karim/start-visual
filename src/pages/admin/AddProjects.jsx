@@ -1,45 +1,98 @@
-import React from "react";
-import { Formik } from "formik";
-import ProjectMetadataForm from "../../components/admin/forms/ProjectMetadataForm";
-import GalleryUploadForm from "../../components/admin/forms/GalleryUploadForm";
-import CreditsForm from "../../components/admin/forms/CreditsForm";
-import StyleForm from "../../components/admin/forms/StyleForm";
-import { projectValidationSchema } from "../../components/admin/forms/ValidationSchema";
+import React, { useEffect } from 'react';
+import { Formik } from 'formik';
+import ProjectMetadataForm from '../../components/admin/forms/ProjectMetadataForm';
+import GalleryUploadForm from '../../components/admin/forms/GalleryUploadForm';
+import CreditsForm from '../../components/admin/forms/CreditsForm';
+import StyleForm from '../../components/admin/forms/StyleForm';
+import { projectValidationSchema } from '../../components/admin/forms/ValidationSchema';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getProjects,
+  uploadProject,
+} from '../../features/project/project.actions';
+import toast from 'react-hot-toast';
+import { resetUploadProjectState } from '../../features/project/project.slicer';
 
 const initialValues = {
-  title: "",
-  description: "",
-  projectType: "",
-  status: "",
-  order: "",
-  client: "",
-  year: "",
-  location: "",
+  title: '',
+  description: '',
+  projectType: '',
+  status: '',
+  order: '',
+  client: '',
+  year: '',
+  location: '',
   gallery: [],
-  credits: [{ role: "", name: "", order: 0 }],
+  credits: [{ role: '', name: '', order: 0 }],
   style: {
-    backgroundColor: "#1A1A1A",
-    textColor: "#FFFFFF",
+    backgroundColor: '#1A1A1A',
+    textColor: '#FFFFFF',
     creditStyles: {
-      fontSize: "0.875rem",
-      fontFamily: "Montserrat, sans-serif",
-      fontWeight: "500",
-      letterSpacing: "0.1em",
-      textTransform: "uppercase",
-      color: "#FF69B4",
+      fontSize: '0.875rem',
+      fontFamily: 'Montserrat, sans-serif',
+      fontWeight: '500',
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      color: '#FF69B4',
     },
   },
 };
 
 const AddProjects = () => {
-  const handleSubmit = (values) => {
-    const project = {
-      ...values,
-      media: values.gallery.find((item) => item.isMain) || values.gallery[0],
-      gallery: values.gallery.map(({ file, ...rest }) => rest),
-    };
-    console.log("🚀 Final Project:", project);
+  const dispatch = useDispatch();
+
+  const {
+    isUploadProjectLoading,
+    isUploadProjectSuccess,
+    isUploadProjectFailed,
+    error,
+    message,
+  } = useSelector((state) => state.project);
+  const handleSubmit = async (values) => {
+    const formData = new FormData();
+
+    formData.append('title', values.title);
+    formData.append('description', values.description);
+    formData.append('projectType', values.projectType);
+    formData.append('status', values.status);
+    formData.append('order', values.order);
+    formData.append('client', values.client);
+    formData.append('year', values.year);
+    formData.append('location', values.location);
+
+    formData.append('style', JSON.stringify(values.style));
+
+    formData.append('credits', JSON.stringify(values.credits));
+
+    const galleryJSON = values.gallery.map((item) => ({
+      fileName: item.file?.name,
+      type: item.type,
+      alt: item.alt,
+      order: item.order,
+      displaySize: item.displaySize,
+      isMain: item.isMain,
+    }));
+    formData.append('gallery', JSON.stringify(galleryJSON));
+
+    values.gallery.forEach((item) => {
+      if (item.file) {
+        formData.append('files', item.file);
+      }
+    });
+    dispatch(uploadProject(formData));
   };
+
+  useEffect(() => {
+    if (isUploadProjectSuccess) {
+      toast.success(message || 'Project Added successfully');
+      dispatch(getProjects());
+      dispatch(resetUploadProjectState());
+    }
+    if (isUploadProjectFailed) {
+      toast.error(error || 'Failed to delete media');
+      dispatch(resetUploadProjectState());
+    }
+  }, [dispatch, isUploadProjectSuccess, isUploadProjectFailed, error, message]);
 
   return (
     <div className="space-y-6 px-6">
@@ -90,7 +143,9 @@ const AddProjects = () => {
                 type="submit"
                 className="bg-black cursor-pointer text-white px-6 py-2 rounded"
               >
-                Submit Project
+                {isUploadProjectLoading
+                  ? 'Uploading Project'
+                  : 'Submit Project'}
               </button>
             </div>
           </form>
