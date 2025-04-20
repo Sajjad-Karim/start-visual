@@ -1,11 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProjects, uploadProject } from './project.actions';
+import {
+  getProjects,
+  uploadProject,
+  toggleProjectStatus,
+} from './project.actions';
 
 const initialState = {
   // upload media states
   isUploadProjectLoading: false,
   isUploadProjectSuccess: false,
   isUploadProjectFailed: false,
+  // toggle media states
+  isToggleProjectStatusLoading: false,
+  isToggleProjectStatusSuccess: false,
+  isToggleProjectStatusFailed: false,
 
   // get media states
   isGetProjectLoading: false,
@@ -46,6 +54,13 @@ const projectSlicer = createSlice({
       state.isDeleteProjectFailed = false;
       state.error = null;
     },
+    resetToggleState: (state) => {
+      state.isToggleProjectStatusFailed = false;
+      state.isToggleProjectStatusSuccess = false;
+      state.isToggleProjectStatusLoading = false;
+      state.error = null;
+      state.message = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -77,8 +92,23 @@ const projectSlicer = createSlice({
         state.isGetProjectLoading = false;
         state.isGetProjectFailed = true;
         state.error = action.payload?.error || 'Failed to load projects';
-      });
+      })
 
+      // toggle cases
+      .addCase(toggleProjectStatus.pending, (state) => {
+        state.isToggleProjectStatusLoading = true;
+      })
+      .addCase(toggleProjectStatus.fulfilled, (state, action) => {
+        state.isToggleProjectStatusLoading = false;
+        state.isToggleProjectStatusSuccess = true;
+        state.error = action.payload?.message;
+      })
+      .addCase(toggleProjectStatus.rejected, (state, action) => {
+        state.isToggleProjectStatusLoading = false;
+        state.isToggleProjectStatusFailed = true;
+        state.error = action.payload?.error || 'toggle failed';
+        state.error = action.payload?.message;
+      });
     //   // Delete cases
     //   .addCase(deleteHero.pending, (state) => {
     //     state.isDeleteHeroLoading = true;
@@ -104,4 +134,5 @@ export const {
   resetUploadProjectState,
   resetDeleteHeroState,
   resetGetProjectsState,
+  resetToggleState,
 } = projectSlicer.actions;

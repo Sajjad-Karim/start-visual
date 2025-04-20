@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getProjectsApi, uploadProjectApi } from './api';
+import {
+  getProjectsApi,
+  toggleProjectStatusApi,
+  uploadProjectApi,
+} from './api';
 
 export const uploadProject = createAsyncThunk(
   'projects/add',
@@ -18,6 +22,17 @@ export const getProjects = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await getProjectsApi();
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response ? err.response.data : err.message);
+    }
+  }
+);
+export const toggleProjectStatus = createAsyncThunk(
+  'projects/toggle-status',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await toggleProjectStatusApi(payload);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response ? err.response.data : err.message);

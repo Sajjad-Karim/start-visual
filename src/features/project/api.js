@@ -6,5 +6,7 @@ export const uploadProjectApi = (payload) =>
   });
 
 export const getProjectsApi = () => STAR_VISUAL_API.get('projects');
+export const toggleProjectStatusApi = (payload) =>
+  STAR_VISUAL_API.patch(`projects/${payload}/toggle-status`);
 // export const deleteHeroApi = (payload) =>
 //   STAR_VISUAL_API.delete(`hero/remove/${payload}`);
