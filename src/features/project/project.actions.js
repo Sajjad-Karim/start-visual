@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
+  deleteProjectApi,
   getProjectsApi,
   toggleProjectStatusApi,
   uploadProjectApi,
@@ -39,14 +40,14 @@ export const toggleProjectStatus = createAsyncThunk(
     }
   }
 );
-// export const deleteHero = createAsyncThunk(
-//   "hero/delete",
-//   async (payload, { rejectWithValue }) => {
-//     try {
-//       const res = await deleteHeroApi(payload);
-//       return res.data;
-//     } catch (err) {
-//       return rejectWithValue(err.response ? err.response.data : err.message);
-//     }
-//   }
-// );
+export const deleteProject = createAsyncThunk(
+  'projects/delete',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await deleteProjectApi(payload);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response ? err.response.data : err.message);
+    }
+  }
+);

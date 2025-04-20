@@ -3,6 +3,7 @@ import {
   getProjects,
   uploadProject,
   toggleProjectStatus,
+  deleteProject,
 } from './project.actions';
 
 const initialState = {
@@ -48,11 +49,12 @@ const projectSlicer = createSlice({
       state.isGetProjectFailed = false;
       state.error = null;
     },
-    resetDeleteHeroState: (state) => {
+    resetDeleteProjectState: (state) => {
       state.isDeleteProjectLoading = false;
       state.isDeleteProjectSuccess = false;
       state.isDeleteProjectFailed = false;
       state.error = null;
+      state.message = null;
     },
     resetToggleState: (state) => {
       state.isToggleProjectStatusFailed = false;
@@ -108,31 +110,29 @@ const projectSlicer = createSlice({
         state.isToggleProjectStatusFailed = true;
         state.error = action.payload?.error || 'toggle failed';
         state.error = action.payload?.message;
+      })
+      //   // Delete cases
+      .addCase(deleteProject.pending, (state) => {
+        state.isDeleteProjectLoading = true;
+      })
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        state.isDeleteProjectLoading = false;
+        state.isDeleteProjectSuccess = true;
+        state.message = action.payload?.message;
+      })
+      .addCase(deleteProject.rejected, (state, action) => {
+        state.isDeleteProjectLoading = false;
+        state.isDeleteProjectFailed = true;
+        state.error = action.payload?.error || 'Delete failed';
+        state.error = action.payload?.message;
       });
-    //   // Delete cases
-    //   .addCase(deleteHero.pending, (state) => {
-    //     state.isDeleteHeroLoading = true;
-    //   })
-    //   .addCase(deleteHero.fulfilled, (state, action) => {
-    //     state.isDeleteHeroLoading = false;
-    //     state.isDeleteHeroSuccess = true;
-    //     // state.heroMedia = state.heroMedia.filter(
-    //     //   (media) => media._id !== action.payload.id
-    //     // );
-    //   })
-    //   .addCase(deleteHero.rejected, (state, action) => {
-    //     state.isDeleteHeroLoading = false;
-    //     state.isDeleteHeroFailed = true;
-    //     state.error = action.payload?.error || "Delete failed";
-    //     state.message = action.payload?.message;
-    //   });
   },
 });
 
 export default projectSlicer.reducer;
 export const {
   resetUploadProjectState,
-  resetDeleteHeroState,
+  resetDeleteProjectState,
   resetGetProjectsState,
   resetToggleState,
 } = projectSlicer.actions;
