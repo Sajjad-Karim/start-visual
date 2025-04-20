@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProjects } from '../../features/project/project.actions';
+import {
+  getProjects,
+  toggleProjectStatus,
+} from '../../features/project/project.actions';
 import Spinner from '../../components/Spinner';
+import { resetToggleState } from '../../features/project/project.slicer';
+import toast from 'react-hot-toast';
 
 const ProjectList = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { projectMedia, isGetProjectLoading } = useSelector(
-    (state) => state.project
-  );
+  const {
+    projectMedia,
+    isGetProjectLoading,
+    isToggleProjectStatusSuccess,
+    message,
+  } = useSelector((state) => state.project);
 
   useEffect(() => {
     dispatch(getProjects());
@@ -25,14 +33,27 @@ const ProjectList = () => {
 
   // Toggle status handler
   const handleToggleStatus = (id) => {
+    console.log(id);
+    dispatch(toggleProjectStatus(id));
+
     setProjects((prev) =>
       prev.map((proj) =>
-        proj.id === id
-          ? { ...proj, status: proj.status === 'online' ? 'offline' : 'online' }
+        proj._id === id
+          ? {
+              ...proj,
+              status: proj.status === 'online' ? 'offline' : 'online',
+            }
           : proj
       )
     );
   };
+
+  useEffect(() => {
+    if (isToggleProjectStatusSuccess) {
+      dispatch(resetToggleState());
+      toast.success(message);
+    }
+  }, [dispatch, message, isToggleProjectStatusSuccess]);
 
   const handleDelete = (project) => {
     console.log('Delete:', project.id);
@@ -103,7 +124,7 @@ const ProjectList = () => {
 
                   <button
                     type="button"
-                    onClick={() => handleToggleStatus(project.id)}
+                    onClick={() => handleToggleStatus(project._id)}
                     className={`cursor-pointer ${
                       project.status === 'online'
                         ? 'bg-yellow-600 hover:bg-yellow-700'

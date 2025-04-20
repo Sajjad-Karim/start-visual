@@ -101,7 +101,7 @@ const projectSlicer = createSlice({
       .addCase(toggleProjectStatus.fulfilled, (state, action) => {
         state.isToggleProjectStatusLoading = false;
         state.isToggleProjectStatusSuccess = true;
-        state.error = action.payload?.message;
+        state.message = action.payload?.message;
       })
       .addCase(toggleProjectStatus.rejected, (state, action) => {
         state.isToggleProjectStatusLoading = false;
