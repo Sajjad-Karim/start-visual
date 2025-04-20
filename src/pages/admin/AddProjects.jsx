@@ -12,6 +12,7 @@ import {
 } from '../../features/project/project.actions';
 import toast from 'react-hot-toast';
 import { resetUploadProjectState } from '../../features/project/project.slicer';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
   title: '',
@@ -40,6 +41,7 @@ const initialValues = {
 
 const AddProjects = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     isUploadProjectLoading,
@@ -87,12 +89,20 @@ const AddProjects = () => {
       toast.success(message || 'Project Added successfully');
       dispatch(getProjects());
       dispatch(resetUploadProjectState());
+      navigate('/admin/projects');
     }
     if (isUploadProjectFailed) {
       toast.error(error || 'Failed to delete media');
       dispatch(resetUploadProjectState());
     }
-  }, [dispatch, isUploadProjectSuccess, isUploadProjectFailed, error, message]);
+  }, [
+    dispatch,
+    navigate,
+    isUploadProjectSuccess,
+    isUploadProjectFailed,
+    error,
+    message,
+  ]);
 
   return (
     <div className="space-y-6 px-6">

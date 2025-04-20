@@ -1,20 +1,28 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Formik } from "formik";
-import { projectValidationSchema } from "../../components/admin/forms/ValidationSchema";
-import ProjectMetadataForm from "../../components/admin/forms/ProjectMetadataForm";
-import GalleryUploadForm from "../../components/admin/forms/GalleryUploadForm";
-import CreditsForm from "../../components/admin/forms/CreditsForm";
-import StyleForm from "../../components/admin/forms/StyleForm";
-import { portfolios } from "../../data/projects";
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Formik } from 'formik';
+import { projectValidationSchema } from '../../components/admin/forms/ValidationSchema';
+import ProjectMetadataForm from '../../components/admin/forms/ProjectMetadataForm';
+import GalleryUploadForm from '../../components/admin/forms/GalleryUploadForm';
+import CreditsForm from '../../components/admin/forms/CreditsForm';
+import StyleForm from '../../components/admin/forms/StyleForm';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjects } from '../../features/project/project.actions';
 
 const EditProject = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { projectMedia } = useSelector((state) => state?.project);
+
+  useEffect(() => {
+    dispatch(getProjects());
+  }, [dispatch]);
 
   // Flatten all projects and find the one with matching id
-  const allProjects = portfolios.flatMap((p) => p.projects || []);
-  const project = allProjects.find((p) => String(p.id) === String(id));
+  const allProjects = projectMedia.flatMap((p) => p || []);
+  const project = allProjects.find((p) => p._id === id);
 
   if (!project) {
     return <div className="p-6 text-red-500">Project not found</div>;
@@ -27,9 +35,9 @@ const EditProject = () => {
       gallery: values.gallery.map(({ file, ...rest }) => rest),
     };
 
-    console.log("📝 Updated Project Data", updated);
+    console.log('📝 Updated Project Data', updated);
     // Later: call API to update
-    navigate("/admin/projects");
+    navigate('/admin/projects');
   };
 
   return (

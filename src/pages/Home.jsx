@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import VideoHeader from "../components/VideoHeader";
-import PortfolioGrid from "../components/PortfolioGrid";
-import Footer from "../components/Footer";
-import { defaultTitleBarStyle } from "../data/titleBarStyles";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import VideoHeader from '../components/VideoHeader';
+import PortfolioGrid from '../components/PortfolioGrid';
+import Footer from '../components/Footer';
+import { defaultTitleBarStyle } from '../data/titleBarStyles';
 
 function Home({ selectedCategory }) {
   const [hoveredTitle, setHoveredTitle] = useState(
-    selectedCategory === "motion"
-      ? "MOTION"
-      : selectedCategory === "photo"
-      ? "PHOTO"
-      : "ALL WORK"
+    selectedCategory === 'motion'
+      ? 'MOTION'
+      : selectedCategory === 'photo'
+      ? 'PHOTO'
+      : selectedCategory === 'special'
+      ? 'SPECIAL'
+      : 'ALL WORK'
   );
   const [isScrolled, setIsScrolled] = useState(false);
   const [titleBarStyle, setTitleBarStyle] = useState(defaultTitleBarStyle);
@@ -21,34 +23,38 @@ function Home({ selectedCategory }) {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
     setHoveredTitle(
-      selectedCategory === "motion"
-        ? "MOTION"
-        : selectedCategory === "photo"
-        ? "PHOTO"
-        : "ALL WORK"
+      selectedCategory === 'motion'
+        ? 'MOTION'
+        : selectedCategory === 'photo'
+        ? 'PHOTO'
+        : selectedCategory === 'special'
+        ? 'SPECIAL'
+        : 'ALL WORK'
     );
   }, [selectedCategory]);
 
   const handleGridItemLeave = () => {
     setHoveredTitle(
-      selectedCategory === "motion"
-        ? "MOTION"
-        : selectedCategory === "photo"
-        ? "PHOTO"
-        : "ALL WORK"
+      selectedCategory === 'motion'
+        ? 'MOTION'
+        : selectedCategory === 'photo'
+        ? 'PHOTO'
+        : selectedCategory === 'special'
+        ? 'SPECIAL'
+        : 'ALL WORK'
     );
   };
 
   return (
     <div className="bg-zinc-900 text-white">
       {/* Only show hero section when no category is selected */}
-      {selectedCategory === "all" && (
+      {selectedCategory === 'all' && (
         <div className="fixed inset-0 z-0">
           <VideoHeader />
         </div>
@@ -56,17 +62,17 @@ function Home({ selectedCategory }) {
 
       <div
         className={`relative ${
-          selectedCategory === "all" ? "min-h-screen" : ""
+          selectedCategory === 'all' ? 'min-h-screen' : ''
         }`}
       >
-        {selectedCategory === "all" && (
+        {selectedCategory === 'all' && (
           <div className="h-screen" aria-hidden="true" />
         )}
 
         {/* Navigation Header */}
         <div
           className={`sticky top-0 z-20 transition-all duration-300 ${
-            isScrolled ? "shadow-md" : ""
+            isScrolled ? 'shadow-md' : ''
           }`}
           style={{ backgroundColor: titleBarStyle.backgroundColor }}
         >
