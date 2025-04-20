@@ -4,6 +4,7 @@ import {
   uploadProject,
   toggleProjectStatus,
   deleteProject,
+  updateProject,
 } from './project.actions';
 
 const initialState = {
@@ -15,6 +16,10 @@ const initialState = {
   isToggleProjectStatusLoading: false,
   isToggleProjectStatusSuccess: false,
   isToggleProjectStatusFailed: false,
+  // update media states
+  isUpdateProjectLoading: false,
+  isUpdateProjectSuccess: false,
+  isUpdateProjectFailed: false,
 
   // get media states
   isGetProjectLoading: false,
@@ -60,6 +65,13 @@ const projectSlicer = createSlice({
       state.isToggleProjectStatusFailed = false;
       state.isToggleProjectStatusSuccess = false;
       state.isToggleProjectStatusLoading = false;
+      state.error = null;
+      state.message = null;
+    },
+    resetUpdateState: (state) => {
+      state.isUpdateProjectFailed = false;
+      state.isUpdateProjectSuccess = false;
+      state.isUpdateProjectLoading = false;
       state.error = null;
       state.message = null;
     },
@@ -125,6 +137,21 @@ const projectSlicer = createSlice({
         state.isDeleteProjectFailed = true;
         state.error = action.payload?.error || 'Delete failed';
         state.error = action.payload?.message;
+      })
+      //   // update cases
+      .addCase(updateProject.pending, (state) => {
+        state.isUpdateProjectLoading = true;
+      })
+      .addCase(updateProject.fulfilled, (state, action) => {
+        state.isUpdateProjectLoading = false;
+        state.isUpdateProjectSuccess = true;
+        state.message = action.payload?.message;
+      })
+      .addCase(updateProject.rejected, (state, action) => {
+        state.isUpdateProjectLoading = false;
+        state.isUpdateProjectFailed = true;
+        state.error = action.payload?.error || 'update failed';
+        state.error = action.payload?.message;
       });
   },
 });
@@ -135,4 +162,5 @@ export const {
   resetDeleteProjectState,
   resetGetProjectsState,
   resetToggleState,
+  resetUpdateState,
 } = projectSlicer.actions;

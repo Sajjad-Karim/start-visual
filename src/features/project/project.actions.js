@@ -3,6 +3,7 @@ import {
   deleteProjectApi,
   getProjectsApi,
   toggleProjectStatusApi,
+  updateProjectApi,
   uploadProjectApi,
 } from './api';
 
@@ -11,6 +12,17 @@ export const uploadProject = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const res = await uploadProjectApi(payload);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response ? err.response.data : err.message);
+    }
+  }
+);
+export const updateProject = createAsyncThunk(
+  'projects/update',
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const res = await updateProjectApi(id, formData);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response ? err.response.data : err.message);
