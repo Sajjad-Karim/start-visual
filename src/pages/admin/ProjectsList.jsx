@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  deleteProject,
   getProjects,
   toggleProjectStatus,
 } from '../../features/project/project.actions';
 import Spinner from '../../components/Spinner';
-import { resetToggleState } from '../../features/project/project.slicer';
+import {
+  resetDeleteProjectState,
+  resetToggleState,
+} from '../../features/project/project.slicer';
 import toast from 'react-hot-toast';
 
 const ProjectList = () => {
@@ -18,34 +22,20 @@ const ProjectList = () => {
     isGetProjectLoading,
     isToggleProjectStatusSuccess,
     message,
+    isDeleteProjectSuccess,
   } = useSelector((state) => state.project);
 
   useEffect(() => {
     dispatch(getProjects());
   }, [dispatch]);
 
-  const [projects, setProjects] = useState(() => {
-    return projectMedia?.flatMap((portfolio) => portfolio || []);
-  });
-
-  // Sort projects by order
+  const projects = projectMedia?.flatMap((portfolio) => portfolio || []) || [];
   const sortedProjects = [...projects].sort((a, b) => a.order - b.order);
 
   // Toggle status handler
   const handleToggleStatus = (id) => {
-    console.log(id);
     dispatch(toggleProjectStatus(id));
-
-    setProjects((prev) =>
-      prev.map((proj) =>
-        proj._id === id
-          ? {
-              ...proj,
-              status: proj.status === 'online' ? 'offline' : 'online',
-            }
-          : proj
-      )
-    );
+    dispatch(getProjects());
   };
 
   useEffect(() => {
@@ -55,9 +45,17 @@ const ProjectList = () => {
     }
   }, [dispatch, message, isToggleProjectStatusSuccess]);
 
-  const handleDelete = (project) => {
-    console.log('Delete:', project.id);
+  const handleDelete = (id) => {
+    dispatch(deleteProject(id));
   };
+
+  useEffect(() => {
+    if (isDeleteProjectSuccess) {
+      dispatch(resetDeleteProjectState());
+      toast.success(message);
+      dispatch(getProjects());
+    }
+  }, [dispatch, message, isDeleteProjectSuccess]);
 
   // const handlePreview = (project) => {
   //   console.log("Preview:", project.id);
@@ -136,7 +134,7 @@ const ProjectList = () => {
 
                   <button
                     type="button"
-                    onClick={() => handleDelete(project)}
+                    onClick={() => handleDelete(project._id)}
                     className="bg-red-600 cursor-pointer text-white px-4 py-2 rounded hover:bg-red-700 text-sm"
                   >
                     Delete
