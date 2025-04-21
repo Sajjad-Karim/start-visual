@@ -5,4 +5,4 @@ export const updateContactApi = (payload) =>
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
-// export const getAboutApi = () => STAR_VISUAL_API.get('about');
+export const getContactApi = () => STAR_VISUAL_API.get('contact');

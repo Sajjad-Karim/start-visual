@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { Field, useFormikContext } from "formik";
+import React, { useEffect } from 'react';
+import { Field, useFormikContext } from 'formik';
 
 const gradientDirections = [
-  { label: "Top to Bottom", value: "to bottom" },
-  { label: "Bottom to Top", value: "to top" },
-  { label: "Left to Right", value: "to right" },
-  { label: "Right to Left", value: "to left" },
-  { label: "Top Left to Bottom Right", value: "to bottom right" },
-  { label: "Top Right to Bottom Left", value: "to bottom left" },
+  { label: 'Top to Bottom', value: 'to bottom' },
+  { label: 'Bottom to Top', value: 'to top' },
+  { label: 'Left to Right', value: 'to right' },
+  { label: 'Right to Left', value: 'to left' },
+  { label: 'Top Left to Bottom Right', value: 'to bottom right' },
+  { label: 'Top Right to Bottom Left', value: 'to bottom left' },
 ];
 
 const HeaderMediaSection = () => {
   const { values, setFieldValue } = useFormikContext();
 
   const generateGradient = () => {
-    const direction = values.gradientDirection || "to bottom";
-    const color1 = values.gradientColor1 || "#1A1A1A";
-    const color2 = values.gradientColor2 || "transparent";
+    const direction = values.gradientDirection || 'to bottom';
+    const color1 = values.gradientColor1 || '#1A1A1A';
+    const color2 = values.gradientColor2 || 'transparent';
     const gradientString = `linear-gradient(${direction}, ${color1}, ${color2})`;
-    setFieldValue("headerMedia.overlay.gradient", gradientString);
+    setFieldValue('headerMedia.overlay.gradient', gradientString);
   };
 
   useEffect(() => {
@@ -30,9 +30,9 @@ const HeaderMediaSection = () => {
     <section className="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
       <h3 className="text-xl font-semibold text-gray-700 mb-4">Header Media</h3>
 
-      {values.headerMedia.image.url && (
+      {values?.headerMedia?.image?.url && (
         <img
-          src={values.headerMedia.image.url}
+          src={values?.headerMedia?.image?.url}
           alt="Preview"
           className="w-fit h-[200px] object-contain mt-2"
         />
@@ -44,7 +44,7 @@ const HeaderMediaSection = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Upload Image
           </label>
-          <Field name="headerMedia.image.url">
+          <Field name="headerMedia.image.file">
             {({ form }) => (
               <input
                 type="file"
@@ -53,7 +53,8 @@ const HeaderMediaSection = () => {
                   const file = e.currentTarget.files[0];
                   if (file) {
                     const url = URL.createObjectURL(file);
-                    form.setFieldValue("headerMedia.image.url", url);
+                    form.setFieldValue('headerMedia.image.url', url);
+                    form.setFieldValue('headerMedia.image.file', file);
                   }
                 }}
                 className="w-full border border-zinc-300 rounded p-2 bg-white cursor-pointer"
@@ -87,7 +88,7 @@ const HeaderMediaSection = () => {
         {/* Overlay Opacity */}
         <div className="col-span-full">
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Overlay Opacity: {values.headerMedia.overlay.opacity}
+            Overlay Opacity: {values?.headerMedia?.overlay?.opacity}
           </label>
           <div className="flex items-center gap-4">
             <Field
@@ -99,7 +100,7 @@ const HeaderMediaSection = () => {
               className="w-full md:w-[30%] h-2 rounded-lg appearance-none bg-zinc-200 accent-indigo-600 cursor-pointer"
             />
             <span className="text-sm text-zinc-600">
-              {values.headerMedia.overlay.opacity}
+              {values?.headerMedia?.overlay?.opacity}
             </span>
           </div>
         </div>
@@ -135,9 +136,9 @@ const HeaderMediaSection = () => {
               {({ field, form }) => (
                 <input
                   type="color"
-                  value={field.value || "#1A1A1A"}
+                  value={field.value || '#1A1A1A'}
                   onChange={(e) => {
-                    form.setFieldValue("gradientColor1", e.target.value);
+                    form.setFieldValue('gradientColor1', e.target.value);
                   }}
                   className="w-full h-10 border rounded cursor-pointer"
                 />
@@ -152,9 +153,9 @@ const HeaderMediaSection = () => {
               {({ field, form }) => (
                 <input
                   type="color"
-                  value={field.value || "#000000"}
+                  value={field.value || '#000000'}
                   onChange={(e) => {
-                    form.setFieldValue("gradientColor2", e.target.value);
+                    form.setFieldValue('gradientColor2', e.target.value);
                   }}
                   className="w-full h-10 border rounded cursor-pointer"
                 />
@@ -167,13 +168,13 @@ const HeaderMediaSection = () => {
         <div
           className="w-full h-16 mt-2 rounded border"
           style={{
-            background: values.headerMedia.overlay.gradient,
+            background: values?.headerMedia?.overlay?.gradient,
           }}
         ></div>
 
-        {/* Show final string for debugging if needed */}
+        {/* Debug string */}
         <p className="text-sm text-zinc-600 mt-1">
-          <strong>CSS:</strong> {values.headerMedia.overlay.gradient}
+          <strong>CSS:</strong> {values?.headerMedia?.overlay?.gradient}
         </p>
       </div>
     </section>

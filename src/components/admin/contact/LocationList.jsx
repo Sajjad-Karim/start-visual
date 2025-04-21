@@ -1,6 +1,6 @@
-import React from "react";
-import { FieldArray } from "formik";
-import LocationItem from "./LocationItem";
+import React from 'react';
+import { FieldArray } from 'formik';
+import LocationItem from './LocationItem';
 
 const LocationList = ({ values }) => (
   <section className="bg-white border border-zinc-200 rounded-xl shadow-sm  p-6 space-y-6">
@@ -10,7 +10,7 @@ const LocationList = ({ values }) => (
     <FieldArray name="locations">
       {({ push, remove }) => (
         <div className="space-y-6">
-          {values.locations.map((_, index) => (
+          {values?.locations?.map((_, index) => (
             <LocationItem key={index} index={index} remove={remove} />
           ))}
           <div className="pt-2">
@@ -18,11 +18,11 @@ const LocationList = ({ values }) => (
               type="button"
               onClick={() =>
                 push({
-                  city: "",
-                  address: [""],
-                  phones: [""],
-                  zipCode: "",
-                  email: [""],
+                  city: '',
+                  address: [''],
+                  phones: [''],
+                  zipCode: '',
+                  email: [''],
                   order: values.locations.length + 1,
                 })
               }

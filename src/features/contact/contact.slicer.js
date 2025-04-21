@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateContact } from './contact.action';
+import { updateContact, getContact } from './contact.action';
 
 const initialState = {
-  contactData: [],
-  //   update or save about data states
+  contactData: null,
+  //   update or save contact data states
   isSaveContactLoading: false,
   isSaveContactSuccess: false,
   isSaveContactFailed: false,
 
-  //   get about data states
-  isAboutLoading: false,
-  isAboutSuccess: false,
-  isAboutFailed: false,
+  //   get contact data states
+  isContactLoading: false,
+  isContactSuccess: false,
+  isContactFailed: false,
 
   error: null,
   message: null,
@@ -22,7 +22,7 @@ const contactSlice = createSlice({
   initialState,
   reducers: {
     resetSaveContactState: (state) => {
-      state.isSaveContactLoading = null;
+      state.isSaveContactLoading = false;
       state.isSaveContactSuccess = false;
       state.isSaveContactFailed = false;
       state.error = null;
@@ -31,21 +31,20 @@ const contactSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(getAbout.pending, (state) => {
-      //   state.isAboutLoading = true;
-      // })
-      // .addCase(getAbout.fulfilled, (state, action) => {
-      //   state.isAboutLoading = false;
-      //   state.isAboutSuccess = true;
-      //   state.aboutData = action.payload;
-      //   state.message = action.payload?.message;
-      // })
-      // .addCase(getAbout.rejected, (state, action) => {
-      //   state.isAboutLoading = false;
-      //   state.isAboutSuccess = false;
-      //   state.isAboutFailed = true;
-      //   state.error = action.payload;
-      // })
+      .addCase(getContact.pending, (state) => {
+        state.isContactLoading = true;
+      })
+      .addCase(getContact.fulfilled, (state, action) => {
+        state.isContactLoading = false;
+        state.isContactSuccess = true;
+        state.contactData = action.payload;
+      })
+      .addCase(getContact.rejected, (state, action) => {
+        state.isContactLoading = false;
+        state.isContactSuccess = false;
+        state.isContactFailed = true;
+        state.error = action.payload;
+      })
       .addCase(updateContact.pending, (state) => {
         state.isSaveContactLoading = true;
       })

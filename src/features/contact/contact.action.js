@@ -1,18 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { updateContactApi } from './api';
+import { updateContactApi, getContactApi } from './api';
 
 // // GET content
-// export const getAbout = createAsyncThunk(
-//   "about/get",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const res = await getAboutApi();
-//       return res.data;
-//     } catch (err) {
-//       return rejectWithValue(err.response?.data || err.message);
-//     }
-//   }
-// );
+export const getContact = createAsyncThunk(
+  'contact/get',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await getContactApi();
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
 
 // SAVE content
 export const updateContact = createAsyncThunk(
