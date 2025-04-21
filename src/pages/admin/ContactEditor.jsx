@@ -49,7 +49,6 @@ const DEFAULT_INITIAL = {
 const ContactEditor = () => {
   const dispatch = useDispatch();
 
-  // Get the stored contact data from Redux
   const { contactData, isContactSuccess, isSaveContactSuccess, message } =
     useSelector((state) => state?.contact);
 
