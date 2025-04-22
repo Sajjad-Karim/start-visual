@@ -109,9 +109,9 @@ const Contact = () => {
               }}
             >
               <div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 style={{
-                  gap: '48px',
+                  gap: '100px',
                   paddingTop: '64px',
                   paddingBottom: '64px',
                   paddingLeft: '96px',
