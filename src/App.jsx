@@ -26,6 +26,8 @@ import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAbout } from './features/about/about.action';
 import { getProjects } from './features/project/project.actions';
+import LoginForm from './components/admin/LoginForm';
+import ProtectedRoute from './components/admin/ProtectedRoute';
 // Lazy load pages
 const Home = React.lazy(() => import('./pages/Home'));
 const Portfolio = React.lazy(() => import('./pages/Portfolio'));
@@ -164,14 +166,17 @@ function AppContent() {
             <Route path="/project/:id" element={<ProjectView />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
-            <Route path="/admin/*" element={<AdminLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="hero-media" element={<HeroMedia />} />
-              <Route path="projects" element={<ProjectsList />} />
-              <Route path="add-project" element={<AddProjects />} />
-              <Route path="edit-project/:id" element={<EditProject />} />
-              <Route path="about" element={<AboutEditor />} />
-              <Route path="contact" element={<ContactEditor />} />
+            <Route path="/admin/login" element={<LoginForm />} />
+            <Route path="/admin/*" element={<ProtectedRoute />}>
+              <Route path="/admin/*" element={<AdminLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="hero-media" element={<HeroMedia />} />
+                <Route path="projects" element={<ProjectsList />} />
+                <Route path="add-project" element={<AddProjects />} />
+                <Route path="edit-project/:id" element={<EditProject />} />
+                <Route path="about" element={<AboutEditor />} />
+                <Route path="contact" element={<ContactEditor />} />
+              </Route>
             </Route>
           </Routes>
         </Suspense>

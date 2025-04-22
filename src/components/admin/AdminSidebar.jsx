@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   Image,
@@ -8,33 +8,40 @@ import {
   Mail,
   LogOut,
   ListOrdered,
-} from "lucide-react";
-import avatar from "../../assets/admin.png";
+} from 'lucide-react';
+import avatar from '../../assets/admin.png';
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/admin/login');
+  };
+
   const navLinkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-2 rounded-md transition-all duration-200 text-sm font-medium ${
       isActive
-        ? "bg-zinc-900 text-white shadow"
-        : "text-zinc-600 hover:bg-zinc-100 hover:text-black"
+        ? 'bg-zinc-900 text-white shadow'
+        : 'text-zinc-600 hover:bg-zinc-100 hover:text-black'
     }`;
 
   const links = [
-    { to: "/admin", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
-    { to: "/admin/hero-media", label: "Hero Media", icon: <Image size={18} /> },
+    { to: '/admin', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
+    { to: '/admin/hero-media', label: 'Hero Media', icon: <Image size={18} /> },
     {
-      to: "/admin/add-project",
-      label: "Add Projects",
+      to: '/admin/add-project',
+      label: 'Add Projects',
       icon: <FolderOpen size={18} />,
     },
     {
-      to: "/admin/projects",
-      label: "Projects List",
+      to: '/admin/projects',
+      label: 'Projects List',
       icon: <ListOrdered size={18} />,
     },
 
-    { to: "/admin/about", label: "About Editor", icon: <Info size={18} /> },
-    { to: "/admin/contact", label: "Contact Editor", icon: <Mail size={18} /> },
+    { to: '/admin/about', label: 'About Editor', icon: <Info size={18} /> },
+    { to: '/admin/contact', label: 'Contact Editor', icon: <Mail size={18} /> },
   ];
 
   return (
@@ -70,7 +77,7 @@ const AdminSidebar = () => {
               Admin Name
             </p>
             <button
-              onClick={() => console.log("Logout")}
+              onClick={() => handleLogout()}
               className="flex items-center cursor-pointer gap-1 text-xs text-zinc-500 hover:text-red-500 transition mt-1"
             >
               <LogOut size={14} />

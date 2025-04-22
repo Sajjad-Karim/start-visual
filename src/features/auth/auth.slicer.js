@@ -35,6 +35,7 @@ const authSlice = createSlice({
         state.isAdminLoading = false;
         state.isAdminSuccess = true;
         state.authData = action.payload;
+        localStorage.setItem('authToken', action.payload?.userData?.role);
       })
       .addCase(authAdmin.rejected, (state, action) => {
         state.isAdminLoading = false;

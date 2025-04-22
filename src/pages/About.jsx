@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import Footer from "../components/Footer";
-import { useColors } from "../contexts/ColorContext";
-import { useDispatch, useSelector } from "react-redux";
-import { getAbout } from "../features/about/about.action";
+import React, { useEffect } from 'react';
+import Footer from '../components/Footer';
+import { useColors } from '../contexts/ColorContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAbout } from '../features/about/about.action';
 
 const About = () => {
   const { updateColors } = useColors();
@@ -24,7 +24,7 @@ const About = () => {
     }
 
     return () => {
-      updateColors("#1A1A1A", "#FFFFFF");
+      updateColors('#1A1A1A', '#FFFFFF');
     };
   }, [content, updateColors]);
 
@@ -67,8 +67,8 @@ const About = () => {
               fontWeight: content.hero.style.textFont.weight,
               letterSpacing: content.hero.style.textFont.letterSpacing,
               color: content.hero.style.textColor,
-              textAlign: "justify",
-              hyphens: "auto",
+              textAlign: 'justify',
+              hyphens: 'auto',
             }}
             className="text-sm md:text-base lg:text-lg"
           >
@@ -83,7 +83,7 @@ const About = () => {
           {/* Text Section */}
           <div
             className={`flex items-center justify-center p-8 md:p-0 ${
-              index % 2 === 0 ? "md:order-1" : "md:order-2"
+              index % 2 === 0 ? 'md:order-1' : 'md:order-2'
             }`}
             style={{
               backgroundColor: section.style.backgroundColor,
@@ -108,8 +108,8 @@ const About = () => {
                   fontFamily: section.style.textFont.family,
                   fontWeight: section.style.textFont.weight,
                   letterSpacing: section.style.textFont.letterSpacing,
-                  textAlign: "justify",
-                  hyphens: "auto",
+                  textAlign: 'justify',
+                  hyphens: 'auto',
                 }}
                 className="text-sm md:text-base"
               >
@@ -121,7 +121,7 @@ const About = () => {
           {/* Image Section */}
           <div
             className={`h-[300px] md:h-[600px] ${
-              index % 2 === 0 ? "md:order-2" : "md:order-1"
+              index % 2 === 0 ? 'md:order-2' : 'md:order-1'
             }`}
           >
             <img
