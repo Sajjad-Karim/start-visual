@@ -49,8 +49,13 @@ const DEFAULT_INITIAL = {
 const ContactEditor = () => {
   const dispatch = useDispatch();
 
-  const { contactData, isContactSuccess, isSaveContactSuccess, message } =
-    useSelector((state) => state?.contact);
+  const {
+    contactData,
+    isContactSuccess,
+    isSaveContactSuccess,
+    isSaveContactLoading,
+    message,
+  } = useSelector((state) => state?.contact);
 
   useEffect(() => {
     if (isSaveContactSuccess) {
@@ -129,7 +134,7 @@ const ContactEditor = () => {
                 type="submit"
                 className="bg-black text-white px-6 py-3 rounded-md shadow hover:bg-gray-800"
               >
-                Save Contact Page
+                {isSaveContactLoading ? 'Saving...' : 'Save Contact Page'}
               </button>
             </div>
           </Form>
