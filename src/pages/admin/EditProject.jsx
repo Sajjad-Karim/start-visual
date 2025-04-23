@@ -19,9 +19,13 @@ const EditProject = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { projectMedia, isUpdateProjectSuccess, message } = useSelector(
-    (state) => state?.project
-  );
+  const {
+    projectMedia,
+    isUpdateProjectSuccess,
+    isUpdateProjectLoading,
+    isUpdateProjectFailed,
+    message,
+  } = useSelector((state) => state?.project);
 
   useEffect(() => {
     dispatch(getProjects());
@@ -30,7 +34,17 @@ const EditProject = () => {
       dispatch(resetUpdateState());
       navigate('/admin/projects');
     }
-  }, [dispatch, navigate, isUpdateProjectSuccess, message]);
+    if (isUpdateProjectFailed) {
+      toast.success(`Unable to update`);
+      dispatch(resetUpdateState());
+    }
+  }, [
+    dispatch,
+    isUpdateProjectFailed,
+    navigate,
+    isUpdateProjectSuccess,
+    message,
+  ]);
 
   // Flatten all projects and find the one with matching id
   const allProjects = projectMedia.flatMap((p) => p || []);
@@ -123,7 +137,7 @@ const EditProject = () => {
               type="submit"
               className="bg-black text-white px-6 cursor-pointer py-2 rounded"
             >
-              Update Changes
+              {isUpdateProjectLoading ? 'updating changes' : 'Update Changes'}
             </button>
           </div>
         </form>
