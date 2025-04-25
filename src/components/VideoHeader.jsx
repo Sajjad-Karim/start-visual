@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import MediaDisplay from "./MediaDisplay";
-import { useDispatch, useSelector } from "react-redux";
-import { getHero } from "../features/hero/hero.actions";
-import Spinner from "./Spinner";
+import React, { useEffect, useState } from 'react';
+import MediaDisplay from './MediaDisplay';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHero } from '../features/hero/hero.actions';
+import Spinner from './Spinner';
 
 const VideoHeader = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
   const dispatch = useDispatch();
-  const { heroMedia, isGetHeroLoading } = useSelector((state) => state.hero);
+  const { heroMedia, isGetHeroLoading } = useSelector((state) => state?.hero);
 
   useEffect(() => {
     dispatch(getHero());

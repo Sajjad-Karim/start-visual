@@ -7,7 +7,7 @@ import { getProjects } from '../features/project/project.actions';
 
 const PortfolioGrid = ({ onHover, onLeave, selectedCategory = 'all' }) => {
   const dispatch = useDispatch();
-  const { projectMedia } = useSelector((state) => state.project);
+  const { projectMedia } = useSelector((state) => state?.project);
 
   useEffect(() => {
     dispatch(getProjects());
@@ -33,7 +33,7 @@ const PortfolioGrid = ({ onHover, onLeave, selectedCategory = 'all' }) => {
           key={project._id}
           to={`/project/${project._id}`}
           className={`magazine-item block relative ${
-            project.media.displaySize === 'full'
+            project?.media?.displaySize === 'full'
               ? 'magazine-full'
               : 'magazine-half'
           }`}
@@ -43,7 +43,7 @@ const PortfolioGrid = ({ onHover, onLeave, selectedCategory = 'all' }) => {
           <MediaDisplay
             item={{
               ...project.media,
-              url: project.media.previewUrl || project.media.url, // use gif if available
+              url: project?.media?.previewUrl || project?.media?.url, // use gif if available
             }}
             className="w-full h-auto"
           />
