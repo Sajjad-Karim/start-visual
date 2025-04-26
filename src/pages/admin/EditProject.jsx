@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import { projectValidationSchema } from '../../components/admin/forms/ValidationSchema';
+
 import ProjectMetadataForm from '../../components/admin/forms/ProjectMetadataForm';
 import GalleryUploadForm from '../../components/admin/forms/GalleryUploadForm';
 import CreditsForm from '../../components/admin/forms/CreditsForm';
@@ -92,12 +92,7 @@ const EditProject = () => {
   };
 
   return (
-    <Formik
-      initialValues={project}
-      validationSchema={projectValidationSchema}
-      onSubmit={handleSubmit}
-      enableReinitialize
-    >
+    <Formik initialValues={project} onSubmit={handleSubmit} enableReinitialize>
       {({
         values,
         handleChange,
