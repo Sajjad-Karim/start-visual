@@ -68,7 +68,7 @@ const ProjectView = () => {
 
             {/* Credits */}
             <div className="space-y-4 md:space-y-6">
-              {sortedCredits.map((credit, index) => (
+              {sortedCredits?.map((credit, index) => (
                 <div
                   key={index}
                   className="flex justify-between items-center"
@@ -87,34 +87,38 @@ const ProjectView = () => {
               ))}
 
               {/* Location & Year */}
-              <div
-                className="flex justify-between items-center pt-4 md:pt-6"
-                style={{
-                  fontSize: creditStyle.fontSize,
-                  fontFamily: creditStyle.fontFamily,
-                  fontWeight: creditStyle.fontWeight,
-                  letterSpacing: creditStyle.letterSpacing,
-                  textTransform: creditStyle.textTransform,
-                  color: creditStyle.color,
-                }}
-              >
-                <span>LOCATION</span>
-                <span>{project.location}</span>
-              </div>
-              <div
-                className="flex justify-between items-center"
-                style={{
-                  fontSize: creditStyle.fontSize,
-                  fontFamily: creditStyle.fontFamily,
-                  fontWeight: creditStyle.fontWeight,
-                  letterSpacing: creditStyle.letterSpacing,
-                  textTransform: creditStyle.textTransform,
-                  color: creditStyle.color,
-                }}
-              >
-                <span>YEAR</span>
-                <span>{project.year}</span>
-              </div>
+              {project?.location && (
+                <div
+                  className="flex justify-between items-center pt-4 md:pt-6"
+                  style={{
+                    fontSize: creditStyle.fontSize,
+                    fontFamily: creditStyle.fontFamily,
+                    fontWeight: creditStyle.fontWeight,
+                    letterSpacing: creditStyle.letterSpacing,
+                    textTransform: creditStyle.textTransform,
+                    color: creditStyle.color,
+                  }}
+                >
+                  <span>LOCATION</span>
+                  <span>{project?.location}</span>
+                </div>
+              )}
+              {project?.year && (
+                <div
+                  className="flex justify-between items-center"
+                  style={{
+                    fontSize: creditStyle.fontSize,
+                    fontFamily: creditStyle.fontFamily,
+                    fontWeight: creditStyle.fontWeight,
+                    letterSpacing: creditStyle.letterSpacing,
+                    textTransform: creditStyle.textTransform,
+                    color: creditStyle.color,
+                  }}
+                >
+                  <span>YEAR</span>
+                  <span>{project?.year}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
