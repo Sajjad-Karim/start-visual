@@ -4,7 +4,7 @@ import ProjectMetadataForm from '../../components/admin/forms/ProjectMetadataFor
 import GalleryUploadForm from '../../components/admin/forms/GalleryUploadForm';
 import CreditsForm from '../../components/admin/forms/CreditsForm';
 import StyleForm from '../../components/admin/forms/StyleForm';
-import { projectValidationSchema } from '../../components/admin/forms/ValidationSchema';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getProjects,
@@ -115,11 +115,7 @@ const AddProjects = () => {
           styles for this project.
         </p>
       </div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={projectValidationSchema}
-        onSubmit={handleSubmit}
-      >
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({
           values,
           setFieldValue,
