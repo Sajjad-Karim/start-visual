@@ -1,9 +1,9 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
 
-import MediaDisplay from '../components/MediaDisplay';
-import Footer from '../components/Footer';
-import { useSelector } from 'react-redux';
+import MediaDisplay from "../components/MediaDisplay";
+import Footer from "../components/Footer";
+import { useSelector } from "react-redux";
 
 const ProjectView = () => {
   const { id } = useParams();
@@ -17,18 +17,19 @@ const ProjectView = () => {
     return <div>Project not found</div>;
   }
 
-  const sortedGallery = [...project.gallery].sort((a, b) => a.order - b.order);
+  const sortedGallery = [...project.gallery]
+    .filter((item) => !item.isMain) // exclude isMain === true
+    .sort((a, b) => a.order - b.order);
   const sortedCredits = [...project.credits].sort((a, b) => a.order - b.order);
 
   const creditStyle = project.style.creditStyles || {
-    fontSize: '0.875rem',
-    fontFamily: 'sans-serif',
-    fontWeight: '400',
-    letterSpacing: '0.05em',
-    textTransform: 'uppercase',
-    color: '#87CEEB',
+    fontSize: "0.875rem",
+    fontFamily: "sans-serif",
+    fontWeight: "400",
+    letterSpacing: "0.05em",
+    textTransform: "uppercase",
+    color: "#87CEEB",
   };
-
   const backgroundColor = project.style.backgroundColor;
   const textColor = project.style.textColor;
 
@@ -37,7 +38,7 @@ const ProjectView = () => {
       {/* Top Section */}
       <div className="flex flex-col md:flex-row">
         {/* Left Image */}
-        <div className="w-full md:w-1/2 h-[50vh] md:h-[100vh]">
+        <div className="w-full md:w-1/2 h-[50vh] md:h-screen flex items-center justify-center bg-black">
           <MediaDisplay
             item={project.media}
             priority={true}
@@ -128,24 +129,21 @@ const ProjectView = () => {
           for (let i = 0; i < sortedGallery.length; i++) {
             const item = sortedGallery[i];
 
-            if (item.displaySize === 'full') {
+            if (item.displaySize === "full") {
               elements.push(
-                // For full images (previously h-[50vh] md:h-[1211px])
-                <div
-                  key={i}
-                  className="w-full aspect-[1509/1211] md:aspect-[1509/1211]"
-                >
+                // For full images (previously h-[50vh] md:h-[1211px]) //aspect-[1509/1211] md:aspect-[1509/1211]
+                <div key={i} className="w-full ">
                   <MediaDisplay
                     item={item}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               );
-            } else if (item.displaySize === 'half') {
+            } else if (item.displaySize === "half") {
               const next = sortedGallery[i + 1];
 
               // If next exists and is also half, render both
-              if (next && next.displaySize === 'half') {
+              if (next && next.displaySize === "half") {
                 elements.push(
                   <div key={i} className="flex w-full">
                     <div className="w-1/2 aspect-[755/934]">

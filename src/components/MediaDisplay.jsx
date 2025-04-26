@@ -106,7 +106,7 @@ const MediaDisplay = ({ item, priority = false, className = "", onLoad }) => {
       <div className={`relative ${className}`}>
         <video
           ref={videoRef}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover object-center"
           autoPlay
           muted
           loop
@@ -130,7 +130,7 @@ const MediaDisplay = ({ item, priority = false, className = "", onLoad }) => {
       <img
         src={item.url}
         alt={item.alt}
-        className={`w-full h-full object-contain ${
+        className={`w-full h-full object-cover object-top ${
           isLoading ? "opacity-0" : "opacity-100"
         } transition-opacity duration-300`}
         loading={priority ? "eager" : "lazy"}
