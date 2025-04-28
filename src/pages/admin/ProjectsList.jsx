@@ -89,7 +89,7 @@ const ProjectList = () => {
                 <img
                   src={thumbnail}
                   alt={project.media?.alt || project.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-contain"
                 />
               )}
 

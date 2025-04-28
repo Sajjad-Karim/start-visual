@@ -1,5 +1,5 @@
-import React from "react";
-import { Trash2 } from "lucide-react";
+import React from 'react';
+import { Trash2 } from 'lucide-react';
 
 const MediaGrid = ({ mediaList, onDelete }) => {
   return (
@@ -11,10 +11,10 @@ const MediaGrid = ({ mediaList, onDelete }) => {
         >
           {/* Media Preview */}
           <div className="w-full h-48 bg-zinc-100">
-            {media.type === "image" ? (
+            {media.type === 'image' ? (
               <img
                 src={media.url}
-                alt={media.alt || "Uploaded Image"}
+                alt={media.alt || 'Uploaded Image'}
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -36,11 +36,11 @@ const MediaGrid = ({ mediaList, onDelete }) => {
               <span
                 className={`text-xs font-medium px-2 py-1 rounded ${
                   media.hero
-                    ? "bg-green-100 text-green-700"
-                    : "bg-zinc-100 text-zinc-400"
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-zinc-100 text-zinc-400'
                 }`}
               >
-                {media.hero ? "Hero" : "Not Hero"}
+                {media.hero ? 'Hero' : 'Not Hero'}
               </span>
             </div>
 
