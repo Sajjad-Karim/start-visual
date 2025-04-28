@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
-import Footer from '../components/Footer';
+import React, { useEffect, useMemo } from "react";
+import Footer from "../components/Footer";
 
-import { useColors } from '../contexts/ColorContext';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContact } from '../features/contact/contact.action';
-import Spinner from '../components/Spinner';
+import { useColors } from "../contexts/ColorContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getContact } from "../features/contact/contact.action";
+import Spinner from "../components/Spinner";
 
 const Contact = () => {
   const { updateColors } = useColors();
@@ -25,11 +25,11 @@ const Contact = () => {
     if (style?.backgroundColor && style?.textColor) {
       updateColors(style?.backgroundColor, style?.textColor);
     }
-    return () => updateColors('#1A1A1A', '#FFFFFF');
+    return () => updateColors("#1A1A1A", "#FFFFFF");
   }, [style, updateColors]);
 
   const renderHeaderMedia = () => {
-    if (headerMedia.type === 'image' && headerMedia.image) {
+    if (headerMedia.type === "image" && headerMedia.image) {
       return (
         <>
           <img
@@ -41,14 +41,17 @@ const Contact = () => {
           {headerMedia.overlay?.gradient && (
             <div
               className="absolute inset-0"
-              style={{ background: headerMedia?.overlay?.gradient }}
+              style={{
+                background:
+                  "linear-gradient(to bottom, #1A1A1A, transparent, #1A1A1A)",
+              }}
             />
           )}
         </>
       );
     }
 
-    if (headerMedia?.type === 'color' && headerMedia?.color) {
+    if (headerMedia?.type === "color" && headerMedia?.color) {
       return (
         <div
           className="w-full h-full"
@@ -79,8 +82,8 @@ const Contact = () => {
           style={{
             fontFamily: style?.titleFont?.family,
             fontWeight: 700,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
             color: style.textColor,
           }}
         >
@@ -103,19 +106,19 @@ const Contact = () => {
             <div
               className="w-full"
               style={{
-                width: '1581px',
-                minHeight: '529px',
+                width: "1581px",
+                minHeight: "529px",
                 backgroundColor: style?.backgroundColor,
               }}
             >
               <div
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 style={{
-                  gap: '100px',
-                  paddingTop: '64px',
-                  paddingBottom: '64px',
-                  paddingLeft: '96px',
-                  paddingRight: '96px',
+                  gap: "100px",
+                  paddingTop: "64px",
+                  paddingBottom: "64px",
+                  paddingLeft: "96px",
+                  paddingRight: "96px",
                 }}
               >
                 {sortedLocations?.map((location, index) => (
@@ -125,10 +128,10 @@ const Contact = () => {
                       style={{
                         fontFamily: style.titleFont.family,
                         fontWeight: 700,
-                        fontSize: '1.5rem',
-                        letterSpacing: '0.2em',
-                        lineHeight: '1.2',
-                        textTransform: 'uppercase',
+                        fontSize: "1.5rem",
+                        letterSpacing: "0.2em",
+                        lineHeight: "1.2",
+                        textTransform: "uppercase",
                         color: style.textColor,
                       }}
                     >
@@ -137,10 +140,10 @@ const Contact = () => {
                     <div
                       style={{
                         fontFamily: style.textFont.family,
-                        fontSize: '1rem',
+                        fontSize: "1rem",
                         fontWeight: 400,
-                        letterSpacing: '0.05em',
-                        lineHeight: '1.6',
+                        letterSpacing: "0.05em",
+                        lineHeight: "1.6",
                         color: style.textColor,
                         opacity: 0.8,
                       }}

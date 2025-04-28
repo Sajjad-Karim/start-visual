@@ -60,7 +60,7 @@
 .magazine-half img,
 .magazine-half video {
   height: auto;
-  max-height: 480px;
+  /* max-height: 480px; */
   object-fit: cover;
 }
 

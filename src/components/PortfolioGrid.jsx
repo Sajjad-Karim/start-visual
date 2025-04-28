@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import MediaDisplay from './MediaDisplay';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProjects } from '../features/project/project.actions';
+import MediaDisplay from "./MediaDisplay";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjects } from "../features/project/project.actions";
 
-const PortfolioGrid = ({ onHover, onLeave, selectedCategory = 'all' }) => {
+const PortfolioGrid = ({ onHover, onLeave, selectedCategory = "all" }) => {
   const dispatch = useDispatch();
   const { projectMedia } = useSelector((state) => state?.project);
 
@@ -17,8 +17,8 @@ const PortfolioGrid = ({ onHover, onLeave, selectedCategory = 'all' }) => {
   // Apply category filter
   const filteredProjects = allProjects.filter(
     (project) =>
-      project.status !== 'offline' &&
-      (selectedCategory === 'all' || project.projectType === selectedCategory)
+      project.status !== "offline" &&
+      (selectedCategory === "all" || project.projectType === selectedCategory)
   );
 
   // Sort by admin-defined order
@@ -33,9 +33,9 @@ const PortfolioGrid = ({ onHover, onLeave, selectedCategory = 'all' }) => {
           key={project._id}
           to={`/project/${project._id}`}
           className={`magazine-item block relative ${
-            project?.media?.displaySize === 'full'
-              ? 'magazine-full'
-              : 'magazine-half'
+            project?.media?.displaySize === "full"
+              ? "magazine-full"
+              : "magazine-half"
           }`}
           onMouseEnter={() => onHover(project.title)}
           onMouseLeave={onLeave}
