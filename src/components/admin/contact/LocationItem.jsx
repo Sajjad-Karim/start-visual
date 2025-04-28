@@ -2,11 +2,11 @@ import React from "react";
 import { Field, FieldArray, useFormikContext } from "formik";
 
 const LocationItem = ({ index, remove }) => {
-  const { values } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext();
   const location = values.locations[index];
 
   return (
-    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm  p-6 space-y-6">
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
       <div className="flex justify-between items-center mb-4">
         <h4 className="text-lg font-bold text-gray-800">
           Location #{index + 1}
@@ -20,18 +20,20 @@ const LocationItem = ({ index, remove }) => {
         </button>
       </div>
 
-      {/* Basic Info */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+        {/* Location Title */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            City
+            Location Title (e.g., NEW YORK)
           </label>
           <Field
             name={`locations[${index}].city`}
             className="w-full border border-zinc-300 rounded p-2"
-            placeholder="e.g. New York"
+            placeholder="Location Title"
           />
         </div>
+
+        {/* Zip Code */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Zip Code
@@ -42,6 +44,8 @@ const LocationItem = ({ index, remove }) => {
             placeholder="e.g. 10001"
           />
         </div>
+
+        {/* Order */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Order
@@ -54,45 +58,25 @@ const LocationItem = ({ index, remove }) => {
         </div>
       </div>
 
-      {/* Address Lines */}
-      <FieldArray name={`locations[${index}].address`}>
-        {({ push, remove }) => (
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Address Lines
-            </label>
-            {location.address.map((_, i) => (
-              <div key={i} className="flex gap-2 mb-2">
-                <Field
-                  name={`locations[${index}].address[${i}]`}
-                  className="flex-1 border border-zinc-300 rounded p-2"
-                  placeholder="123 Main St"
-                />
-                <button
-                  type="button"
-                  onClick={() => remove(i)}
-                  className="text-red-500 cursor-pointer hover:underline text-sm"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={() => push("")}
-              className="text-blue-600 cursor-pointer text-sm hover:underline"
-            >
-              + Add Address Line
-            </button>
-          </div>
-        )}
-      </FieldArray>
+      {/* Full Address (Single Textarea to Array) */}
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Full Address
+        </label>
+        <Field
+          as="textarea"
+          name={`locations[${index}].address[0]`}
+          rows="3"
+          className="w-full border border-zinc-300 rounded p-2"
+          placeholder="Enter full address manually"
+        />
+      </div>
 
       {/* Phone Numbers */}
       <FieldArray name={`locations[${index}].phones`}>
         {({ push, remove }) => (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Phone Numbers
             </label>
             {location.phones.map((_, i) => (
@@ -105,7 +89,7 @@ const LocationItem = ({ index, remove }) => {
                 <button
                   type="button"
                   onClick={() => remove(i)}
-                  className="text-red-500 cursor-pointer hover:underline text-sm"
+                  className="text-red-500 text-sm hover:underline"
                 >
                   Remove
                 </button>
@@ -114,7 +98,7 @@ const LocationItem = ({ index, remove }) => {
             <button
               type="button"
               onClick={() => push("")}
-              className="text-blue-600 text-sm cursor-pointer hover:underline"
+              className="text-blue-600 text-sm hover:underline"
             >
               + Add Phone
             </button>
@@ -126,7 +110,7 @@ const LocationItem = ({ index, remove }) => {
       <FieldArray name={`locations[${index}].email`}>
         {({ push, remove }) => (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Emails
             </label>
             {location.email.map((_, i) => (
@@ -139,7 +123,7 @@ const LocationItem = ({ index, remove }) => {
                 <button
                   type="button"
                   onClick={() => remove(i)}
-                  className="text-red-500 cursor-pointer hover:underline text-sm"
+                  className="text-red-500 text-sm hover:underline"
                 >
                   Remove
                 </button>
@@ -148,7 +132,7 @@ const LocationItem = ({ index, remove }) => {
             <button
               type="button"
               onClick={() => push("")}
-              className="text-blue-600 text-sm cursor-pointer hover:underline"
+              className="text-blue-600 text-sm hover:underline"
             >
               + Add Email
             </button>

@@ -1,49 +1,49 @@
-import React, { useEffect, useMemo } from 'react';
-import { Formik, Form } from 'formik';
-import PageStyleSection from '../../components/admin/contact/PageStyleSection';
-import HeaderMediaSection from '../../components/admin/contact/HeaderMediaSection';
-import LocationList from '../../components/admin/contact/LocationList';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from "react";
+import { Formik, Form } from "formik";
+import PageStyleSection from "../../components/admin/contact/PageStyleSection";
+import HeaderMediaSection from "../../components/admin/contact/HeaderMediaSection";
+import LocationList from "../../components/admin/contact/LocationList";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getContact,
   updateContact,
-} from '../../features/contact/contact.action';
-import toast from 'react-hot-toast';
-import { resetSaveContactState } from '../../features/contact/contact.slicer';
+} from "../../features/contact/contact.action";
+import toast from "react-hot-toast";
+import { resetSaveContactState } from "../../features/contact/contact.slicer";
 
 const DEFAULT_INITIAL = {
   style: {
-    backgroundColor: '#1A1A1A',
-    textColor: '#FFFFFF',
-    titleFont: { family: 'Syncopate, sans-serif', fontStyle: 'normal' },
-    textFont: { family: 'Inter, sans-serif', fontStyle: 'normal' },
+    backgroundColor: "#1A1A1A",
+    textColor: "#FFFFFF",
+    titleFont: { family: "Syncopate, sans-serif", fontStyle: "normal" },
+    textFont: { family: "Inter, sans-serif", fontStyle: "normal" },
   },
   headerMedia: {
-    type: 'image',
-    height: '322px',
+    type: "image",
+    height: "322px",
     image: {
-      url: '',
-      alt: 'Contact',
+      url: "",
+      alt: "Contact",
       file: null,
     },
     overlay: {
       opacity: 0.6,
-      gradient: 'linear-gradient(to top, #1A1A1A, transparent)',
+      gradient: "linear-gradient(to top, #1A1A1A, transparent)",
     },
   },
   locations: [
     {
-      city: '',
-      address: [''],
-      phones: [''],
-      zipCode: '',
-      email: [''],
+      city: "",
+      address: [""],
+      phones: [""],
+      zipCode: "",
+      email: [""],
       order: 1,
     },
   ],
-  gradientDirection: 'to top',
-  gradientColor1: '#1A1A1A',
-  gradientColor2: 'transparent',
+  gradientDirection: "to top",
+  gradientColor1: "#1A1A1A",
+  gradientColor2: "transparent",
 };
 
 const ContactEditor = () => {
@@ -78,9 +78,9 @@ const ContactEditor = () => {
 
     const [
       _,
-      direction = 'to top',
-      color1 = '#1A1A1A',
-      color2 = 'transparent',
+      direction = "to top",
+      color1 = "#1A1A1A",
+      color2 = "transparent",
     ] = gradientMatch || [];
 
     return {
@@ -102,14 +102,14 @@ const ContactEditor = () => {
   const handleSubmit = (values) => {
     const formData = new FormData();
 
-    formData.append('file', values.headerMedia.image.file);
-    formData.append('style', JSON.stringify(values.style));
-    formData.append('overlay', JSON.stringify(values.headerMedia.overlay));
-    formData.append('locations', JSON.stringify(values.locations));
-    formData.append('type', values.headerMedia.type);
-    formData.append('height', values.headerMedia.height);
-    formData.append('alt', values.headerMedia.image.alt);
-    formData.append('gradientDirection', values.gradientDirection);
+    formData.append("file", values.headerMedia.image.file);
+    formData.append("style", JSON.stringify(values.style));
+    formData.append("overlay", JSON.stringify(values.headerMedia.overlay));
+    formData.append("locations", JSON.stringify(values.locations));
+    formData.append("type", values.headerMedia.type);
+    formData.append("height", values.headerMedia.height);
+    formData.append("alt", values.headerMedia.image.alt);
+    formData.append("gradientDirection", values.gradientDirection);
 
     dispatch(updateContact(formData));
   };
@@ -132,9 +132,9 @@ const ContactEditor = () => {
             <div className="pt-8">
               <button
                 type="submit"
-                className="bg-black text-white px-6 py-3 rounded-md shadow hover:bg-gray-800"
+                className="bg-black text-white cursor-pointer px-6 py-3 rounded-md shadow hover:bg-gray-800"
               >
-                {isSaveContactLoading ? 'Saving...' : 'Save Contact Page'}
+                {isSaveContactLoading ? "Saving..." : "Save Contact Page"}
               </button>
             </div>
           </Form>
