@@ -35,7 +35,7 @@ const Contact = () => {
           <img
             src={headerMedia?.image?.url}
             alt={headerMedia?.image?.alt}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-top"
             style={{ opacity: headerMedia?.overlay?.opacity }}
           />
           {headerMedia.overlay?.gradient && (

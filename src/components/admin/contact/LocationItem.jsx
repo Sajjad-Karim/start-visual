@@ -32,7 +32,17 @@ const LocationItem = ({ index, remove }) => {
             placeholder="Location Title"
           />
         </div>
-
+        {/* State */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            State (e.g., California)
+          </label>
+          <Field
+            name={`locations[${index}].state`}
+            className="w-full border border-zinc-300 rounded p-2"
+            placeholder="e.g. California"
+          />
+        </div>
         {/* Zip Code */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
