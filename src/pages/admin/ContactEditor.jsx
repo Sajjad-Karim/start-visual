@@ -34,6 +34,7 @@ const DEFAULT_INITIAL = {
   locations: [
     {
       city: "",
+      state: "",
       address: [""],
       phones: [""],
       zipCode: "",
