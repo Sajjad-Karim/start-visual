@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import MediaDisplay from './MediaDisplay';
-import { useDispatch, useSelector } from 'react-redux';
-import { getHero } from '../features/hero/hero.actions';
-import Spinner from './Spinner';
+import React, { useEffect, useState } from "react";
+import MediaDisplay from "./MediaDisplay";
+import { useDispatch, useSelector } from "react-redux";
+import { getHero } from "../features/hero/hero.actions";
+import Spinner from "./Spinner";
 
 const VideoHeader = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
@@ -42,7 +42,7 @@ const VideoHeader = () => {
         priority={true}
       />
       {/* Overlay (like Rosco dark gradient) */}
-      <div className="absolute inset-0 bg-black/50" />
+      {/* <div className="absolute inset-0 bg-black/50" /> */}
     </div>
   );
 };

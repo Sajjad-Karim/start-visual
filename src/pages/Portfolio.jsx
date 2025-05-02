@@ -4,7 +4,7 @@ import PortfolioGrid from "../components/PortfolioGrid";
 import Footer from "../components/Footer";
 import { defaultTitleBarStyle } from "../data/titleBarStyles";
 
-function Portfolio({ selectedCategory }) {
+function Portfolio({ selectedCategory, setSelectedCategory }) {
   const [hoveredTitle, setHoveredTitle] = useState(
     selectedCategory === "motion"
       ? "MOTION"
@@ -30,6 +30,8 @@ function Portfolio({ selectedCategory }) {
         ? "MOTION"
         : selectedCategory === "photo"
         ? "PHOTO"
+        : selectedCategory === "special"
+        ? "SPECIAL"
         : "ALL WORK"
     );
   }, [selectedCategory]);
@@ -40,6 +42,8 @@ function Portfolio({ selectedCategory }) {
         ? "MOTION"
         : selectedCategory === "photo"
         ? "PHOTO"
+        : selectedCategory === "special"
+        ? "SPECIAL"
         : "ALL WORK"
     );
   };
@@ -102,7 +106,7 @@ function Portfolio({ selectedCategory }) {
         </section>
       </main>
 
-      <Footer />
+      <Footer setSelectedCategory={setSelectedCategory} />
     </div>
   );
 }

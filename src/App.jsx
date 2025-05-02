@@ -1,41 +1,41 @@
-import React, { useState, Suspense, useEffect } from 'react';
+import React, { useState, Suspense, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import NavigationMenu from './components/NavigationMenu';
-import ScrollToTop from './components/ScrollToTop';
-import ErrorBoundary from './components/ErrorBoundary';
-import LoadingSpinner from './components/LoadingSpinner';
-import { ColorProvider } from './contexts/ColorContext';
-import Dashboard from './pages/admin/Dashboard';
-import HeroMedia from './pages/admin/HeroMedia';
-import ProjectsList from './pages/admin/ProjectsList';
+import NavigationMenu from "./components/NavigationMenu";
+import ScrollToTop from "./components/ScrollToTop";
+import ErrorBoundary from "./components/ErrorBoundary";
+import LoadingSpinner from "./components/LoadingSpinner";
+import { ColorProvider } from "./contexts/ColorContext";
+import Dashboard from "./pages/admin/Dashboard";
+import HeroMedia from "./pages/admin/HeroMedia";
+import ProjectsList from "./pages/admin/ProjectsList";
 
-import AboutEditor from './pages/admin/AboutEditor';
-import ContactEditor from './pages/admin/ContactEditor';
-import AdminLayout from './components/admin/AdminLayout';
-import AddProjects from './pages/admin/AddProjects';
-import EditProject from './pages/admin/EditProject';
+import AboutEditor from "./pages/admin/AboutEditor";
+import ContactEditor from "./pages/admin/ContactEditor";
+import AdminLayout from "./components/admin/AdminLayout";
+import AddProjects from "./pages/admin/AddProjects";
+import EditProject from "./pages/admin/EditProject";
 
-import ReduxProvider from './store/Provider';
-import { Toaster } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAbout } from './features/about/about.action';
-import { getProjects } from './features/project/project.actions';
-import LoginForm from './components/admin/LoginForm';
-import ProtectedRoute from './components/admin/ProtectedRoute';
+import ReduxProvider from "./store/Provider";
+import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { getAbout } from "./features/about/about.action";
+import { getProjects } from "./features/project/project.actions";
+import LoginForm from "./components/admin/LoginForm";
+import ProtectedRoute from "./components/admin/ProtectedRoute";
 // Lazy load pages
-const Home = React.lazy(() => import('./pages/Home'));
-const Portfolio = React.lazy(() => import('./pages/Portfolio'));
-const ProjectView = React.lazy(() => import('./pages/ProjectView'));
-const Contact = React.lazy(() => import('./pages/Contact'));
-const About = React.lazy(() => import('./pages/About'));
+const Home = React.lazy(() => import("./pages/Home"));
+const Portfolio = React.lazy(() => import("./pages/Portfolio"));
+const ProjectView = React.lazy(() => import("./pages/ProjectView"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+const About = React.lazy(() => import("./pages/About"));
 
-function StarButton({ color = 'white', onMenuToggle }) {
+function StarButton({ color = "white", onMenuToggle }) {
   const [isHovering, setIsHovering] = useState(false);
   const [rotation, setRotation] = useState(0);
   const { pathname } = useLocation();
@@ -49,7 +49,7 @@ function StarButton({ color = 'white', onMenuToggle }) {
     dispatch(getAbout());
   }, [dispatch]);
 
-  const isAdminRoute = pathname.startsWith('/admin');
+  const isAdminRoute = pathname.startsWith("/admin");
 
   const generateStarPoints = () => {
     const outer = 40,
@@ -62,7 +62,7 @@ function StarButton({ color = 'white', onMenuToggle }) {
       points.push(center + outer * Math.cos(a), center + outer * Math.sin(a));
       points.push(center + inner * Math.cos(b), center + inner * Math.sin(b));
     }
-    return points.join(' ');
+    return points.join(" ");
   };
 
   return (
@@ -79,7 +79,7 @@ function StarButton({ color = 'white', onMenuToggle }) {
           className="w-full h-full transition-all duration-500"
           style={{
             transform: `rotate(${rotation + (isHovering ? 45 : 0)}deg)`,
-            transition: 'transform 0.5s ease-in-out',
+            transition: "transform 0.5s ease-in-out",
           }}
         >
           <polygon
@@ -94,12 +94,12 @@ function StarButton({ color = 'white', onMenuToggle }) {
             y="54"
             textAnchor="middle"
             dominantBaseline="middle"
-            fill={color === 'white' ? '#000' : '#fff'}
+            fill={color === "white" ? "#000" : "#fff"}
             style={{
-              fontSize: '16px',
-              fontFamily: 'Didot, serif',
-              fontWeight: 'bold',
-              letterSpacing: '1px',
+              fontSize: "16px",
+              fontFamily: "Didot, serif",
+              fontWeight: "bold",
+              letterSpacing: "1px",
             }}
             transform={`rotate(${-rotation - (isHovering ? 45 : 0)}, 50, 50)`}
           >
@@ -113,7 +113,7 @@ function StarButton({ color = 'white', onMenuToggle }) {
 
 function AppContent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
@@ -124,17 +124,17 @@ function AppContent() {
     dispatch(getProjects());
   }, [dispatch]);
 
-  let starColor = 'white';
+  let starColor = "white";
 
-  if (pathname.startsWith('/project/')) {
-    const id = pathname.split('/')[2];
+  if (pathname.startsWith("/project/")) {
+    const id = pathname.split("/")[2];
     const allProjects = projectMedia.flatMap((portfolio) => portfolio);
     const project = allProjects.find((p) => p._id === id);
     if (project?.style?.creditStyles?.color) {
       starColor = project.style.creditStyles.color;
     }
-  } else if (pathname === '/about' && aboutData?.[0]) {
-    starColor = aboutData[0]?.hero?.style?.textColor || 'white';
+  } else if (pathname === "/about" && aboutData?.[0]) {
+    starColor = aboutData[0]?.hero?.style?.textColor || "white";
   }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -161,7 +161,12 @@ function AppContent() {
             />
             <Route
               path="/portfolio"
-              element={<Portfolio selectedCategory={selectedCategory} />}
+              element={
+                <Portfolio
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                />
+              }
             />
             <Route path="/project/:id" element={<ProjectView />} />
             <Route path="/contact" element={<Contact />} />
