@@ -2,18 +2,24 @@ import React from "react";
 import { Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Footer = ({ backgroundColor = "#1A1A1A", textColor = "#FFFFFF" }) => {
+const Footer = ({
+  backgroundColor = "#1A1A1A",
+  textColor = "#FFFFFF",
+  setSelectedCategory,
+}) => {
   return (
     <footer style={{ backgroundColor }}>
       {/* START VISUAL Text */}
       <div className="mx-4 md:mx-12 pt-16 md:pt-24">
         <div className="pb-6">
-          <h2
-            className="text-lg md:text-3xl font-syncopate tracking-[0.2em]"
+          <Link
+            to={"/"}
+            onClick={() => setSelectedCategory("all")}
+            className="text-lg md:text-3xl  font-syncopate tracking-[0.2em]"
             style={{ color: textColor }}
           >
             START VISUAL
-          </h2>
+          </Link>
         </div>
       </div>
 
