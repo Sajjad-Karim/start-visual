@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDropzone } from 'react-dropzone';
+import React from "react";
+import { useDropzone } from "react-dropzone";
 
 const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
   const handleDrop = (acceptedFiles) => {
@@ -8,26 +8,26 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
       return {
         file,
         url,
-        type: file.type.startsWith('video') ? 'video' : 'image',
-        alt: '',
+        type: file.type.startsWith("video") ? "video" : "image",
+        alt: "",
         order: values.gallery.length + i,
-        displaySize: 'full',
+        displaySize: "full",
         isMain: false,
       };
     });
 
-    setFieldValue('gallery', [...values.gallery, ...newItems]);
+    setFieldValue("gallery", [...values.gallery, ...newItems]);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleDrop,
-    accept: { 'image/*': [], 'video/*': [] },
+    accept: { "image/*": [], "video/*": [] },
   });
 
   const updateField = (index, key, val) => {
     const gallery = [...values.gallery];
     gallery[index][key] = val;
-    setFieldValue('gallery', gallery);
+    setFieldValue("gallery", gallery);
   };
 
   const setMain = (index) => {
@@ -35,7 +35,12 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
       ...item,
       isMain: i === index,
     }));
-    setFieldValue('gallery', gallery);
+    setFieldValue("gallery", gallery);
+  };
+
+  const deleteItem = (index) => {
+    const gallery = values.gallery.filter((_, i) => i !== index);
+    setFieldValue("gallery", gallery);
   };
 
   return (
@@ -52,7 +57,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
         </p>
       </div>
 
-      {typeof errors.gallery === 'string' && touched.gallery && (
+      {typeof errors.gallery === "string" && touched.gallery && (
         <div className="text-sm text-red-500">{errors.gallery}</div>
       )}
 
@@ -65,7 +70,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
             >
               {/* Media preview */}
               <div className="relative aspect-video bg-zinc-100">
-                {item.type === 'video' ? (
+                {item.type === "video" ? (
                   <video
                     src={item.url}
                     controls
@@ -91,7 +96,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
                     type="text"
                     placeholder="Describe the image or video"
                     value={item.alt}
-                    onChange={(e) => updateField(index, 'alt', e.target.value)}
+                    onChange={(e) => updateField(index, "alt", e.target.value)}
                     className="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400"
                   />
                   {errors.gallery?.[index]?.alt && (
@@ -112,7 +117,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
                       placeholder="e.g. 1"
                       value={item.order}
                       onChange={(e) =>
-                        updateField(index, 'order', parseInt(e.target.value))
+                        updateField(index, "order", parseInt(e.target.value))
                       }
                       className="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400"
                     />
@@ -125,7 +130,7 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
                     <select
                       value={item.displaySize}
                       onChange={(e) =>
-                        updateField(index, 'displaySize', e.target.value)
+                        updateField(index, "displaySize", e.target.value)
                       }
                       className="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400"
                     >
@@ -141,11 +146,20 @@ const GalleryUploadForm = ({ values, setFieldValue, errors, touched }) => {
                   onClick={() => setMain(index)}
                   className={`w-full mt-2 py-2 rounded-lg text-sm font-medium transition ${
                     item.isMain
-                      ? 'bg-black text-white'
-                      : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
+                      ? "bg-black text-white"
+                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
                   }`}
                 >
-                  {item.isMain ? 'Main Media (Selected)' : 'Set as Main Media'}
+                  {item.isMain ? "Main Media (Selected)" : "Set as Main Media"}
+                </button>
+
+                {/* Delete Button */}
+                <button
+                  type="button"
+                  onClick={() => deleteItem(index)}
+                  className="w-full cursor-pointer mt-2 py-2 rounded-lg text-sm font-medium bg-red-100 text-red-700 hover:bg-red-200 transition"
+                >
+                  Delete
                 </button>
               </div>
             </div>

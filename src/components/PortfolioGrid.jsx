@@ -25,31 +25,40 @@ const PortfolioGrid = ({ onHover, onLeave, selectedCategory = "all" }) => {
   const sortedProjects = [...filteredProjects].sort(
     (a, b) => a.order - b.order
   );
+  console.log("sortedProjects", sortedProjects);
+  console.log("filteredProjects", filteredProjects);
+  console.log("allProjects", allProjects);
+  console.log("selectedCategory", selectedCategory);
 
   return (
     <div className="magazine-grid">
-      {sortedProjects.map((project) => (
-        <Link
-          key={project._id}
-          to={`/project/${project._id}`}
-          className={`magazine-item block relative ${
-            project?.media?.displaySize === "full"
-              ? "magazine-full"
-              : "magazine-half"
-          }`}
-          onMouseEnter={() => onHover(project.title)}
-          onMouseLeave={onLeave}
-        >
-          <MediaDisplay
-            item={{
-              ...project.media,
-              url: project?.media?.previewUrl || project?.media?.url, // use gif if available
-            }}
-            className="w-full h-auto"
-          />
-          <div className="magazine-overlay" />
-        </Link>
-      ))}
+      {sortedProjects.map(
+        (project) => (
+          console.log("project", project),
+          (
+            <Link
+              key={project._id}
+              to={`/project/${project._id}`}
+              className={`magazine-item block relative ${
+                project?.media?.displaySize === "full"
+                  ? "magazine-full"
+                  : "magazine-half"
+              }`}
+              onMouseEnter={() => onHover(project.title)}
+              onMouseLeave={onLeave}
+            >
+              <MediaDisplay
+                item={{
+                  ...project.media,
+                  url: project?.media?.previewUrl || project?.media?.url, // use gif if available
+                }}
+                className="w-full h-auto"
+              />
+              <div className="magazine-overlay" />
+            </Link>
+          )
+        )
+      )}
     </div>
   );
 };

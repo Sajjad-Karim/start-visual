@@ -38,11 +38,11 @@ const ProjectView = () => {
       {/* Top Section */}
       <div className="flex flex-col md:flex-row">
         {/* Left Image */}
-        <div className="w-full md:w-1/2 h-[50vh] md:h-screen flex items-center justify-center bg-black">
+        <div className="w-full md:w-1/2 flex items-center justify-center bg-black">
           <MediaDisplay
             item={project.media}
             priority={true}
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain"
           />
         </div>
 
@@ -136,10 +136,13 @@ const ProjectView = () => {
             if (item.displaySize === "full") {
               elements.push(
                 // For full images (previously h-[50vh] md:h-[1211px]) //aspect-[1509/1211] md:aspect-[1509/1211]
-                <div key={i} className="w-full ">
+                <div
+                  key={i}
+                  className="w-full flex items-center justify-center bg-black"
+                >
                   <MediaDisplay
                     item={item}
-                    className="w-full h-full object-contain"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
               );
@@ -150,16 +153,16 @@ const ProjectView = () => {
               if (next && next.displaySize === "half") {
                 elements.push(
                   <div key={i} className="flex w-full">
-                    <div className="w-1/2 aspect-[755/934]">
+                    <div className="w-1/2 flex items-center justify-center bg-black">
                       <MediaDisplay
                         item={item}
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto object-contain"
                       />
                     </div>
-                    <div className="w-1/2 aspect-[755/934]">
+                    <div className="w-1/2 flex items-center justify-center bg-black">
                       <MediaDisplay
                         item={next}
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto object-contain"
                       />
                     </div>
                   </div>
@@ -169,10 +172,10 @@ const ProjectView = () => {
                 // If there's no next half, center it
                 elements.push(
                   <div key={i} className="flex w-full justify-center">
-                    <div className="w-full md:w-1/2 aspect-[755/934]">
+                    <div className="w-full md:w-1/2 flex items-center justify-center bg-black">
                       <MediaDisplay
                         item={item}
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto object-contain"
                       />
                     </div>
                   </div>
