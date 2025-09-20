@@ -15,8 +15,6 @@ const ProjectView = () => {
     // projectMedia,
     projectBySlug,
     isGetProjectBySlugLoading,
-    isGetProjectBySlugSuccess,
-    isGetProjectBySlugFailed,
   } = useSelector((state) => state?.project);
   useEffect(() => {
     dispatch(getProjectBySlug(slug));
@@ -25,18 +23,18 @@ const ProjectView = () => {
   // const allProjects = projectMedia?.flatMap((p) => p);
   // const project = allProjects.find((p) => p._id === id);
 
-  if (!projectBySlug) {
-    return (
-      <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
-        Project not found
-      </div>
-    );
-  }
-
   if (isGetProjectBySlugLoading) {
     return (
       <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
         <Spinner />
+      </div>
+    );
+  }
+
+  if (!projectBySlug && !isGetProjectBySlugLoading) {
+    return (
+      <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
+        Project not found
       </div>
     );
   }
