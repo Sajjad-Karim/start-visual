@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 import {
   getProjects,
   uploadProject,
   toggleProjectStatus,
   deleteProject,
   updateProject,
-} from './project.actions';
+  getProjectBySlug,
+} from "./project.actions";
 
 const initialState = {
   // upload media states
@@ -30,14 +31,19 @@ const initialState = {
   isDeleteProjectLoading: false,
   isDeleteProjectSuccess: false,
   isDeleteProjectFailed: false,
+  // get project by slug states
+  isGetProjectBySlugLoading: false,
+  isGetProjectBySlugSuccess: false,
+  isGetProjectBySlugFailed: false,
 
+  projectBySlug: null,
   projectMedia: [],
   error: null,
   message: null,
 };
 
 const projectSlicer = createSlice({
-  name: 'project',
+  name: "project",
   initialState,
   reducers: {
     // Fixed typo from 'reducer' to 'reducers'
@@ -90,7 +96,7 @@ const projectSlicer = createSlice({
       .addCase(uploadProject.rejected, (state, action) => {
         state.isUploadProjectLoading = false;
         state.isUploadProjectFailed = true;
-        state.error = action.payload?.error || 'Upload failed';
+        state.error = action.payload?.error || "Upload failed";
       })
 
       // Get cases
@@ -105,7 +111,7 @@ const projectSlicer = createSlice({
       .addCase(getProjects.rejected, (state, action) => {
         state.isGetProjectLoading = false;
         state.isGetProjectFailed = true;
-        state.error = action.payload?.error || 'Failed to load projects';
+        state.error = action.payload?.error || "Failed to load projects";
       })
 
       // toggle cases
@@ -120,7 +126,7 @@ const projectSlicer = createSlice({
       .addCase(toggleProjectStatus.rejected, (state, action) => {
         state.isToggleProjectStatusLoading = false;
         state.isToggleProjectStatusFailed = true;
-        state.error = action.payload?.error || 'toggle failed';
+        state.error = action.payload?.error || "toggle failed";
         state.error = action.payload?.message;
       })
       //   // Delete cases
@@ -135,7 +141,7 @@ const projectSlicer = createSlice({
       .addCase(deleteProject.rejected, (state, action) => {
         state.isDeleteProjectLoading = false;
         state.isDeleteProjectFailed = true;
-        state.error = action.payload?.error || 'Delete failed';
+        state.error = action.payload?.error || "Delete failed";
         state.error = action.payload?.message;
       })
       //   // update cases
@@ -150,8 +156,22 @@ const projectSlicer = createSlice({
       .addCase(updateProject.rejected, (state, action) => {
         state.isUpdateProjectLoading = false;
         state.isUpdateProjectFailed = true;
-        state.error = action.payload?.error || 'update failed';
+        state.error = action.payload?.error || "update failed";
         state.error = action.payload?.message;
+      })
+      //get project by slug cases
+      .addCase(getProjectBySlug.pending, (state) => {
+        state.isGetProjectBySlugLoading = true;
+      })
+      .addCase(getProjectBySlug.fulfilled, (state, action) => {
+        state.isGetProjectBySlugLoading = false;
+        state.isGetProjectBySlugSuccess = true;
+        state.projectBySlug = action.payload;
+      })
+      .addCase(getProjectBySlug.rejected, (state, action) => {
+        state.isGetProjectBySlugLoading = false;
+        state.isGetProjectBySlugFailed = true;
+        state.error = action.payload?.error || "Failed to load project by slug";
       });
   },
 });

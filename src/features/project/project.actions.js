@@ -1,14 +1,15 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   deleteProjectApi,
+  getProjectBySlugApi,
   getProjectsApi,
   toggleProjectStatusApi,
   updateProjectApi,
   uploadProjectApi,
-} from './api';
+} from "./api";
 
 export const uploadProject = createAsyncThunk(
-  'projects/add',
+  "projects/add",
   async (payload, { rejectWithValue }) => {
     try {
       const res = await uploadProjectApi(payload);
@@ -19,7 +20,7 @@ export const uploadProject = createAsyncThunk(
   }
 );
 export const updateProject = createAsyncThunk(
-  'projects/update',
+  "projects/update",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
       const res = await updateProjectApi(id, formData);
@@ -31,7 +32,7 @@ export const updateProject = createAsyncThunk(
 );
 
 export const getProjects = createAsyncThunk(
-  'projects/get',
+  "projects/get",
   async (_, { rejectWithValue }) => {
     try {
       const res = await getProjectsApi();
@@ -42,7 +43,7 @@ export const getProjects = createAsyncThunk(
   }
 );
 export const toggleProjectStatus = createAsyncThunk(
-  'projects/toggle-status',
+  "projects/toggle-status",
   async (payload, { rejectWithValue }) => {
     try {
       const res = await toggleProjectStatusApi(payload);
@@ -53,10 +54,21 @@ export const toggleProjectStatus = createAsyncThunk(
   }
 );
 export const deleteProject = createAsyncThunk(
-  'projects/delete',
+  "projects/delete",
   async (payload, { rejectWithValue }) => {
     try {
       const res = await deleteProjectApi(payload);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response ? err.response.data : err.message);
+    }
+  }
+);
+export const getProjectBySlug = createAsyncThunk(
+  "projects/get-by-slug",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const res = await getProjectBySlugApi(payload);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response ? err.response.data : err.message);

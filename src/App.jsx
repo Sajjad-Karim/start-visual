@@ -168,7 +168,7 @@ function AppContent() {
                 />
               }
             />
-            <Route path="/project/:id" element={<ProjectView />} />
+            <Route path="/:slug" element={<ProjectView />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
             <Route path="/admin/login" element={<LoginForm />} />

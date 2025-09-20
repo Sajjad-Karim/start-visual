@@ -1,28 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import MediaDisplay from "../components/MediaDisplay";
 import Footer from "../components/Footer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectBySlug } from "../features/project/project.actions";
+import Spinner from "../components/Spinner";
 
 const ProjectView = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
+  const dispatch = useDispatch();
 
-  const { projectMedia } = useSelector((state) => state.project);
+  const {
+    // projectMedia,
+    projectBySlug,
+    isGetProjectBySlugLoading,
+    isGetProjectBySlugSuccess,
+    isGetProjectBySlugFailed,
+  } = useSelector((state) => state?.project);
+  useEffect(() => {
+    dispatch(getProjectBySlug(slug));
+  }, [dispatch, slug]);
 
-  const allProjects = projectMedia?.flatMap((p) => p);
-  const project = allProjects.find((p) => p._id === id);
+  // const allProjects = projectMedia?.flatMap((p) => p);
+  // const project = allProjects.find((p) => p._id === id);
 
-  if (!project) {
-    return <div>Project not found</div>;
+  if (!projectBySlug) {
+    return (
+      <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
+        Project not found
+      </div>
+    );
   }
 
-  const sortedGallery = [...project.gallery]
+  if (isGetProjectBySlugLoading) {
+    return (
+      <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+
+  const sortedGallery = [...projectBySlug.gallery]
     .filter((item) => !item.isMain) // exclude isMain === true
     .sort((a, b) => a.order - b.order);
-  const sortedCredits = [...project.credits].sort((a, b) => a.order - b.order);
+  const sortedCredits = [...projectBySlug.credits].sort(
+    (a, b) => a.order - b.order
+  );
 
-  const creditStyle = project.style.creditStyles || {
+  const creditStyle = projectBySlug.style.creditStyles || {
     fontSize: "0.875rem",
     fontFamily: "sans-serif",
     fontWeight: "400",
@@ -30,8 +56,8 @@ const ProjectView = () => {
     textTransform: "uppercase",
     color: "#87CEEB",
   };
-  const backgroundColor = project.style.backgroundColor;
-  const textColor = project.style.textColor;
+  const backgroundColor = projectBySlug.style.backgroundColor;
+  const textColor = projectBySlug.style.textColor;
 
   return (
     <div style={{ backgroundColor }} className="min-h-screen">
@@ -40,7 +66,7 @@ const ProjectView = () => {
         {/* Left Image */}
         <div className="w-full md:w-1/2 flex items-center justify-center bg-black">
           <MediaDisplay
-            item={project.media}
+            item={projectBySlug?.media}
             priority={true}
             className="w-full h-auto object-contain"
           />
@@ -58,11 +84,11 @@ const ProjectView = () => {
               style={{ color: textColor }}
             >
               <h1 className="text-2xl md:text-[42px] leading-tight font-bold mb-4 md:mb-8">
-                {project.title}
+                {projectBySlug?.title}
               </h1>
-              {project.description && (
+              {projectBySlug?.description && (
                 <p className="text-base md:text-lg leading-relaxed mt-4 md:mt-6">
-                  {project.description}
+                  {projectBySlug?.description}
                 </p>
               )}
             </div>
@@ -88,7 +114,7 @@ const ProjectView = () => {
               ))}
 
               {/* Location & Year */}
-              {project?.location && (
+              {projectBySlug?.location && (
                 <div
                   className="flex justify-between items-center pt-4 md:pt-6"
                   style={{
@@ -101,10 +127,10 @@ const ProjectView = () => {
                   }}
                 >
                   <span>LOCATION</span>
-                  <span>{project?.location}</span>
+                  <span>{projectBySlug?.location}</span>
                 </div>
               )}
-              {project?.year && (
+              {projectBySlug?.year && (
                 <div
                   className="flex justify-between items-center"
                   style={{
@@ -117,7 +143,7 @@ const ProjectView = () => {
                   }}
                 >
                   <span>YEAR</span>
-                  <span>{project?.year}</span>
+                  <span>{projectBySlug?.year}</span>
                 </div>
               )}
             </div>
